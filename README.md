@@ -23,8 +23,11 @@ t=Template(;
 ## 生成docs
 pkj
 add Documenter
+add DocumenterTools
 julia
 using Documenter
+using DocumenterTools
+DocumenterTools.genkeys(user="Gudongyangg", repo="MyPkg.jl")
 include("docs/make.jl")
 
 
