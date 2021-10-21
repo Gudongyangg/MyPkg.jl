@@ -34,7 +34,7 @@
     using Documenter
     using DocumenterTools
     DocumenterTools.genkeys(user="Gudongyangg", repo="MyPkg.jl")
-    include("docs/make.jl")
+    #include("docs/make.jl")
 
 ## 生成CI
  CI使用的是Github Action的CI，在.github的workflow的CI.yml中修改CI。
