@@ -37,8 +37,7 @@
     include("docs/make.jl")
 
 ## 生成CI
- CI使用的是Github Action的CI
-
+ CI使用的是Github Action的CI，在.github的workflow的CI.yml中修改CI。
 
 [![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://Gudongyangg.github.io/MyPkg.jl/stable)
 [![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://Gudongyangg.github.io/MyPkg.jl/dev)
