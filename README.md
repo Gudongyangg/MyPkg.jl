@@ -21,6 +21,9 @@ t=Template(;
 ## 修改src和test
 
 ## 生成docs
+pkj
+add Documenter
+julia
 using Documenter
 include("docs/make.jl")
 
