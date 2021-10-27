@@ -2,9 +2,10 @@
 CurrentModule = MyPkg
 ```
 
-# MyPkg.jl Documentation
+# MyPkg
 
 ```@contents
+Pages = ["Library.md"]
 ```
 
 ## Functions

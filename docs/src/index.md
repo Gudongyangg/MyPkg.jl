@@ -7,6 +7,8 @@ CurrentModule = MyPkg
 Documentation for [MyPkg](https://github.com/Gudongyangg/MyPkg.jl).
 
 ```@contents
+Pages = ["index.md"]
+Pages = ["Library.md"]
 ```
 
 不需要这个r
