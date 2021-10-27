@@ -17,11 +17,6 @@ Simpson(f, a, b)=(b-a)/6 * (f(a) + 4*f((a+b)/2) + f(b))
 julia> Simpson(2*x, 1, 2)
 3
 ```
-# Examples
-```jldoctest
-julia> Simpson(2*x, 1, 2)
-3
-```
 """
 function Simpson(f, a, b)
     # Simpson Formula
@@ -34,6 +29,7 @@ end
     function g(x)
 
 g(x)=2*x
+
 # Examples
 ```jldoctest
 julia> g(2)
