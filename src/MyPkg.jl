@@ -37,6 +37,7 @@ end
     function g(x)
 
 g(x)=2*x
+
 # Examples
 ```jldoctest
 julia> g(2)
