@@ -23,5 +23,5 @@ deploydocs(;
     repo="github.com/Gudongyangg/MyPkg.jl",
     devbranch="master",
     devurl = "dev",
-    versions = ["stable" => "v^", "v#.#", devurl => devurl]
+    versions = ["stable" => "v^", "v0.0", devurl => devurl]
 )
