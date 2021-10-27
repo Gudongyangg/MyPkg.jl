@@ -16,13 +16,12 @@ makedocs(;
     pages=[
         "Home" => "index.md",
         "Library" => "Library.md"
-        "Formula exercise.md"
-        "Formula exercise => "Formula exercise.md"
-
     ],
 )
 
 deploydocs(;
     repo="github.com/Gudongyangg/MyPkg.jl",
     devbranch="master",
+    devurl = "dev",
+    versions = ["stable" => "v^", "v#.#", devurl => devurl]
 )
