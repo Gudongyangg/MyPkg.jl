@@ -12,3 +12,5 @@ Documentation for [MyPkg](https://github.com/Gudongyangg/MyPkg.jl).
 ```@autodocs
 Modules = [MyPkg]
 ```
+- link to [MyPkg.jl Documentation](@ref)
+- link to [`Simpson(f, a, b)`](@ref)
