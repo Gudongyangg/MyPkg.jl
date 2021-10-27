@@ -11,9 +11,12 @@ Documentation for [MyPkg](https://github.com/Gudongyangg/MyPkg.jl).
 
 不需要这个r
 
-```@autodocs
-Modules = [MyPkg]
-Private = false
+```@docs
+Simpson(f, a, b)
+```
+
+```@docs
+g(x)
 ```
 
 - link to [MyPkg](@ref)
