@@ -56,3 +56,13 @@
     Public = true
     ```
 ### 添加cross referencing
+
+    - link to [MyPkg](@ref)
+    - link to [`Simpson(f, a, b)`](@ref)
+
+### 目录修改
+
+    ```@contents
+    Pages = ["index.md","Library.md"]
+    ```
+### 添加url
