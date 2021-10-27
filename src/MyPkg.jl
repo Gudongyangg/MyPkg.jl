@@ -6,8 +6,15 @@ module MyPkg
 """
     function Simpson(f, a, b)
 
-Simpson Formula
+Calculate the integral 'f' function from 'x' to 'y' by Simpson formula
+
 Simpson(f, a, b)=(b-a)/6 * (f(a) + 4*f((a+b)/2) + f(b))
+
+# Examples
+```julia-repl
+julia> Simpson(2*x, 1, 2)
+3
+```
 """
 function Simpson(f, a, b)
     # Simpson Formula
