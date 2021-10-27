@@ -6,6 +6,9 @@ CurrentModule = MyPkg
 
 Documentation for [MyPkg](https://github.com/Gudongyangg/MyPkg.jl).
 
+```@contents
+```
+
 ```@index
 ```
 
