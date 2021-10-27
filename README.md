@@ -69,6 +69,7 @@
 
 
 # SafeTestset
+和@testset用法一模一样，就是增加了判断是否是两个对象，中间用==相连。
 
     module SafeTestsets
 
