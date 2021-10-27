@@ -31,4 +31,5 @@ g(x)=2*x
 function g(x)
     2*x
 end
+export Simpson(f, a, b)
 end
