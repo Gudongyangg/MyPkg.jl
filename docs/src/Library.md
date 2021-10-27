@@ -1,6 +1,3 @@
-```@meta
-CurrentModule = MyPkg
-```
 
 # MyPkg
 
