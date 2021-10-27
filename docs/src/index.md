@@ -12,8 +12,12 @@ Pages = ["index.md"]
 
 不需要这个r
 
-```@autodocs
-Modules = [MyPkg]
+```@docs
+Simpson(f, a, b)
+```
+
+```@docs
+g(x)
 ```
 
 - link to [MyPkg](@ref)
