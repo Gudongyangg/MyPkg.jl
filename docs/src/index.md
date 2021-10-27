@@ -12,9 +12,13 @@ Documentation for [MyPkg](https://github.com/Gudongyangg/MyPkg.jl).
 ```@index
 ```
 
+不需要这个r
+
 ```@autodocs
 Modules = [MyPkg]
 ```
+
+
 - link to [MyPkg.jl Documentation](@ref)
 - link to [`Simpson(f, a, b)`](@ref)
 
@@ -26,10 +30,25 @@ Modules = [MyPkg]
 ## Functions
 
 ```@docs
-func(x)
+Simpson(f, a, b)
+```
+
+```@docs
+g(x)
 ```
 
 ## Index
 
 ```@index
 ```
+
+makedocs(
+    ...,
+    pages = [
+        "page.md",
+        "Page title" => "page2.md",
+        "Subsection" => [
+            ...
+        ]
+    ]
+)
