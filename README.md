@@ -66,3 +66,38 @@
     Pages = ["index.md","Library.md"]
     ```
 ### 添加url
+
+
+# SafeTestset
+
+    module SafeTestsets
+
+    export @safetestset
+
+    #报错
+    const err = ArgumentError("""
+                  Use `@safetestset` like the following:
+                  @safetestset "Benchmark Tests" begin include("benchmark_tests.jl") end
+                  @safetestset BenchmarkTests = "Benchmark Tests" begin include("benchmark_tests.jl") end
+                  """)
+    macro safetestset(args...)
+        length(args) != 2 && throw(err) #如果参数不是两个，就报错
+        name, expr = args
+        if name isa String
+            mod = gensym(name)  #gensym()帮助标志词不重复引起错误
+            testname = name  #testname、和mod对应我们的MyPkg.jl
+        elseif name isa Expr && name.head == :(=) && length(name.args) == 2
+            mod, testname = name.args  #判断是不是a = b的形式
+        else
+            throw(err)
+        end
+        quote
+            @eval module $mod    #和@testset用法一模一样
+                using Test, SafeTestsets
+                @testset $testname $expr
+            end
+            nothing
+        end
+    end
+
+    end # module
