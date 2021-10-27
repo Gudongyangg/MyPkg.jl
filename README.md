@@ -39,6 +39,18 @@
 ## 生成CI
  CI使用的是Github Action的CI，在.github的workflow的CI.yml中修改CI。
 
+## 左侧增加page  Library
+ 修改make.jl的makedocs里的pages增加新的pages。
+
+## 增加@autodocs
+
+    ```@autodocs
+    Modules = [MyPkg]
+    Private = true
+    Public = true
+    ```
+
+
 [![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://Gudongyangg.github.io/MyPkg.jl/stable)
 [![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://Gudongyangg.github.io/MyPkg.jl/dev)
 [![Build Status](https://github.com/Gudongyangg/MyPkg.jl/workflows/CI/badge.svg)](https://github.com/Gudongyangg/MyPkg.jl/actions)

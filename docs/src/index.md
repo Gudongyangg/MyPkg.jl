@@ -13,6 +13,7 @@ Documentation for [MyPkg](https://github.com/Gudongyangg/MyPkg.jl).
 
 ```@autodocs
 Modules = [MyPkg]
+Private = false
 ```
 
 - link to [MyPkg](@ref)
