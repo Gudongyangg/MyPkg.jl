@@ -9,15 +9,11 @@ Documentation for [MyPkg](https://github.com/Gudongyangg/MyPkg.jl).
 ```@contents
 ```
 
-```@index
-```
-
 不需要这个r
 
 ```@autodocs
 Modules = [MyPkg]
 ```
 
-
-- link to [MyPkg.jl Documentation](@ref)
+- link to [MyPkg](@ref)
 - link to [`Simpson(f, a, b)`](@ref)
