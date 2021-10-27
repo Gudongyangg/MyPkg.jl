@@ -1,3 +1,7 @@
+```@meta
+CurrentModule = MyPkg
+```
+
 # MyPkg.jl Documentation
 
 ```@contents
