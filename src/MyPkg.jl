@@ -36,13 +36,7 @@ end
 """
     function g(x)
 
-g(x)=2*x
-
-# Examples
-```jldoctest
-julia> g(2)
-4
-```
+X times 2
 """
 function g(x)
     2*x
