@@ -1,4 +1,4 @@
-# MyPkg
+# 练习page
 
 ```@contents
 Pages = ["Library.md"]
@@ -6,17 +6,14 @@ Pages = ["Library.md"]
 
 ## Functions
 
-```@docs
-Simpson(f, a, b)
-```
-
-```@docs
-g(x)
-```
+- link to [MyPkg](@ref)
+- link to [`Simpson(f, a, b)`](@ref)
 
 ## Index
 
 ```@index
 ```
+
 # Reference
+
 More detail in [Document.jl](https://juliadocs.github.io/Documenter.jl/stable/).
