@@ -2,16 +2,15 @@ module MyPkg
 # using QuadGK
 # Write your package code here.
 # include("simpson.jl")
-# export Simpson
+export Simpson
 """
     function Simpson(f, a, b)
 
 Calculate the integral 'f' function from 'x' to 'y' by Simpson formula
 
-Here's Simpson expression:``Simpson(f, a, b) = \\frac{(b-a)}{6} * (f(a) + 4*f(\\frac{(a+b)}{2}) + f(b))``
+Here's Simpson expression:
 
-Simpson(f, a, b)=(b-a)/6 * (f(a) + 4*f((a+b)/2) + f(b))
-
+``Simpson(f, a, b) = \\frac{(b-a)}{6} * (f(a) + 4*f(\\frac{(a+b)}{2}) + f(b))``
 
 # Arguments
 - `f::Express`: integrand function
@@ -24,14 +23,6 @@ Simpson(f, a, b)=(b-a)/6 * (f(a) + 4*f((a+b)/2) + f(b))
 julia> Simpson(2*x, 1, 2)
 3
 ```
-
-Here's some inline maths: ``\\sqrt[n]{1 + x + x^2 + \\ldots}``.
-
-Here's an equation:
-
-``\\frac{n!}{k!(n - k)!} = \\binom{n}{k}``
-
-This is the binomial coefficient.
 """
 function Simpson(f, a, b)
     # Simpson Formula
