@@ -69,7 +69,12 @@
 
 
 # SafeTestset
-和@testset用法一模一样，就是增加了判断是否是两个对象，中间用==相连。
+和`@testset`用法一模一样，他的第二个参数`begin include("benchmark_tests.jl") end`里的`benchmark_tests.jl`里应该是
+`@test ...
+@test ...
+`
+类似的类型
+
 
     module SafeTestsets
 

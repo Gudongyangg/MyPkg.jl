@@ -8,8 +8,11 @@ module MyPkg
 
 Calculate the integral 'f' function from 'x' to 'y' by Simpson formula
 
+Here's an equation:
+``
 Simpson(f, a, b)=(b-a)/6 * (f(a) + 4*f((a+b)/2) + f(b))
-
+``
+``\sqrt[n]{1 + x + x^2 + \ldots}``.
 # Arguments
 - `f::Express`: integrand function
 - `a::Float`: left boundary of integral interval of definite integral
