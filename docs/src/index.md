@@ -23,9 +23,6 @@ Pages = ["index.md","Library.md"]
 Simpson(f, a, b)
 ```
 
-```@docs
-g(x)
-```
 ## Index
 
 所有函数的索引
