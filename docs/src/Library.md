@@ -6,27 +6,9 @@ Pages = ["Library.md"]
 ```
 ## Formula
 
-"""
-Here's some inline maths: ``\\sqrt[n]{1 + x + x^2 + \\ldots}``.
-
-Here's an equation:
-
-``\\frac{n!}{k!(n - k)!} = \\binom{n}{k}``
-
-This is the binomial coefficient.
-"""
-
-@doc raw"""
-Here's some inline maths: ``\sqrt[n]{1 + x + x^2 + \ldots}``.
-
-Here's an equation:
-
-``\frac{n!}{k!(n - k)!} = \binom{n}{k}``
-
-This is the binomial coefficient.
-"""
-
-Here's some inline maths: ``\sqrt[n]{1 + x + x^2 + \ldots}``.
+这里要写一道'\'而不是两条'\\'
+例如
+Here's some inline maths:'``\rt[n]{1 + x + x^2 + \ldots}``'.
 
 ## Cross Reference
 
