@@ -11,8 +11,10 @@ Calculate the integral 'f' function from 'x' to 'y' by Simpson formula
 Simpson(f, a, b)=(b-a)/6 * (f(a) + 4*f((a+b)/2) + f(b))
 
 # Arguments
-- `a::Float`: the number of elements to compute.
-- `b::Float`: the dimensions along which to perform the computation.
+- `f::Express`: integrand function
+- `a::Float`: left boundary of integral interval of definite integral
+- `b::Float`: right boundary of integral interval of definite integral
+
 
 # Examples
 ```julia-repl

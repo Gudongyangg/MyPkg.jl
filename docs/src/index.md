@@ -8,10 +8,11 @@ Documentation for [MyPkg](https://github.com/Gudongyangg/MyPkg.jl).
 
 ## introduction
 
-Simpson积分计算公式
+用Simpson积分计算公式计算被积函数`f`的积分区间为[a, b]定积分
 
 ## content
 
+两个pages的目录
 ```@contents
 Pages = ["index.md","Library.md"]
 ```
@@ -27,5 +28,6 @@ g(x)
 ```
 ## Index
 
+所有函数的索引
 ```@index
 ```
