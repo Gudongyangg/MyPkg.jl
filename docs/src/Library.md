@@ -6,9 +6,19 @@ Pages = ["Library.md"]
 ```
 ## Formula
 
-这里要写一道'\'而不是两条'\\'
-例如
-Here's some inline maths:'``\rt[n]{1 + x + x^2 + \ldots}``'.
+markdown这里要写条`\`
+
+docstring需要两条`\\`
+
+Here's some inline maths:``\rt[n]{1 + x + x^2 + \ldots}``.
+
+Here's some inline maths:``\\rt[n]{1 + x + x^2 + \\ldots}``.
+
+@docs raw```
+Here's some inline maths:``\rt[n]{1 + x + x^2 + \ldots}``.
+```
+
+$$ f(x) = a - b \tag{1.1} $$
 
 ## Cross Reference
 
@@ -17,5 +27,6 @@ Here's some inline maths:'``\rt[n]{1 + x + x^2 + \ldots}``'.
 
 ## URL
 
- 外部链接
+外部链接
+
 More detail in [Document.jl](https://juliadocs.github.io/Documenter.jl/stable/).
