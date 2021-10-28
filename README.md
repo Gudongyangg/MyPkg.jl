@@ -45,27 +45,12 @@
 ## 生成CI
  CI使用的是Github Action的CI，在.github的workflow的CI.yml中修改CI。
 
-## 左侧增加page  Library
- 修改make.jl的makedocs里的pages增加新的pages。
-
-## 增加@autodocs
-
-    ```@autodocs
-    Modules = [MyPkg]
-    Private = true
-    Public = true
-    ```
-### 添加cross referencing
-
-    - link to [MyPkg](@ref)
-    - link to [`Simpson(f, a, b)`](@ref)
-
-### 目录修改
-
-    ```@contents
-    Pages = ["index.md","Library.md"]
-    ```
-### 添加url
+## 更多document的修改
+1.左侧增加额外page叫做Practice
+2.latex公式
+3.添加cross referencing
+4.目录修改
+5.添加url
 
 
 # SafeTestset

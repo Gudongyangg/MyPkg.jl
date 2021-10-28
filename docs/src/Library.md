@@ -10,15 +10,21 @@ markdown这里要写条`\`
 
 docstring需要两条`\\`
 
-Here's some inline maths:``\rt[n]{1 + x + x^2 + \ldots}``.
+Here's some inline maths:``\sqrt[n]{1 + x + x^2 + \ldots}``.
 
-Here's some inline maths:``\\rt[n]{1 + x + x^2 + \\ldots}``.
+Here's some inline maths:``\\sqrt[n]{1 + x + x^2 + \\ldots}``.
 
-@docs raw```
-Here's some inline maths:``\rt[n]{1 + x + x^2 + \ldots}``.
 ```
+Here's some inline maths:``\sqrt[n]{1 + x + x^2 + \ldots}``.
+```
+``
+Here's some inline maths:``\sqrt[n]{1 + x + x^2 + \ldots}``.
+``
+`
+Here's some inline maths:``\sqrt[n]{1 + x + x^2 + \ldots}``.
+`
 
-$$ f(x) = a - b \tag{1.1} $$
+$ f(x) = a - b \tag{1.1} $
 
 ## Cross Reference
 
