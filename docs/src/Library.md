@@ -10,34 +10,7 @@ markdown这里要写条`\`
 
 docstring需要两条`\\`
 
-Here's some inline maths:``\sqrt[n]{1 + x + x^2 + \ldots}``.
-
-Here's some inline maths:``\\sqrt[n]{1 + x + x^2 + \\ldots}``.
-
-Here's some inline maths: ``\sqrt[n]{1 + x + x^2 + \ldots}``.
-
-```
-Here's some inline maths:``\sqrt[n]{1 + x + x^2 + \ldots}``.
-```
-
-
-
-```math
-Here's some inline maths:``\sqrt[n]{1 + x + x^2 + \ldots}``.
-```
-
-```math
-\frac{n!}{k!(n - k)!} = \binom{n}{k}
-```
-
-``
-Here's some inline maths:``\sqrt[n]{1 + x + x^2 + \ldots}``.
-``
-`
-Here's some inline maths:``\sqrt[n]{1 + x + x^2 + \ldots}``.
-`
-
-$ f(x) = a - b \tag{1.1} $
+Here's a example maths:``\sqrt[n]{1 + x + x^2 + \ldots}``.
 
 ## Cross Reference
 
