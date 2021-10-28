@@ -25,3 +25,7 @@ Simpson(f, a, b)
 ```@docs
 g(x)
 ```
+## Index
+
+```@index
+```

@@ -4,16 +4,11 @@
 Pages = ["Library.md"]
 ```
 
-## Functions
+## Cross Reference
 
 - link to [MyPkg](@ref)
 - link to [`Simpson(f, a, b)`](@ref)
 
-## Index
-
-```@index
-```
-
-# Reference
+# URL
 
 More detail in [Document.jl](https://juliadocs.github.io/Documenter.jl/stable/).
