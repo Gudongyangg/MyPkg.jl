@@ -21,5 +21,4 @@ makedocs(;
 
 deploydocs(;
     repo="github.com/Gudongyangg/MyPkg.jl",
-    devbranch="master",
 )
