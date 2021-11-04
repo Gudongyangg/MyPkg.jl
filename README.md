@@ -47,10 +47,15 @@
 
 ## 更多document的修改
 1.左侧增加额外page叫做Practice
+
 2.latex公式
+
 3.添加cross referencing
+
 4.目录修改
+
 5.添加url
+
 6.release更改时间？
 
 # SafeTestset
