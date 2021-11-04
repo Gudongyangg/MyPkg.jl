@@ -22,5 +22,5 @@ makedocs(;
 deploydocs(;
     repo="github.com/Gudongyangg/MyPkg.jl",
     devbranch = "master",
-    versions = ["stable" => "v^", "v1.0.4", devurl => devurl],
+    versions = ["stable" => "v^", "v1.0.4"],
 )
