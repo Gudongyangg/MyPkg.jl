@@ -56,7 +56,7 @@
 
 5.添加url
 
-6.release更改时间？
+6.从github里设置tag
 
 # SafeTestset
 和`@testset`用法一模一样，他的第二个参数`begin include("benchmark_tests.jl") end`里的`benchmark_tests.jl`里应该是
