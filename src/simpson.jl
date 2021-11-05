@@ -1,7 +1,7 @@
 """
     function Simpson(f, a, b)
 
-Calculate the integral 'f' function from 'x' to 'y' by Simpson formula
+Calculate the integral ``f`` function from ``x`` to ``y`` by Simpson formula
 
 Here's Simpson expression:
 
