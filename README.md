@@ -65,6 +65,8 @@
 `
 类似的类型
 
+相比于`@testset`，还在最前面加了`Module`,生成了模型
+
 
     module SafeTestsets
 
