@@ -21,7 +21,7 @@ Here's Simpson expression:
 # Examples
 ```julia-repl
 julia> Simpson(2*x, 1, 2)
-3
+4
 ```
 """
 function Simpson(f, a, b)
