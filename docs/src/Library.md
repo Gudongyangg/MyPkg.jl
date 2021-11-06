@@ -12,6 +12,25 @@ docstring需要两条`\\`
 
 Here's a example maths:``\sqrt[n]{1 + x + x^2 + \ldots}``.
 
+## Practice
+
+```@example
+a = 1
+b = 2
+a + b
+```
+
+```julia
+a = 1
+b = 2
+a + b
+```
+
+```
+3
+```
+
+
 ## Cross Reference
 
 - link to [MyPkg](@ref)
