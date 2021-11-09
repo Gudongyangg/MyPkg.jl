@@ -2,9 +2,6 @@ using MyPkg
 using SafeTestsets
 using Test
 using QuadGK
-g(x) = 2*x
-
-integral, err = quadgk(g,0,1,rtol=1e-5)
 
 @safetestset BenchmarkTests = "Benchmark Tests" begin
     include("benchmark_tests.jl")
