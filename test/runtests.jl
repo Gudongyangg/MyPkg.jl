@@ -1,6 +1,6 @@
 using MyPkg
 using SafeTestsets
-# using Test
+using Test
 using QuadGK
 g(x) = 2*x
 
