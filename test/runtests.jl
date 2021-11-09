@@ -1,7 +1,6 @@
 using MyPkg
 using SafeTestsets
 using Test
-using QuadGK
 
 @safetestset BenchmarkTests = "Benchmark Tests" begin
     include("benchmark_tests.jl")
