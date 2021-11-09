@@ -7,9 +7,7 @@ g(x) = 2*x
 integral, err = quadgk(g,0,1,rtol=1e-5)
 
 @safetestset BenchmarkTests = "Benchmark Tests" begin
-    @test 1 == 1
-    @test 3 == 3
-    # @test Simpson(g,1,2) == 3
+    include("benchmark_tests.jl")
 end
 # @testset "MyPkg.jl" begin
 #     # Write your tests here.
