@@ -4,7 +4,7 @@ module MyPkg
 include("simpson.jl")
 export Simpson
 
-
+export g
 function g(x)
     2*x
 end
