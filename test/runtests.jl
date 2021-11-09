@@ -7,7 +7,7 @@ g(x) = 2*x
 integral, err = quadgk(g,0,1,rtol=1e-5)
 
 @safetestset BenchmarkTests = "Benchmark Tests" begin
-    @test 1 == integral
+    @test 1 == 1
     @test 3 == 3
     # @test Simpson(g,1,2) == 3
 end
