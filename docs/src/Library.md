@@ -20,16 +20,6 @@ b = 2
 a + b
 ```
 
-```julia
-a = 1
-b = 2
-a + b
-```
-
-```
-3
-```
-
 
 ## Cross Reference
 

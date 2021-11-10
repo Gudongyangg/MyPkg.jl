@@ -102,7 +102,7 @@
 
 # 遗留三个问题
 
-1.SafeTestsets的使用，要单独在test文件夹下创建一个benchmark_tests.jl，不然`@SafeTestset`里会因为变量、函数的作用域导致function not defined。
+1.SafeTestsets的使用，要单独在test文件夹下创建一个benchmark_tests.jl，不然`@SafeTestset`里会因为变量、函数的作用域导致Simpson not defined。
 
 benchmark_tests.jl里程序入下：
 
@@ -122,4 +122,12 @@ benchmark_tests.jl里程序入下：
     QuadGK = "1fd47b50-473d-5c70-9696-f719f8f3bcdc"
     SafeTestsets = "1bc83da4-3b8d-516f-aca4-4fe02f6d838f"
 
-2.（将.gitignore中`/docs/build/`删除以便在github中查看区别）docs 在push操作后执行的顺序：
+2.docs 在push操作后执行的顺序：将在github中自动执行make.jl ，`makedocs()`在/docs/中生成build文件夹，里面包含生成的网页，相当于创建好了docs。接下来`deploydocs()`，将使生成的网页部署到github中。
+
+
+3.example里的例子不会运行报错
+
+    ```julia-repl
+    julia> Simpson(2*x, 1, 2)
+    4
+    ```
