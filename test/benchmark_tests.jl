@@ -1,5 +1,6 @@
 using MyPkg
 using QuadGK
+using Test
 
 integral, err = quadgk(MyPkg.g,0,1,rtol=1e-5)
 

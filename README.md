@@ -115,7 +115,7 @@ benchmark_tests.jl里程序入下：
     @test Simpson(MyPkg.g,0,1) == 1
     @test Simpson(MyPkg.g,1,2) == 3
 
-存在一个问题就是project.toml中SafeTestsets必须在里面才能运行。
+存在一个问题就是project.toml中SafeTestsets包必须在[deps]里面才能运行。
 
     [deps]
     Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
