@@ -99,3 +99,27 @@
     end
 
     end # module
+
+# 遗留三个问题
+
+1.SafeTestsets的使用，要单独在test文件夹下创建一个benchmark_tests.jl，不然`@SafeTestset`里会因为变量、函数的作用域导致function not defined。
+
+benchmark_tests.jl里程序入下：
+
+    using MyPkg
+    using QuadGK
+
+    integral, err = quadgk(MyPkg.g,0,1,rtol=1e-5)
+
+    @test Simpson(MyPkg.g,0,1) == integral
+    @test Simpson(MyPkg.g,0,1) == 1
+    @test Simpson(MyPkg.g,1,2) == 3
+
+存在一个问题就是project.toml中SafeTestsets必须在里面才能运行。
+
+    [deps]
+    Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+    QuadGK = "1fd47b50-473d-5c70-9696-f719f8f3bcdc"
+    SafeTestsets = "1bc83da4-3b8d-516f-aca4-4fe02f6d838f"
+
+2.（将.gitignore中`/docs/build/`删除以便在github中查看区别）docs 在push操作后执行的顺序：
