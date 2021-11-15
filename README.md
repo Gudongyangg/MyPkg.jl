@@ -65,6 +65,7 @@ docs 在push操作后执行的顺序：将在github中自动执行make.jl ，`ma
 
 目录的宏块，生成指定pages的目录，默认为生成到二级标题：
 `
+@raw
   ```@contents
   Pages = ["index.md","Library.md"]
   Depth = 2
@@ -88,7 +89,8 @@ a = 1
 b = 2
 a + b
 ```
-```
+``
+
 2.左侧增加额外page叫做Practice
 在/docs/src文件夹中创建Library.md（名字自取），然后在/docs文件下的make.jl中`makedocs()`中修改
 
