@@ -13,15 +13,6 @@ Pages = ["Library.md"]
 
 Here's a example maths:``\sqrt[n]{1 + x + x^2 + \ldots}``.
 
-## Practice
-
-```@example
-a = 1
-b = 2
-a + b
-```
-
-
 ## Cross Reference
 
 - link to [MyPkg](@ref)
