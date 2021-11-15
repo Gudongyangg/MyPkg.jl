@@ -126,6 +126,10 @@ docs 在push操作后执行的顺序：将在github中自动执行make.jl ，`ma
     julia> Simpson(2*x, 1, 2)
     4
     ```
+7.查看的文档
+julia官方文档的[Documentation](https://docs.julialang.org/en/v1/manual/documentation/).
+Documenttation的[Syntax](https://juliadocs.github.io/Documenter.jl/stable/man/syntax/).
+
 
 # SafeTestset
 和`@testset`用法一模一样，他的第二个参数`begin include("benchmark_tests.jl") end`里的`benchmark_tests.jl`里应该是
