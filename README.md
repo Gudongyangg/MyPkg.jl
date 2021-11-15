@@ -60,6 +60,7 @@ docs 在push操作后执行的顺序：将在github中自动执行make.jl ，`ma
  CI使用的是Github Action的CI，在.github的workflow的CI.yml中可以自己修改CI。
 
 ## document的内容
+  在MyPkg/docs/src/里的.md文件中，一个点括起来表示程序，两个点括起来表示LaTeX公式，三个点括起来表示引用指定的宏来制作文档。
 1.左侧增加额外page叫做Practice
 在/docs/src文件夹中创建Library.md（名字自取），然后在/docs文件下的make.jl中`makedocs()`中修改
 
@@ -67,17 +68,18 @@ docs 在push操作后执行的顺序：将在github中自动执行make.jl ，`ma
         "Home" => "index.md",
         "Practice" => "Library.md"
     ],
+
 其中Practice是document左边栏的小标题。
 
 2.latex公式
+
+`Here's a example maths:``\sqrt[n]{1 + x + x^2 + \ldots}``.`
 
 3.添加cross referencing
 
 4.目录修改
 
 5.添加url
-
-6.从github里设置tag
 
 # SafeTestset
 和`@testset`用法一模一样，他的第二个参数`begin include("benchmark_tests.jl") end`里的`benchmark_tests.jl`里应该是
