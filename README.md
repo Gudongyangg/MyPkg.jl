@@ -10,7 +10,7 @@
 
 2.using PkgTemplates
 
-3.代码
+3.然后再交互界面输入下面的样例，可修改所需要的内容。
 
     t=Template(;
         user="Gudongyangg",
@@ -25,28 +25,49 @@
             Develop(),
         ],
     )
-4.julia t("MyPkg")
+
+GithubActions就是CI。
+
+4.运行 t("MyPkg.jl")  生成自己的Package，MyPkg.jl改成需要的名字
 
 就在%HOME%\\.julia\\dev\\MyPkg 生成相应的文件
+
+自己在github上创建一个全空的名字为MyPkg.jl的repository，就可以将生成的MyPkg.jl  push到github上。
 ## 修改src和test
 
 ## 生成docs
-1.先安装需要的pkg
+1.先进入 ] pkg模式
 
     add Documenter
     add DocumenterTools
-2.julia生成通信的keys
+2.生成自动装载github文档所需的通信keys
 
     using Documenter
     using DocumenterTools
     DocumenterTools.genkeys(user="Gudongyangg", repo="MyPkg.jl")
-    #include("docs/make.jl")
+
+打开github的repository，进入Settings，在Deploy keys中Add deploy key：
+
+  将生成的第一串字符，填入进去，名字取为documenter。注意要勾选write！！
+
+在Secrets中New repository secret：
+
+  将生成的第二串字符，填入，名字为DOCUMENTER_KEY。注意这里名字不可以改！
+
+docs 在push操作后执行的顺序：将在github中自动执行make.jl ，`makedocs()`在/docs/中生成build文件夹，里面包含生成的网页，相当于创建好了docs。接下来`deploydocs()`，将使生成的网页部署到github中。
 
 ## 生成CI
- CI使用的是Github Action的CI，在.github的workflow的CI.yml中修改CI。
+ CI使用的是Github Action的CI，在.github的workflow的CI.yml中可以自己修改CI。
 
-## 更多document的修改
+## document的内容
 1.左侧增加额外page叫做Practice
+在/docs/src文件夹中创建Library.md（名字自取），然后在/docs文件下的make.jl中`makedocs()`中修改
+
+    pages=[
+        "Home" => "index.md",
+        "Practice" => "Library.md"
+    ],
+其中Practice是document左边栏的小标题。
 
 2.latex公式
 
