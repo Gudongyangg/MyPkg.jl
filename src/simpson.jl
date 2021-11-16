@@ -1,11 +1,11 @@
 """
     function Simpson(f, a, b)
 
-Calculate the integral ``f`` function from ``x`` to ``y`` by Simpson formula
+Calculate the integral `f` function from `x` to `y` by Simpson formula
 
 Here's Simpson expression:
 
-``Simpson(f, a, b) = \\frac{(b-a)}{6} * (f(a) + 4*f(\\frac{(a+b)}{2}) + f(b))``
+`Simpson(f, a, b) = \\frac{(b-a)}{6} * (f(a) + 4*f(\\frac{(a+b)}{2}) + f(b))`
 
 # Arguments
 - `f::Express`: integrand function
