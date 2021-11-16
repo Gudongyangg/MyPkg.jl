@@ -65,29 +65,33 @@ docs 在push操作后执行的顺序：将在github中自动执行make.jl ，`ma
 
 目录的宏块，生成指定pages的目录，默认为生成到二级标题：
 
-@raw"
-  ```@contents
-  Pages = ["index.md","Library.md"]
-  Depth = 2
-  ```
-"
+```@doc raw"""
+    ```@contents
+    Pages = ["index.md","Library.md"]
+    Depth = 2
+    ```
+"""
+```
+
 函数的宏块，将一个或多个函数前的docstring拼接到文档中以代替代码块：
-`
+```@raw
   ```@docs
   Simpson(f, a, b)
+```@raw```
   ```
-`
+
 函数的索引宏块，将`exprot`出口的所有函数和宏生成为索引，也可以指定某一特定page、模型：
-`
-  ```@index
-  ```
-`
+@doc raw"""
+```@index
+```
+"""
 举例子的宏块，可以产生repl形式的例子:
 ```@raw html
 ```@repl
 a = 1
 b = 2
 a + b
+```@raw ```@raw
 ``````
 
 2.左侧增加额外page叫做Practice
