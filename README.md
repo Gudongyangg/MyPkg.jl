@@ -26,7 +26,7 @@
         ],
     )
 
-GithubActions就是CI。
+CI使用的是Github Action的CI，在.github的workflow的CI.yml中可以自己修改CI。
 
 4.运行 t("MyPkg.jl")  生成自己的Package，MyPkg.jl改成需要的名字
 
@@ -35,7 +35,7 @@ GithubActions就是CI。
 自己在github上创建一个全空的名字为MyPkg.jl的repository，就可以将生成的MyPkg.jl  push到github上。
 ## 修改src和test
 
-## 生成docs
+## push后自动部署docs
 1.先进入 ] pkg模式
 
     add Documenter
@@ -46,22 +46,25 @@ GithubActions就是CI。
     using DocumenterTools
     DocumenterTools.genkeys(user="Gudongyangg", repo="MyPkg.jl")
 
-打开github的repository，进入Settings，在Deploy keys中Add deploy key：
+3.打开github的repository，进入Settings，在Deploy keys中Add deploy key：
 
-  将生成的第一串字符，填入进去，名字取为documenter。注意要勾选write！！
+    将生成的第一串字符，填入进去，名字取为documenter。注意要勾选write！！
 
 在Secrets中New repository secret：
 
-  将生成的第二串字符，填入，名字为DOCUMENTER_KEY。注意这里名字不可以改！
+    将生成的第二串字符，填入，名字为DOCUMENTER_KEY。注意这里名字不可以改！
+
+
 
 docs 在push操作后执行的顺序：将在github中自动执行make.jl ，`makedocs()`在/docs/中生成build文件夹，里面包含生成的网页，相当于创建好了docs。接下来`deploydocs()`，将使生成的网页部署到github中。
 
-## 生成CI
- CI使用的是Github Action的CI，在.github的workflow的CI.yml中可以自己修改CI。
-
 ## document的内容
-  在MyPkg/docs/src/里的.md文件中，一个点括起来表示程序，两个点括起来表示LaTeX公式，三个点括起来表示引用指定的宏来制作文档。
-1.基本宏块
+
+  在MyPkg/docs/src/里的.md文件中，一个点括起来``\`\``表示程序，两个点括起来``\`\`\`\``表示LaTeX公式，三个点括起来``\`\`\`\`\`\``表示引用指定的宏来制作文档。
+
+1.基本使用的用于制作document的宏块
+
+这些宏块可以将MyPkg/src/下的.jl文件中的内容生成到document中，以下内容写在docs/src/下的.md文件中。
 
 目录的宏块，生成指定pages的目录，默认为生成到二级标题：
 
@@ -75,7 +78,7 @@ Depth = 2
 函数的宏块，将一个或多个函数前的docstring拼接到文档中以代替代码块：
 ````
 ```@docs
-Simpson(f, a, b)`
+Simpson(f, a, b)
 ```
 ````
 函数的索引宏块，将`exprot`出口的所有函数和宏生成为索引，也可以指定某一特定page、模型：
@@ -91,7 +94,9 @@ b = 2
 a + b
 ```
 ````
-2.左侧增加额外page叫做Practice
+
+2.左侧增加额外page
+
 在/docs/src文件夹中创建Library.md（名字自取），然后在/docs文件下的make.jl中`makedocs()`中修改
 
     pages=[
@@ -102,7 +107,8 @@ a + b
 其中Practice是document左边栏的小标题。
 
 3.latex公式
-在MyPkg/docs/src/里的.md文件中，LaTeX的转义`\sqrt[n]{1 + x + x^2 + \ldots}`这里要写1条`\`。
+
+在MyPkg/docs/src/里的.md文件中，LaTeX的转义字符`\sqrt[n]{1 + x + x^2 + \ldots}`这里要写1条`\`。
 
 `Here's a example maths:``\sqrt[n]{1 + x + x^2 + \ldots}``.`
 
@@ -111,7 +117,8 @@ a + b
 `Here's a example maths:``\\sqrt[n]{1 + x + x^2 + \\ldots}``.`
 
 4.添加cross referencing
-  只需要在需要交叉引用的地方后加入`(@ref)`，可以交叉引用的是docstring, header name, 或者 GitHub PR/Issue number。例如：
+
+只需要在需要交叉引用的地方后加入`(@ref)`，可以交叉引用的是docstring, header name, 或者 GitHub PR/Issue number。例如：
 
     - link to [MyPkg](@ref)
     - link to [`Simpson(f, a, b)`](@ref)
@@ -120,7 +127,8 @@ a + b
 
     More detail in [Document.jl](https://juliadocs.github.io/Documenter.jl/stable/).
 
-6.举例
+6.添加例子example
+
 在docstring中的example，也就是在function前的解释性文字（注意是在src中的.jl文件里，而不是docs文件夹下的.md里）：
 
     # Examples
@@ -129,9 +137,10 @@ a + b
     4
     ```
 7.查看的文档
-julia官方文档的[Documentation](https://docs.julialang.org/en/v1/manual/documentation/).
 
-Documenttation的[Syntax](https://juliadocs.github.io/Documenter.jl/stable/man/syntax/).
+julia官方文档的[Documentation](https://docs.julialang.org/en/v1/manual/documentation/)部分.
+
+Documenttation官方文档的[Syntax](https://juliadocs.github.io/Documenter.jl/stable/man/syntax/)部分.
 
 
 # SafeTestset
