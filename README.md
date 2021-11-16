@@ -30,9 +30,9 @@
 
 4.运行 t("MyPkg.jl")  生成自己的Package，MyPkg.jl改成需要的名字
 
- &nbsp;就在%HOME%\\.julia\\dev\\MyPkg 生成相应的文件
+ &nbsp;&nbsp;&nbsp;&nbsp;就在%HOME%\\.julia\\dev\\MyPkg 生成相应的文件
 
- &nbsp;自己在github上创建一个全空的名字为MyPkg.jl的repository，就可以将生成的MyPkg.jl  push到github上。
+ &nbsp;&nbsp;&nbsp;&nbsp;自己在github上创建一个全空的名字为MyPkg.jl的repository，就可以将生成的MyPkg.jl  push到github上。
 ## 修改src和test
 
 ## push后自动部署docs
@@ -48,23 +48,23 @@
 
 3.打开github的repository，进入Settings，在Deploy keys中Add deploy key：
 
- &nbsp;将生成的第一串字符，填入进去，名字取为documenter。注意要勾选write！！
+ &nbsp;&nbsp;&nbsp;&nbsp;将生成的第一串字符，填入进去，名字取为documenter。注意要勾选write！！
 
 在Secrets中New repository secret：
 
- &nbsp;将生成的第二串字符，填入，名字为DOCUMENTER_KEY。注意这里名字不可以改！
+ &nbsp;&nbsp;&nbsp;&nbsp;将生成的第二串字符，填入，名字为DOCUMENTER_KEY。注意这里名字不可以改！
 
 
 
-&nbsp;docs 在push操作后执行的顺序：将在github中自动执行make.jl ，`makedocs()`在/docs/中生成build文件夹，里面包含生成的网页，相当于创建好了docs。接下来`deploydocs()`，将使生成的网页部署到github中。
+&nbsp;&nbsp;&nbsp;&nbsp;docs 在push操作后执行的顺序：将在github中自动执行make.jl ，`makedocs()`在/docs/中生成build文件夹，里面包含生成的网页，相当于创建好了docs。接下来`deploydocs()`，将使生成的网页部署到github中。
 
 ## document的内容
 
-&nbsp;在MyPkg/docs/src/里的.md文件中，一个点括起来`` ``表示程序，两个点括起来``` ```表示LaTeX公式，三个点括起来```` ````表示引用指定的宏来制作文档。
+&nbsp;&nbsp;&nbsp;&nbsp;在MyPkg/docs/src/里的.md文件中，一个点括起来`` ``表示程序，两个点括起来``` ```表示LaTeX公式，三个点括起来```` ````表示引用指定的宏来制作文档。
 
 1.基本使用的用于制作document的宏块
 
-&nbsp;这些宏块可以将MyPkg/src/下的.jl文件中的内容生成到document中，以下内容写在docs/src/下的.md文件中。
+&nbsp;&nbsp;&nbsp;&nbsp;这些宏块可以将MyPkg/src/下的.jl文件中的内容生成到document中，以下内容写在docs/src/下的.md文件中。
 
 目录的宏块，生成指定pages的目录，默认为生成到二级标题：
 
@@ -97,7 +97,7 @@ a + b
 
 2.左侧增加额外page
 
- &nbsp;在/docs/src文件夹中创建Library.md（名字自取），然后在/docs文件下的make.jl中`makedocs()`中修改
+ &nbsp;&nbsp;&nbsp;&nbsp;在/docs/src文件夹中创建Library.md（名字自取），然后在/docs文件下的make.jl中`makedocs()`中修改
 
     pages=[
         "Home" => "index.md",
@@ -108,28 +108,30 @@ a + b
 
 3.latex公式
 
- &nbsp;在MyPkg/docs/src/里的.md文件中，LaTeX的转义字符`\sqrt[n]{1 + x + x^2 + \ldots}`这里要写1条`\`。
+ &nbsp;&nbsp;&nbsp;&nbsp;在MyPkg/docs/src/里的.md文件中，LaTeX的转义字符`\sqrt[n]{1 + x + x^2 + \ldots}`这里要写1条`\`。
 
 `Here's a example maths:``\sqrt[n]{1 + x + x^2 + \ldots}``.`
 
- &nbsp;而MyPkg/src/里的.jl文件中使用三个双引号括起来的形式，称为docstring，则需要两条`\\`，来表示LaTeX的转义`\\sqrt[n]{1 + x + x^2 + \\ldots}`
+ &nbsp;&nbsp;&nbsp;&nbsp;而MyPkg/src/里的.jl文件中使用三个双引号括起来的形式，称为docstring，则需要两条`\\`，来表示LaTeX的转义`\\sqrt[n]{1 + x + x^2 + \\ldots}`
 
 `Here's a example maths:``\\sqrt[n]{1 + x + x^2 + \\ldots}``.`
 
 4.添加cross referencing
 
-&nbsp;只需要在需要交叉引用的地方后加入`(@ref)`，可以交叉引用的是docstring, header name, 或者 GitHub PR/Issue number。例如：
+&nbsp;&nbsp;&nbsp;只需要在需要交叉引用的地方后加入`(@ref)`，可以交叉引用的是docstring, header name, 或者 GitHub PR/Issue number。例如：
 
     - link to [MyPkg](@ref)
     - link to [`Simpson(f, a, b)`](@ref)
 
 5.添加url，例如：
 
-&nbsp;More detail in [Document.jl](https://juliadocs.github.io/Documenter.jl/stable/).
+&nbsp;&nbsp;&nbsp;&nbsp;使用方法和cross referencing相似，在最后加入链接即可。
+
+    More detail in [Document.jl](https://juliadocs.github.io/Documenter.jl/stable/).
 
 6.添加例子example
 
-&nbsp;在docstring中的example，也就是在function前的解释性文字（注意是在src中的.jl文件里，而不是docs文件夹下的.md里）：
+&nbsp;&nbsp;&nbsp;在docstring中的example，也就是在function前的解释性文字（注意是在src中的.jl文件里，而不是docs文件夹下的.md里）：
 
     # Examples
     ```julia-repl
