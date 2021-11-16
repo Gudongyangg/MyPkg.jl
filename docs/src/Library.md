@@ -17,6 +17,7 @@ Here's a example maths:``\sqrt[n]{1 + x + x^2 + \ldots}``.
 
 - link to [MyPkg](@ref)
 - link to [`Simpson(f, a, b)`](@ref)
+- link to [function](@ref)
 
 ## URL
 
