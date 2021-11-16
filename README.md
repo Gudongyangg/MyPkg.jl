@@ -64,13 +64,13 @@ docs 在push操作后执行的顺序：将在github中自动执行make.jl ，`ma
 1.基本宏块
 
 目录的宏块，生成指定pages的目录，默认为生成到二级标题：
-`
-@raw
+
+@raw"
   ```@contents
   Pages = ["index.md","Library.md"]
   Depth = 2
   ```
-`
+"
 函数的宏块，将一个或多个函数前的docstring拼接到文档中以代替代码块：
 `
   ```@docs
@@ -83,13 +83,12 @@ docs 在push操作后执行的顺序：将在github中自动执行make.jl ，`ma
   ```
 `
 举例子的宏块，可以产生repl形式的例子:
-```@raw html
+@raw html
 ```@repl
 a = 1
 b = 2
 a + b
 ```
-``
 
 2.左侧增加额外page叫做Practice
 在/docs/src文件夹中创建Library.md（名字自取），然后在/docs文件下的make.jl中`makedocs()`中修改
