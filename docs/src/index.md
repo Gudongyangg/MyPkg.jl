@@ -23,6 +23,10 @@ Pages = ["index.md","Library.md"]
 Simpson(f, a, b)
 ```
 
+```@docs
+find_num_in_vec(A::Vector, position_index::Vector{Int64}, x)
+```
+
 ## Index
 
 所有函数的索引
