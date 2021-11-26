@@ -1,10 +1,10 @@
 # home
 
-Gillespie developed a stochastic simulation algorithm (SSA)[J. Phys. Chem.81, 2350(1977)] to simulate stochastic dynamics of chemically reacting systems.In this algorithm, it is assumed that all reactions occur instantly.Since Gillespie’s exact SSA was developed for chemical reaction systems without delay, it is apparent that Gillespie’s SSA cannot produce exact simulation results for chemical reaction systems with delays.
+&nbsp；&nbsp；Gillespie developed a stochastic simulation algorithm (SSA)[J. Phys. Chem.81, 2350(1977)] to simulate stochastic dynamics of chemically reacting systems.In this algorithm, it is assumed that all reactions occur instantly.Since Gillespie’s exact SSA was developed for chemical reaction systems without delay, it is apparent that Gillespie’s SSA cannot produce exact simulation results for chemical reaction systems with delays.
 
-&nbsp&nbsp&nbsp&nbspNeg lecting delays in certain cases may still produce acceptable results, but in some delay-sensitive cases, such as delay-induced oscillators,neglecting delays in simulation will lead to erroneous conclusions.
+&nbsp；&nbsp； Neglecting delays in certain cases may still produce acceptable results, but in some delay-sensitive cases, such as delay-induced oscillators,neglecting delays in simulation will lead to erroneous conclusions.
 
-To solve this problem an exact SSA for chemical reaction systems with delays，Delay SSA was proposed, based upon the same fundamental premise of stochastic kinetics used by Gillespie in the development of his SSA.
+&nbsp；&nbsp；To solve this problem an exact SSA for chemical reaction systems with delays，Delay SSA was proposed, based upon the same fundamental premise of stochastic kinetics used by Gillespie in the development of his SSA.
 
 ## Features
 
@@ -28,11 +28,19 @@ using DelaySSAToolkit
 
 # Algorithms
 ## The Rejection Method
+Consider a system consisting of ``N>=1`` chemical species,``{X_1, . . . , X_N}``, undergoing ``M>= 1`` chemical reactions through reaction channels ``{R_1,...,R_M}``, each of which is equipped with a propensity function (or intensity function in the mathematics literature),``a_k(X)``. The dynamic state of this chemical system can be described by the state vector ``X(t) =[X_1(t),...,X_N(t)]T``, where ``X_n[t],n = 1,...,N,`` is the number of ``X_n`` molecules at time ``t``, and ``[·]^T`` denotes the transpose of the vector in the bracket. The following assumption, sometimes called the fundamental premise of chemical kinetics, is based upon physical principles and serves as the base assumption for simulation methods of chemically reacting systems:
+``a_k(X(t)) \Delta t + \omicron (t) = the probability that reaction k
+                                      takes place in a small time interval
+                                      ``
+where ``\omicron (\Delta t)/\Delta t \rightarrow 0 as \Delta t \rightarrow 0``. Based upon the assumption, the time until the next reaction, ``\Delta``, is exponentially distributed with parameter  ``a_0(X(t)) = \begin{matrix} \sum_{k=0}^M a_k(X(t)) \end{matrix}``and the
+probability that the next reaction is thekth is ``a_k(X(t))/a_0(X(t))``.
+
+### Pseudo code
 1. Initialize. Set the initial number of molecules of each species and set ``t = 0``.
 
 2. Calculate the propensity function,``a_k``, for each reaction.
 
-3. Set``a_0 = \begin{matrix} \sum_{k=1}^M a_k \end{matrix}``.
+3. Set ``a_0 = \begin{matrix} \sum_{k=1}^M a_k \end{matrix}``.
 
 4. Generate an independent uniform(0,1) random number,``r_1``, and set ``\Delta = 1/a_0ln(1/r_1)``.
 
