@@ -1,10 +1,10 @@
 # home
 
-&nbsp;   Gillespie developed a stochastic simulation algorithm (SSA)[J. Phys. Chem.81, 2350(1977)] to simulate stochastic dynamics of chemically reacting systems.In this algorithm, it is assumed that all reactions occur instantly.Since Gillespie’s exact SSA was developed for chemical reaction systems without delay, it is apparent that Gillespie’s SSA cannot produce exact simulation results for chemical reaction systems with delays.
+  Gillespie developed a stochastic simulation algorithm (SSA)[J. Phys. Chem.81, 2350(1977)] to simulate stochastic dynamics of chemically reacting systems.In this algorithm, it is assumed that all reactions occur instantly.Since Gillespie’s exact SSA was developed for chemical reaction systems without delay, it is apparent that Gillespie’s SSA cannot produce exact simulation results for chemical reaction systems with delays.
 
-&nbsp;  Neglecting delays in certain cases may still produce acceptable results, but in some delay-sensitive cases, such as delay-induced oscillators,neglecting delays in simulation will lead to erroneous conclusions.
+  Neglecting delays in certain cases may still produce acceptable results, but in some delay-sensitive cases, such as delay-induced oscillators,neglecting delays in simulation will lead to erroneous conclusions.
 
- &nbsp;&nbsp;&nbsp;  To solve this problem an exact SSA for chemical reaction systems with delays，Delay SSA was proposed, based upon the same fundamental premise of stochastic kinetics used by Gillespie in the development of his SSA.
+   To solve this problem an exact SSA for chemical reaction systems with delays，Delay SSA was proposed, based upon the same fundamental premise of stochastic kinetics used by Gillespie in the development of his SSA.
 
  <ol>
  <li>Bird</li>
@@ -49,7 +49,7 @@ number of initiations of reaction ``k`` by time ``t`` = ``Y_k(\int_{0}^{t} a_k(X
 
 where the ``Y_k`` are independent, unit rate Poisson processes.
 
-*  Because the assumption above, and hence equation ``t``, only pertains to the initiation times of reactions we must handle the completions separately. There are three different types of reactions, so there are three cases that need consideration.
+  Because the assumption above, and hence equation ``t``, only pertains to the initiation times of reactions we must handle the completions separately. There are three different types of reactions, so there are three cases that need consideration.
 
 **Case 1**: If reaction ``k`` is in ``ND`` and initiates at time ``t``, then the system is updated by losing the reactant species and gaining the product species at the time of initiation.
 
@@ -60,7 +60,7 @@ where the ``Y_k`` are independent, unit rate Poisson processes.
 
 ## The Rejection Method
 
-*  Simulation methods for systems with delays need to calculate when reactions initiate and store when they complete. However, because of the delayed reactions, the propensity functions can change between initiation times. Bratsun et al. and Barrio et al. used an algorithm for computing the initiation times that is exactly like the original Gillespie Algorithm except that if there is a stored delayed reaction set to finish within a computed timestep, then the computed timestep is discarded, and the system is updated to incorporate the stored delayed reaction. The algorithm then attempts another step starting at its new state. We will refer to this algorithm as the Rejection Method.
+  Simulation methods for systems with delays need to calculate when reactions initiate and store when they complete. However, because of the delayed reactions, the propensity functions can change between initiation times. Bratsun et al. and Barrio et al. used an algorithm for computing the initiation times that is exactly like the original Gillespie Algorithm except that if there is a stored delayed reaction set to finish within a computed timestep, then the computed timestep is discarded, and the system is updated to incorporate the stored delayed reaction. The algorithm then attempts another step starting at its new state. We will refer to this algorithm as the Rejection Method.
 
 
 ### Pseudo code
@@ -82,14 +82,15 @@ where the ``Y_k`` are independent, unit rate Poisson processes.
     - (b) Find ``\mu\in[1,...., m]`` such that
 
 ## Direct Method for systems with delays
-The number of discarded ``\Delta ’s`` will be approximately equal to the number of delayed reactions that initiate. This follows because, other than the stored completions at the time the script terminates, every delayed completion will cause one computed ``\Delta`` to be discarded.
+  The number of discarded ``\Delta ’s`` will be approximately equal to the number of delayed reactions that initiate. This follows because, other than the stored completions at the time the script terminates, every delayed completion will cause one computed ``\Delta`` to be discarded.
 
-Cai notes that the percentage of random numbers generated in step 4 and discarded in
+  Cai notes that the percentage of random numbers generated in step 4 and discarded in
 step 5a in above pseudo code for The Rejection Method can approach 50%.Cai then develops an algorithm, called the Direct Method for systems with delays, in which no random variables are discarded.
 
-The principle of Direct Method is the same as that of the original Gillespie Algorithm and the Rejection Method above: use one random variable to calculate when the next reaction initiates and use another random variable to calculate which reaction occurs at that future time. However, Direct Method updates the state of the system and propensity functions due to stored delayed reactions during the search for the next initiation time. In this way he ensures that no random variables are discarded as in the Rejection Method.
+  The principle of Direct Method is the same as that of the original Gillespie Algorithm and the Rejection Method above: use one random variable to calculate when the next reaction initiates and use another random variable to calculate which reaction occurs at that future time. However, Direct Method updates the state of the system and propensity functions due to stored delayed reactions during the search for the next initiation time. In this way he ensures that no random variables are discarded as in the Rejection Method.
 
-Suppose that at time ``t`` there are ongoing delayed reactions set to complete at times
+  Suppose that at time ``t`` there are ongoing delayed reactions set to complete at times
+
 ``t + T_1, t + T_2, . . . , t + T_d``. Define ``T_0 = 0`` and ``T_d + 1 = \infty``.
 
 ### Pseudo code
@@ -99,11 +100,11 @@ Suppose that at time ``t`` there are ongoing delayed reactions set to complete a
 
 ## Next Reaction Method for systems with delays
 
-Because the initiations are still given by the firing times of independent Poisson processes. Therefore, if ``T_k`` is the current internal time of ``Y_k``, ``P_k`` the first internal time after ``T_k`` at which ``Y_k`` fires, and the propensity function for the ``k``th reaction channel is given by ``a_k``, then the time until the next initiation of reaction ``k``(assuming no other reactions initiate or complete) is still given by ``\Delta t_k= (P_k−T_k)/a_k``. The only change to the algorithm will be in keeping track and storing the delayed completions. To each delayed reaction channel we therefore assign a vector, ``s_k``, that stores the completion times of that reaction in ascending order. Thus, the time until there is a change in the state of the system, be it an initiation or a completion, will be given by:
+  Because the initiations are still given by the firing times of independent Poisson processes. Therefore, if ``T_k`` is the current internal time of ``Y_k``, ``P_k`` the first internal time after ``T_k`` at which ``Y_k`` fires, and the propensity function for the ``k``th reaction channel is given by ``a_k``, then the time until the next initiation of reaction ``k``(assuming no other reactions initiate or complete) is still given by ``\Delta t_k= (P_k−T_k)/a_k``. The only change to the algorithm will be in keeping track and storing the delayed completions. To each delayed reaction channel we therefore assign a vector, ``s_k``, that stores the completion times of that reaction in ascending order. Thus, the time until there is a change in the state of the system, be it an initiation or a completion, will be given by:
 
-``\Delta = min_k\{\Delta t_k, s_k(1) − t\} ``
+          ``\Delta = min_k\{\Delta t_k, s_k(1) − t\} ``
 
-where ``t`` is the current time of the system. These ideas form the heart of our Next Reaction Method for systems with delays.
+  where ``t`` is the current time of the system. These ideas form the heart of our Next Reaction Method for systems with delays.
 
 ### Pseudo code
 1. Initialize. Set the initial number of molecules of each species and set ``t = 0``. For each ``k ≤ M``, set ``P_k = 0`` and ``T_k = 0``, and for each delayed reaction channel set ``s_k = [\infty]``.
