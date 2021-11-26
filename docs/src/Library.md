@@ -1,10 +1,10 @@
 # home
 
-&nbsp; Gillespie developed a stochastic simulation algorithm (SSA)[J. Phys. Chem.81, 2350(1977)] to simulate stochastic dynamics of chemically reacting systems.In this algorithm, it is assumed that all reactions occur instantly.Since Gillespie’s exact SSA was developed for chemical reaction systems without delay, it is apparent that Gillespie’s SSA cannot produce exact simulation results for chemical reaction systems with delays.
+&nbsp;   Gillespie developed a stochastic simulation algorithm (SSA)[J. Phys. Chem.81, 2350(1977)] to simulate stochastic dynamics of chemically reacting systems.In this algorithm, it is assumed that all reactions occur instantly.Since Gillespie’s exact SSA was developed for chemical reaction systems without delay, it is apparent that Gillespie’s SSA cannot produce exact simulation results for chemical reaction systems with delays.
 
-&nbsp;&nbsp;Neglecting delays in certain cases may still produce acceptable results, but in some delay-sensitive cases, such as delay-induced oscillators,neglecting delays in simulation will lead to erroneous conclusions.
+&nbsp;  Neglecting delays in certain cases may still produce acceptable results, but in some delay-sensitive cases, such as delay-induced oscillators,neglecting delays in simulation will lead to erroneous conclusions.
 
- &nbsp;&nbsp;&nbsp;To solve this problem an exact SSA for chemical reaction systems with delays，Delay SSA was proposed, based upon the same fundamental premise of stochastic kinetics used by Gillespie in the development of his SSA.
+ &nbsp;&nbsp;&nbsp;  To solve this problem an exact SSA for chemical reaction systems with delays，Delay SSA was proposed, based upon the same fundamental premise of stochastic kinetics used by Gillespie in the development of his SSA.
 
 ## Features
 
@@ -28,16 +28,16 @@ using DelaySSAToolkit
 
 # Algorithms
 
-Consider a system consisting of ``N>=1`` chemical species,``{X_1, . . . , X_N}``, undergoing ``M>= 1`` chemical reactions through reaction channels ``{R_1,...,R_M}``, each of which is equipped with a propensity function (or intensity function in the mathematics literature),``a_k(X)``. The dynamic state of this chemical system can be described by the state vector ``X(t) =[X_1(t),...,X_N(t)]^T``, where ``X_n[t],n = 1,...,N,`` is the number of ``X_n`` molecules at time ``t``, and ``[·]^T`` denotes the transpose of the vector in the bracket.
+  Consider a system consisting of ``N>=1`` chemical species,``{X_1, . . . , X_N}``, undergoing ``M>= 1`` chemical reactions through reaction channels ``{R_1,...,R_M}``, each of which is equipped with a propensity function (or intensity function in the mathematics literature),``a_k(X)``. The dynamic state of this chemical system can be described by the state vector ``X(t) =[X_1(t),...,X_N(t)]^T``, where ``X_n[t],n = 1,...,N,`` is the number of ``X_n`` molecules at time ``t``, and ``[·]^T`` denotes the transpose of the vector in the bracket.
 
-Delays, ``\tau_k > 0``, in systems are between the initiation and completion of some, or all, of the reactions. Notice that the definition of ``\tau_k``  is not the next reaction time of the Next Reaction Method. We partition the reactions into three sets, those with no delays, denoted ``ND``, those that change the state of the system only upon completion, denoted ``CD``, and those that change the state of the system at both initiation and completion, denoted ``ICD``. The following assumption is based upon physical principles and serves as the base assumption for simulation methods of chemically reacting systems with delays:
+  Delays, ``\tau_k > 0``, in systems are between the initiation and completion of some, or all, of the reactions. Notice that the definition of ``\tau_k``  is not the next reaction time of the Next Reaction Method. We partition the reactions into three sets, those with no delays, denoted ``ND``, those that change the state of the system only upon completion, denoted ``CD``, and those that change the state of the system at both initiation and completion, denoted ``ICD``. The following assumption is based upon physical principles and serves as the base assumption for simulation methods of chemically reacting systems with delays:
 
 ``a_k(X(t)) \Delta t + \omicron (t) `` = the probability that reaction ``k``
 takes place in a small time interval``[t, t + \Delta t)``
 
 where ``\omicron (\Delta t)/\Delta t \rightarrow 0`` as ``\Delta t \rightarrow 0``.
 
-Thus, no matter whether a reaction is contained in ``ND``, ``CD``, or ``ICD``, the number ofinitiationsat absolute timetwill be given by
+  Thus, no matter whether a reaction is contained in ``ND``, ``CD``, or ``ICD``, the number ofinitiationsat absolute timetwill be given by
 
 number of initiations of reaction ``k`` by time ``t`` = ``Y_k(\int_{0}^{t} a_k(X(s))\, \mathrm{d}s)``
 
@@ -47,11 +47,11 @@ Because the assumption above, and hence equation ``t``, only pertains to the ini
 times of reactions we must handle the completions separately. There are three different
 types of reactions, so there are three cases that need consideration.
 
-Case 1: If reaction ``k`` is in ``ND`` and initiates at time ``t``, then the system is updated by losing the reactant species and gaining the product species at the time of initiation.
+**Case 1**: If reaction ``k`` is in ``ND`` and initiates at time ``t``, then the system is updated by losing the reactant species and gaining the product species at the time of initiation.
 
-Case 2: If reaction ``k`` is in ``CD`` and initiates at time ``t``, then the system is updated only at the time of completion, ``t + \tau_k``, by losing the reactant species and gaining the product species.
+**Case 2**: If reaction ``k`` is in ``CD`` and initiates at time ``t``, then the system is updated only at the time of completion, ``t + \tau_k``, by losing the reactant species and gaining the product species.
 
-Case 3: If reaction ``k`` is in ``ICD`` and initiates at time ``t``, then the system is updated by losing the reactant species at the time of initiation, ``t``, and is updated by gaining the product species at the time of completion,``t + \tau_k``.
+**Case 3**: If reaction ``k`` is in ``ICD`` and initiates at time ``t``, then the system is updated by losing the reactant species at the time of initiation, ``t``, and is updated by gaining the product species at the time of completion,``t + \tau_k``.
 
 
 ## The Rejection Method
@@ -97,7 +97,7 @@ Suppose that at time ``t`` there are ongoing delayed reactions set to complete a
 
 Because the initiations are still given by the firing times of independent Poisson processes. Therefore, if ``T_k`` is the current internal time of ``Y_k``, ``P_k`` the first internal time after ``T_k`` at which ``Y_k`` fires, and the propensity function for the ``k``th reaction channel is given by ``a_k``, then the time until the next initiation of reaction ``k``(assuming no other reactions initiate or complete) is still given by ``\Delta t_k= (P_k−T_k)/a_k``. The only change to the algorithm will be in keeping track and storing the delayed completions. To each delayed reaction channel we therefore assign a vector, ``s_k``, that stores the completion times of that reaction in ascending order. Thus, the time until there is a change in the state of the system, be it an initiation or a completion, will be given by:
 
-``\Delta = min_k{\Delta t_k, s_k(1) − t} ``
+``\Delta = min_k\{\Delta t_k, s_k(1) − t\} ``
 
 where ``t`` is the current time of the system. These ideas form the heart of our Next Reaction Method for systems with delays.
 
@@ -108,9 +108,9 @@ where ``t`` is the current time of the system. These ideas form the heart of our
 
 3. Generate ``M`` independent, uniform``(0,1)`` random numbers, ``r_k``, and set ``P_k = ln(1/r_k)``.
 
-4. Set ``\Delta t_k = min_k{(P_k − T_k)/a_k}``.
+4. Set ``\Delta t_k = min_k\{(P_k − T_k)/a_k\}``.
 
-5. Set ``\Delta = min_k{\Delta t_k, s_k(1) − t}``.
+5. Set ``\Delta = min_k\{\Delta t_k, s_k(1) − t\}``.
 
 6. Set ``t = t + \Delta``.
 
@@ -129,7 +129,7 @@ where ``t`` is the current time of the system. These ideas form the heart of our
     - Update the system based upon the initiation of reaction ``\mu``.
     - Update ``s_\mu`` by inserting ``t + \tau_\mu`` into ``s_\mu`` in the second to last position.
 
-11. For each k, set ``min_k{T_k} = min_k{T_k} + a_k\Delta``.
+11. For each k, set ``min_k\{T_k\} = min_k\{T_k\} + a_k\Delta``.
 
 12. If reaction ``\mu`` initiated, let ``r`` be uniform``(0,1)`` and set ``P_µ = P_µ + ln(1/r)``.
 
