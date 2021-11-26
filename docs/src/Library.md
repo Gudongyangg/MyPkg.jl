@@ -1,8 +1,13 @@
 # home
-  &nbsp&nbsp&nbsp&nbsp Gillespie developed a stochastic simulation algorithm (SSA)[J. Phys. Chem.81, 2350(1977)] to simulate stochastic dynamics of chemically reacting systems.In this algorithm, it is assumed that all reactions occur instantly.Since Gillespie’s exact SSA was developed for chemical reaction systems without delay, it is apparent that Gillespie’s SSA cannot produce exact simulation results for chemical reaction systems with delays.
-  &nbsp&nbsp&nbsp&nbspNeg lecting delays in certain cases may still produce acceptable results, but in some delay-sensitive cases, such as delay-induced oscillators,neglecting delays in simulation will lead to erroneous conclusions.
-  &nbsp&nbsp&nbsp&nbsp To solve this problem an exact SSA for chemical reaction systems with delays，Delay SSA was proposed, based upon the same fundamental premise of stochastic kinetics used by Gillespie in the development of his SSA.
+
+Gillespie developed a stochastic simulation algorithm (SSA)[J. Phys. Chem.81, 2350(1977)] to simulate stochastic dynamics of chemically reacting systems.In this algorithm, it is assumed that all reactions occur instantly.Since Gillespie’s exact SSA was developed for chemical reaction systems without delay, it is apparent that Gillespie’s SSA cannot produce exact simulation results for chemical reaction systems with delays.
+
+&nbsp&nbsp&nbsp&nbspNeg lecting delays in certain cases may still produce acceptable results, but in some delay-sensitive cases, such as delay-induced oscillators,neglecting delays in simulation will lead to erroneous conclusions.
+
+To solve this problem an exact SSA for chemical reaction systems with delays，Delay SSA was proposed, based upon the same fundamental premise of stochastic kinetics used by Gillespie in the development of his SSA.
+
 ## Features
+
 ## Installation
 Install with Pkg, just like any other registered Julia package:
 ````
@@ -16,6 +21,7 @@ using DelaySSAToolkit
 ## References
 [1]: Xiaodong Cai, "Exact stochastic simulation of coupled chemical reactions with delays", The Journal of Chemical Physics 126, 124108(2007).
 [https://aip.scitation.org/doi/10.1063/1.2710253](https://doi/10.1063/1.2710253).
+
 [2]: David F. Anderson, "A modified Next Reaction Method for simulating chemical systems with time dependent propensities and delays", The Journal of Chemical Physics 128, 109903(2008).
 [https://doi/10.1063/1.2799998](https://aip.scitation.org/doi/10.1063/1.2799998).
 # home
@@ -45,7 +51,7 @@ using DelaySSAToolkit
 1. Initialize. Set the initial number of molecules of each species and set ``t = 0``. For each ``k ≤ M``, set ``Pk = 0`` and ``Tk = 0``, and for each delayed reaction channel set ``s_k = [\infty]``.
 2. Calculate the propensity function, ``a_k``, for each reaction.
 3. Generate ``M`` independent, uniform``(0,1)`` random numbers, ``r_k``, and set ``P_k = ln(1/r_k)``.
-4. Set ``\Deltat_k = min_k{(P_k − T_k)/a_k}``.
+4. Set ``\Delta t_k = min_k{(P_k − T_k)/a_k}``.
 5. Set ``\Delta = min_k{\Delta t_k, s_k(1) − t}``.
 6. Set ``t = t + \Delta``.
 7. If we chose the completion of the delayed reaction ``\mu``:
