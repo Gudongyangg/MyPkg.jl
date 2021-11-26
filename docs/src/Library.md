@@ -6,11 +6,6 @@
 
    To solve this problem an exact SSA for chemical reaction systems with delays，Delay SSA was proposed, based upon the same fundamental premise of stochastic kinetics used by Gillespie in the development of his SSA.
 
- <ol>
- <li>Bird</li>
- <li>McHale</li>
- <li>Parish</li>
- </ol>
 
 ## Features
 
@@ -26,7 +21,7 @@ using DelaySSAToolkit
 ````
 ## References
 [1]: Xiaodong Cai, "Exact stochastic simulation of coupled chemical reactions with delays", The Journal of Chemical Physics 126, 124108(2007).
-[https://aip.scitation.org/doi/10.1063/1.2710253](https://doi/10.1063/1.2710253).
+[https://doi/10.1063/1.2710253](https://aip.scitation.org/doi/10.1063/1.2710253).
 
 [2]: David F. Anderson, "A modified Next Reaction Method for simulating chemical systems with time dependent propensities and delays", The Journal of Chemical Physics 128, 109903(2008).
 [https://doi/10.1063/1.2799998](https://aip.scitation.org/doi/10.1063/1.2799998).
@@ -34,19 +29,19 @@ using DelaySSAToolkit
 
 # Algorithms
 
-  Consider a system consisting of ``N>=1`` chemical species,``{X_1, . . . , X_N}``, undergoing ``M>= 1`` chemical reactions through reaction channels ``{R_1,...,R_M}``, each of which is equipped with a propensity function (or intensity function in the mathematics literature),``a_k(X)``. The dynamic state of this chemical system can be described by the state vector ``X(t) =[X_1(t),...,X_N(t)]^T``, where ``X_n[t],n = 1,...,N,`` is the number of ``X_n`` molecules at time ``t``, and ``[·]^T`` denotes the transpose of the vector in the bracket.
+  Consider a system consisting of ``N≥1`` chemical species,``\{X_1, . . . , X_N\}``, undergoing ``M ≥ 1`` chemical reactions through reaction channels ``\{R_1,...,R_M\}``, each of which is equipped with a propensity function (or intensity function in the mathematics literature),``a_k(X)``. The dynamic state of this chemical system can be described by the state vector ``X(t) =[X_1(t),...,X_N(t)]^T``, where ``X_n[t],n = 1,...,N,`` is the number of ``X_n`` molecules at time ``t``, and ``[·]^T`` denotes the transpose of the vector in the bracket.
 
   Delays, ``\tau_k > 0``, in systems are between the initiation and completion of some, or all, of the reactions. Notice that the definition of ``\tau_k``  is not the next reaction time of the Next Reaction Method. We partition the reactions into three sets, those with no delays, denoted ``ND``, those that change the state of the system only upon completion, denoted ``CD``, and those that change the state of the system at both initiation and completion, denoted ``ICD``. The following assumption is based upon physical principles and serves as the base assumption for simulation methods of chemically reacting systems with delays:
 
-```maths
-\frac{n!}{k!(n - k)!} = \binom{n}{k}
-```
-
 ```math
-\frac{n!}{k!(n - k)!} = \binom{n}{k}
+``a_k(X(t)) \Delta t + \omicron (t)``  = the probability that reaction ``k``
+                                     takes place in a small time interval``[t, t + \Delta t)``
+```
+```math
+a_k(X(t)) \Delta t + \omicron (t)  = the probability that reaction k
+                                     takes place in a small time interval[t, t + \Delta t)
 ```
 
-This is the binomial coefficient.
 ``a_k(X(t)) \Delta t + \omicron (t) `` = the probability that reaction ``k``
 takes place in a small time interval``[t, t + \Delta t)``
 
@@ -153,10 +148,10 @@ step 5a in above pseudo code for The Rejection Method can approach 50%.Cai then 
 
 ## References
 [1]: Xiaodong Cai, "Exact stochastic simulation of coupled chemical reactions with delays", The Journal of Chemical Physics 126, 124108(2007).
-[https://aip.scitation.org/doi/10.1063/1.2710253](https://aip.scitation.org/doi/10.1063/1.2710253).
+[https://doi/10.1063/1.2710253](https://aip.scitation.org/doi/10.1063/1.2710253).
 
 [2]: David F. Anderson, "A modified Next Reaction Method for simulating chemical systems with time dependent propensities and delays", The Journal of Chemical Physics 128, 109903(2008).
-[https://aip.scitation.org/doi/10.1063/1.2710253](https://aip.scitation.org/doi/10.1063/1.2710253).
+[https://doi/10.1063/1.2799998](https://aip.scitation.org/doi/10.1063/1.2799998).
 
 
 # 练习page
