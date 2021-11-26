@@ -28,11 +28,11 @@
 ## Direct Method for systems with delays
 
 ## Next Reaction Method for systems with delays
-1. Initialize. Set the initial number of molecules of each species and set ``t = 0``. For each ``k ≤ \mathit{M}``, set ``Pk = 0`` and ``Tk = 0``, and for each delayed reaction channel set ``s_k = [\infty]``.
+1. Initialize. Set the initial number of molecules of each species and set ``t = 0``. For each ``k ≤ M``, set ``Pk = 0`` and ``Tk = 0``, and for each delayed reaction channel set ``s_k = [\infty]``.
 2. Calculate the propensity function, ``a_k``, for each reaction.
-3. Generate ``\mathit{M}`` independent, uniform``(0,1)`` random numbers, ``r_k``, and set ``\mathit{P_k} = ln(1/r_k)``.
-4. Set ``\Deltat_k = min_k{(\mathit{P_k} − \mathit{T_k})/a_k}``.
-5. Set ``\Delta = min_kk{\Deltat_k, s_k(1) − t}``.
+3. Generate ``M`` independent, uniform``(0,1)`` random numbers, ``r_k``, and set ``P_k = ln(1/r_k)``.
+4. Set ``\Deltat_k = min_k{(P_k − T_k)/a_k}``.
+5. Set ``\Delta = min_k{\Delta t_k, s_k(1) − t}``.
 6. Set ``t = t + \Delta``.
 7. If we chose the completion of the delayed reaction ``\mu``:
 • Update the system based upon the completion of the reaction ``\mu``.
