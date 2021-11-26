@@ -6,6 +6,12 @@
 
  &nbsp;&nbsp;&nbsp;  To solve this problem an exact SSA for chemical reaction systems with delays，Delay SSA was proposed, based upon the same fundamental premise of stochastic kinetics used by Gillespie in the development of his SSA.
 
+ <ol>
+ <li>Bird</li>
+ <li>McHale</li>
+ <li>Parish</li>
+ </ol>
+
 ## Features
 
 ## Installation
