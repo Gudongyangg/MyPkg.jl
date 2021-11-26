@@ -155,6 +155,80 @@ step 5a in above pseudo code for The Rejection Method can approach 50%. Cai then
 
 # Theory
 
+## Exact SSA For Coupled Chemical Reaction Without Delays
+  Consider a system consisting of ``N≥1`` chemical species,``\{X_1, . . . , X_N\}``, undergoing ``M ≥ 1`` chemical reactions through reaction channels ``\{R_1,...,R_M\}``, each of which is equipped with a propensity function (or intensity function in the mathematics literature),``a_k(X)``. The dynamic state of this chemical system can be described by the state vector ``X(t) =[X_1(t),...,X_N(t)]^T``, where ``X_n[t],n = 1,...,N,`` is the number of ``X_n`` molecules at time ``t``, and ``[·]^T`` denotes the transpose of the vector in the bracket.
+  Following Gillespie,we definea the dynamics of reaction ``R_m`` by a state-change vector ``\nu_m = [\nu_1m ,...,\nu_Nm]^T``, where ``\nu_nm`` gives the changes in the ``X_n`` molecular population produced by oneRmreaction, and a propensity function ``a_m(t)``together with the fundamental premise of stochastic chemical kinetics:
+```math
+a_m(t)dt=\mathrm{the\ probability, given}\ X(t)=x,
+```
+```math
+\mathrm{that\ one\ reaction\ }R_m \mathrm{will\ occur\ in\ the}
+```
+```math
+\mathrm{next\ infinitesimal\ time\ interval\ }[t,t+d_t].\tag{1}
+```
+  For a chemical system in a given state ``X(t)=x`` at time ``t``,assuming that all reactions occur instantly, Gillespie’s exact SSA answers the following two questions:(i) when will the next reaction occur? (ii) which reaction will occur? Specifically, Gillespie’s exact SSA simulates the following event in each step:
+```math
+\mathrm{E:no\ reaction\ occurs\ in\ the\ time\ interval\ }[t,t+\tau],
+```
+```math
+\mathrm{and\ a\ reaction\ }R_\mu \ \mathrm{occurs in the infinitesimal}
+```
+```math
+\mathrm{time\ interval\ }[t+\tau,t+\tau+d_\tau].\tag{2}
+```
+  Based upon the fundamental premise (1), Gillespie showed that that ``\tau`` and ``\mu``are two independent random variables and have the following probability density functions (PDFs), respectively:
+```math
+f_\tau(\tau)=a_0(t) exp(-a_0(t)\tau), \tau > 0,\tag{3}
+```
+and
+```math
+f_\mu(\mu)=a_\mu(t)/a_0(t), \mu = 1,...,M,\tag{4}
+```
+  where ``a_0(t)=\begin{matrix} \sum_{m=1}^M a_m(t) \end{matrix}``. According to the PDF(4), a realization of ``\mu`` can be generated from a standard uniform random variable ``u_1``, by taking ``\mu`` to be the integer for which ``\begin{matrix} \sum_{j=1}^\mu-1 a_j(t) \end{matrix} < u_1 a_0(t) ≤ \begin{matrix} \sum_{j=1}^\mu a_j(t) \end{matrix}``;based on the PDF(3), a realization of ``\tau``can be generated from another standard uniform random variable ``u_2`` as ``\tau=−ln(u_2)/a_0(t)``. Therefore,Gillespie’s exact SSA generates a realization of ``\mu`` and ``\tau`` in each step of simulation, and then updates the time and system state as ``t\leftarrow t+\tau`` and  ``x\leftarrow x+\nu_\mu``, respectively.
+
+## Exact SSA For Coupled Chemical Reaction With Delays
+### Direct method
+  As in the derivation of Gillespie’s exact SSA, we first need to find the probability of event(2), that is defined as ``P(\tau,\mu)d\tau``, where ``P(\tau,\mu)`` is the joint PDF of ``\tau`` and ``\mu``. Suppose that there are ``N_d`` ongoing reactions at timet, which will finish at ``t+T_1,...,t+T_N_d,`` respectively. Without loss of generality, we assume that ``T_1≤T_2≤...≤T_N_d``. Unlike in the reaction system without delays where the propensity functions remain unchanged in the time interval ``[t,t+\tau]``, the propensity functions here change at ``t+T_i,i=1,...,N_d``, due to delayed reactions. We need to take into account such changes in propensity functions when deriving  ``P(\tau,\mu)``.
+  As in the derivation of Gillespie’s exact SSA,``P(\tau,\mu)d\tau`` can be found from the fundamental premise(1) as
+```math
+P(\tau,\mu)d\tau=P_0(\tau) a_\mu(\tau,\mu)d\tau, \tag{5}
+```
+  where ``P_0(\tau)`` is the probability that no reaction will occur in the time interval [t,t+\tau], while ``a_\mu(t+\tau)d\tau``is the probability that a reaction ``R_\mu`` occurs in ``[t+\tau,t+\tau+d\tau]``. Defining ``T_0=0`` and ``T_{N_d+1}=\infty``, we can find ``P_0(\tau)``for ``\tau``that lies in different time intervals ``[T_i,Ti+1),i=0,...,N_d``. If ``\tau \in [T_i,T_i+1)``, we define the event ``E_j`` as the event that no reaction occurs in the time interval ``[t+T_j,t+T_j+1),j=0,...,j=i−1``, respectively,and the event  ``E_i``  as the event that no reaction occurs in the time interval ``[t+T_i,t+\tau)``. Then, we can express ``P_0(\tau)`` as
+```math
+P_0(\tau)=P(E_0,...,E_i)=P(E_0) \prod_{j=1}^i P(E_j丨E_0,...,E_j), \tag{6}
+```
+  From the derivation of Gillespie’s exact SSA,we know that
+``P(E0) = exp（−a_0(t)T_1)``,  ``P(E_j丨E_0,...,E_j-1) = exp(-a_0(t+T_j)T_1) × (T_{j+1}−T_j),j=0,...,i−1``, and ``P(E_i丨E_0,...,E_i-1) = exp(-a_0(t+T_i)(\tau-T_i))``. Notice that propensity functions change at ``t+T_j`` after a delayed reaction finishes, and we use ``a_0(t+T_j)`` to represent the new ``a_0``. The probability ``P_(\tau)`` is then given by
+```math
+P_0(\tau)=exp(-\begin{matrix} \sum_{j=0}^{i-1} a_0(t+T_j)(T_{j+1}-T_j) \end{matrix}-a_0(t+T_i)(\tau-T_i)),
+```
+```math
+\tau \in [T_i,T_i+1), i = 0,...,N_d, \tag{7}
+```
+  where we assume that the first term of the exponent is equal to zero when ``i= 0``. Since ``P_0(\tau)`` does not depend on individual propensity functions, as shown in Eq.(7), it is seen from Eq.(5) that ``\tau`` and ``\mu`` are independent random variables. Combining Eqs.(5) and (7) and noticing that ``a_\mu(t+\tau)=aa_\mu(t+T_i)`` for ``\tau \in [T_i,T_i+1)``, we obtain the PDF of ``\tau`` and ``\mu`` as follows:
+```math
+f_\tau(\tau)=a_0(t+T_i)exp(-\begin{matrix} \sum_{j=0}^{i-1} a_0(t+T_j)(T_{j+1}-T_j) \end{matrix}-a_0(t+T_i)(\tau-T_i)),
+```
+```math
+\tau \in [T_i,T_i+1), i = 0,...,N_d, \tag{8}
+```
+and
+```math
+f_\mu(\mu)=a_\mu(t+T_i)/a_0(t+T_i), \mu = 1,...,M,\tau \in [T_i,T_i+1), \tag{9}
+```
+It is not difficult to verify that ``\int_{0}^{\infty} f_\tau(\tau)\, dx = 1``. In simulation, ``\mu`` can be generated, from a standard uniform random variable
+``u_1``, by taking ``\mu`` to be the integer for which ``\begin{matrix} \sum_{j=1}^\mu-1 a_j(t+T_i) \end{matrix} < u_1 a_0(t+T_i) ≤ \begin{matrix} \sum_{j=1}^\mu a_j(t+T_i) \end{matrix}``,after ``\tau`` is generated to be in the
+time interval ``[T_i,T_{i+1})``.
+
+
+
+
+
+
+
+
+
 ## Rejection Method
 ## Direct Method
 ## Modified Next Reaction Method
