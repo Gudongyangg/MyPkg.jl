@@ -19,9 +19,9 @@
 
 ``\begin{matrix} \sum_{k=1}^\mu−1 a_k \end{matrix}<r_2a_0<\begin{matrix} \sum_{k=1}^\mu a_k \end{matrix}``
 
-(c) If ``\mu\inND``, update the number of each molecular species according to reaction ``\mu``.
-(d) If ``\mu\inCD``, store the information that at time ``t + \tau_\mu`` the system must be updated according to reaction ``\mu``.
-(e) If ``\mu\inICD``, update the system according to the initiation of ``\mu`` and store that at time ``t + \tau_\mu`` the system must be updated according to the completion of reaction ``\mu``.
+(c) If ``\mu\in ND``, update the number of each molecular species according to reaction ``\mu``.
+(d) If ``\mu\in CD``, store the information that at time ``t + \tau_\mu`` the system must be updated according to reaction ``\mu``.
+(e) If ``\mu\in ICD``, update the system according to the initiation of ``\mu`` and store that at time ``t + \tau_\mu`` the system must be updated according to the completion of reaction ``\mu``.
 (f) Set ``t = t + \Delta``
 (g) Return to step 2 or quit.
 
@@ -37,11 +37,11 @@
 7. If we chose the completion of the delayed reaction ``\mu``:
 • Update the system based upon the completion of the reaction ``\mu``.
 • Delete the first row of ``S_\mu``.
-8. Elseif reaction ``\mu`` initiated and ``\mu\inND``
+8. Elseif reaction ``\mu`` initiated and ``\mu\in ND``
 • Update the system according to reaction ``\mu``.
-9. Elseif reaction ``\mu`` initiated and ``\mu\inCD``
+9. Elseif reaction ``\mu`` initiated and ``\mu\in CD``
 • Update sµ by inserting ``t + \tau_\mu`` into ``s_\mu`` in the second to last position.
-10. Elseif reaction ``\mu`` initiated and ``\mu\inICD``
+10. Elseif reaction ``\mu`` initiated and ``\mu\in ICD``
 • Update the system based upon the initiation of reaction ``\mu``.
 • Update ``s_\mu`` by inserting ``t + \tau_\mu`` into ``s_\mu`` in the second to last position.
 11. For each k, set ``min_k{T_k} = min_k{T_k} + a_k\Delta``.
