@@ -9,21 +9,21 @@
 4. Generate an independent uniform(0,1) random number,``r_1``, and set ``\Delta = 1/a_0ln(1/r_1)``.
 
 5. If there is a delayed reaction set to finish in ``[t, t + \Delta)``
-  (a) Discard ``\Delta``.
-  (b) Updatetto be the time of the next delayed reaction,``\mu``.
-  (c) Updatexaccording to the stored reaction ``\mu``.
-  (d) Return to step 2 or quit.
+    - (a) Discard ``\Delta``.
+    - (b) Updatetto be the time of the next delayed reaction,``\mu``.
+    - (c) Updatexaccording to the stored reaction ``\mu``.
+    - (d) Return to step 2 or quit.
 6. Else
-(a) Generate an independent uniform``(0,1)`` random number ``r_2``.
-(b) Find ``\mu\in[1,...., m]`` such that
+    - (a) Generate an independent uniform``(0,1)`` random number ``r_2``.
+    - (b) Find ``\mu\in[1,...., m]`` such that
 
 ``\begin{matrix} \sum_{k=1}^\mu−1 a_k \end{matrix}<r_2a_0<\begin{matrix} \sum_{k=1}^\mu a_k \end{matrix}``
 
-(c) If ``\mu\in ND``, update the number of each molecular species according to reaction ``\mu``.
-(d) If ``\mu\in CD``, store the information that at time ``t + \tau_\mu`` the system must be updated according to reaction ``\mu``.
-(e) If ``\mu\in ICD``, update the system according to the initiation of ``\mu`` and store that at time ``t + \tau_\mu`` the system must be updated according to the completion of reaction ``\mu``.
-(f) Set ``t = t + \Delta``
-(g) Return to step 2 or quit.
+    - (c) If ``\mu\in ND``, update the number of each molecular species according to reaction ``\mu``.
+    - (d) If ``\mu\in CD``, store the information that at time ``t + \tau_\mu`` the system must be updated according to reaction ``\mu``.
+    - (e) If ``\mu\in ICD``, update the system according to the initiation of ``\mu`` and store that at time ``t + \tau_\mu`` the system must be updated according to the completion of reaction ``\mu``.
+    - (f) Set ``t = t + \Delta``
+    - (g) Return to step 2 or quit.
 
 ## Direct Method for systems with delays
 
