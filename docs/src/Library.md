@@ -12,10 +12,27 @@
     - (a) Discard ``\Delta``.
     - (b) Updatetto be the time of the next delayed reaction,``\mu``.
     - (c) Updatexaccording to the stored reaction ``\mu``.
-    - (d) Return to step 2 or quit.
+- (d) Return to step 2 or quit.
 6. Else
-    - (a) Generate an independent uniform``(0,1)`` random number ``r_2``.
-    - (b) Find ``\mu\in[1,...., m]`` such that
+- (a) Generate an independent uniform``(0,1)`` random number ``r_2``.
+- (b) Find ``\mu\in[1,...., m]`` such that
+
+\begin{enumerate}
+    \item  春花秋月何时了, 往事知多少? 小楼昨夜又东风, 故国不堪回首月明中。
+           雕栏玉砌应犹在, 只是朱颜改。问君能有几多愁?恰似一江春水向东流。
+   \item  春花秋月何时了, 往事知多少? 小楼昨夜又东风, 故国不堪回首月明中。
+    \begin{enumerate}
+        \item  雕栏玉砌应犹在, 只是朱颜改。问君能有几多愁? 恰似一江春水向东流。
+        \item  春花秋月何时了, 往事知多少? 小楼昨夜又东风, 故国不堪回首月明中。
+    \end{enumerate}
+   \item  雕栏玉砌应犹在, 只是朱颜改。问君能有几多愁?恰似一江春水向东流。
+\end{enumerate}
+
+\begin{itemize}
+\item This is the first item
+\item This is the second item
+\item This is the third item
+\end{itemize}
 
 ``\begin{center}\begin{matrix} \sum_{k=1}^\mu−1 a_k \end{matrix}<r_2a_0<\begin{matrix} \sum_{k=1}^\mu a_k \end{matrix}\end{center}``
 
