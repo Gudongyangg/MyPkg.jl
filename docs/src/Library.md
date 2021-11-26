@@ -42,6 +42,12 @@ a_k(X(t)) \Delta t + \omicron (t) = \mathrm{the\ probability\ that\  reaction}\ 
 ```math
 \mathrm{takes\ place\ in\ a\ small\ time\ interval}\ [t, t + \Delta t)
 ```
+```math
+\begin{aligned}
+a_k(X(t)) \Delta t + \omicron (t) &= \mathrm{the\ probability\ that\  reaction}\ k
+& \mathrm{takes\ place\ in\ a\ small\ time\ interval}\ [t, t + \Delta t)
+\end{aligned}
+```
 where ``\omicron (\Delta t)/\Delta t \rightarrow 0``  as  ``\Delta t \rightarrow 0``.
 
   Thus, no matter whether a reaction is contained in ``ND``, ``CD``, or ``ICD``, the number ofinitiationsat absolute timetwill be given by
