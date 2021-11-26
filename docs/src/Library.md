@@ -49,9 +49,7 @@ number of initiations of reaction ``k`` by time ``t`` = ``Y_k(\int_{0}^{t} a_k(X
 
 where the ``Y_k`` are independent, unit rate Poisson processes.
 
-Because the assumption above, and hence equation ``t``, only pertains to the initiation
-times of reactions we must handle the completions separately. There are three different
-types of reactions, so there are three cases that need consideration.
+*  Because the assumption above, and hence equation ``t``, only pertains to the initiation times of reactions we must handle the completions separately. There are three different types of reactions, so there are three cases that need consideration.
 
 **Case 1**: If reaction ``k`` is in ``ND`` and initiates at time ``t``, then the system is updated by losing the reactant species and gaining the product species at the time of initiation.
 
@@ -62,7 +60,7 @@ types of reactions, so there are three cases that need consideration.
 
 ## The Rejection Method
 
-Simulation methods for systems with delays need to calculate when reactions initiate and store when they complete. However, because of the delayed reactions, the propensity functions can change between initiation times. Bratsun et al. and Barrio et al. used an algorithm for computing the initiation times that is exactly like the original Gillespie Algorithm except that if there is a stored delayed reaction set to finish within a computed timestep, then the computed timestep is discarded, and the system is updated to incorporate the stored delayed reaction. The algorithm then attempts another step starting at its new state. We will refer to this algorithm as the Rejection Method.
+*  Simulation methods for systems with delays need to calculate when reactions initiate and store when they complete. However, because of the delayed reactions, the propensity functions can change between initiation times. Bratsun et al. and Barrio et al. used an algorithm for computing the initiation times that is exactly like the original Gillespie Algorithm except that if there is a stored delayed reaction set to finish within a computed timestep, then the computed timestep is discarded, and the system is updated to incorporate the stored delayed reaction. The algorithm then attempts another step starting at its new state. We will refer to this algorithm as the Rejection Method.
 
 
 ### Pseudo code
