@@ -17,7 +17,7 @@
     - (a) Generate an independent uniform``(0,1)`` random number ``r_2``.
     - (b) Find ``\mu\in[1,...., m]`` such that
 
-``\begin{matrix} \sum_{k=1}^\mu−1 a_k \end{matrix}<r_2a_0<\begin{matrix} \sum_{k=1}^\mu a_k \end{matrix}``
+``\begin{center}\begin{matrix} \sum_{k=1}^\mu−1 a_k \end{matrix}<r_2a_0<\begin{matrix} \sum_{k=1}^\mu a_k \end{matrix}\end{center}``
 
     - (c) If ``\mu\in ND``, update the number of each molecular species according to reaction ``\mu``.
     - (d) If ``\mu\in CD``, store the information that at time ``t + \tau_\mu`` the system must be updated according to reaction ``\mu``.
