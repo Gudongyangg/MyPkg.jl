@@ -45,7 +45,7 @@ a_k(X(t)) \Delta t + \omicron (t) = \mathrm{the\ probability\ that\  reaction}\ 
 ```math
 \begin{aligned}
 a_k(X(t)) \Delta t + \omicron (t) &= \mathrm{the\ probability\ that\  reaction}\ k
-& \mathrm{takes\ place\ in\ a\ small\ time\ interval}\ [t, t + \Delta t)
+&= \mathrm{takes\ place\ in\ a\ small\ time\ interval}\ [t, t + \Delta t)
 \end{aligned}
 ```
 where ``\omicron (\Delta t)/\Delta t \rightarrow 0``  as  ``\Delta t \rightarrow 0``.
