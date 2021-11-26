@@ -37,6 +37,11 @@ a_k(X(t)) \Delta t + \omicron (t) = the probability that reaction k
 a_k(X(t)) \Delta t + \omicron (t) = the probability that reaction k
                                     takes place in a small time interval
 ``
+```@docs raw"""
+a_k(X(t)) \Delta t + \omicron (t) = the probability that reaction k
+                                    takes place in a small time interval
+"""
+```
 where ``\omicron (\Delta t)/\Delta t \rightarrow 0 as \Delta t \rightarrow 0``. Based upon the assumption, the time until the next reaction, ``\Delta``, is exponentially distributed with parameter  ``a_0(X(t)) = \begin{matrix} \sum_{k=0}^M a_k(X(t)) \end{matrix}``and the
 probability that the next reaction is thekth is ``a_k(X(t))/a_0(X(t))``.
 
