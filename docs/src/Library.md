@@ -28,10 +28,10 @@ using DelaySSAToolkit
 
 # Algorithms
 ## The Rejection Method
-Consider a system consisting of ``N>=1`` chemical species,``{X_1, . . . , X_N}``, undergoing ``M>= 1`` chemical reactions through reaction channels ``{R_1,...,R_M}``, each of which is equipped with a propensity function (or intensity function in the mathematics literature),``a_k(X)``. The dynamic state of this chemical system can be described by the state vector ``X(t) =[X_1(t),...,X_N(t)]T``, where ``X_n[t],n = 1,...,N,`` is the number of ``X_n`` molecules at time ``t``, and ``[·]^T`` denotes the transpose of the vector in the bracket. The following assumption, sometimes called the fundamental premise of chemical kinetics, is based upon physical principles and serves as the base assumption for simulation methods of chemically reacting systems:
-``$a_k(X(t)) \Delta t + \omicron (t) = the probability that reaction k
-                                      takes place in a small time interval
-                                      $``
+Consider a system consisting of ``N>=1`` chemical species,``{X_1, . . . , X_N}``, undergoing ``M>= 1`` chemical reactions through reaction channels ``{R_1,...,R_M}``, each of which is equipped with a propensity function (or intensity function in the mathematics literature),``a_k(X)``. The dynamic state of this chemical system can be described by the state vector ``X(t) =[X_1(t),...,X_N(t)]^T``, where ``X_n[t],n = 1,...,N,`` is the number of ``X_n`` molecules at time ``t``, and ``[·]^T`` denotes the transpose of the vector in the bracket. The following assumption, sometimes called the fundamental premise of chemical kinetics, is based upon physical principles and serves as the base assumption for simulation methods of chemically reacting systems:
+```math a_k(X(t)) \Delta t + \omicron (t) = the probability that reaction k
+                                \n          takes place in a small time interval
+```
 where ``\omicron (\Delta t)/\Delta t \rightarrow 0 as \Delta t \rightarrow 0``. Based upon the assumption, the time until the next reaction, ``\Delta``, is exponentially distributed with parameter  ``a_0(X(t)) = \begin{matrix} \sum_{k=0}^M a_k(X(t)) \end{matrix}``and the
 probability that the next reaction is thekth is ``a_k(X(t))/a_0(X(t))``.
 
@@ -97,6 +97,7 @@ probability that the next reaction is thekth is ``a_k(X(t))/a_0(X(t))``.
 ## References
 [1]: Xiaodong Cai, "Exact stochastic simulation of coupled chemical reactions with delays", The Journal of Chemical Physics 126, 124108(2007).
 [https://aip.scitation.org/doi/10.1063/1.2710253](https://aip.scitation.org/doi/10.1063/1.2710253).
+
 [2]: David F. Anderson, "A modified Next Reaction Method for simulating chemical systems with time dependent propensities and delays", The Journal of Chemical Physics 128, 109903(2008).
 [https://aip.scitation.org/doi/10.1063/1.2710253](https://aip.scitation.org/doi/10.1063/1.2710253).
 
