@@ -34,22 +34,20 @@ using DelaySSAToolkit
   Delays, ``\tau_k > 0``, in systems are between the initiation and completion of some, or all, of the reactions. Notice that the definition of ``\tau_k``  is not the next reaction time of the Next Reaction Method. We partition the reactions into three sets, those with no delays, denoted ``ND``, those that change the state of the system only upon completion, denoted ``CD``, and those that change the state of the system at both initiation and completion, denoted ``ICD``. The following assumption is based upon physical principles and serves as the base assumption for simulation methods of chemically reacting systems with delays:
 
 ```math
-``a_k(X(t)) \Delta t + \omicron (t)``  = the probability that reaction ``k``
-                                     takes place in a small time interval``[t, t + \Delta t)``
+a_k(X(t)) \Delta t + \omicron (t)  = \mathrm{the probability that reaction} k
+\mathrm{takes place in a small time interval}[t, t + \Delta t)
 ```
 ```math
-a_k(X(t)) \Delta t + \omicron (t)  = the probability that reaction k
-                                     takes place in a small time interval[t, t + \Delta t)
+\begin{aligned}
+a_k(X(t)) \Delta t + \omicron (t) &= \mathrm{the probability that reaction} k
+\mathrm{takes place in a small time interval}[t, t + \Delta t)
+\end{aligned}
 ```
-
-``a_k(X(t)) \Delta t + \omicron (t) `` = the probability that reaction ``k``
-takes place in a small time interval``[t, t + \Delta t)``
-
 where ``\omicron (\Delta t)/\Delta t \rightarrow 0``  as  ``\Delta t \rightarrow 0``.
 
   Thus, no matter whether a reaction is contained in ``ND``, ``CD``, or ``ICD``, the number ofinitiationsat absolute timetwill be given by
 ```math
-number of initiations of reaction ``k`` by time ``t`` = ``Y_k(\int_{0}^{t} a_k(X(s))\, \mathrm{d}s)``
+\mathrm{number of initiations of reaction} k \mathrm{by time} t = Y_k(\int_{0}^{t} a_k(X(s))\, \mathrm{d}s)
 ```
 where the ``Y_k`` are independent, unit rate Poisson processes.
 
@@ -64,7 +62,7 @@ where the ``Y_k`` are independent, unit rate Poisson processes.
 
 ## The Rejection Method
 
-  Simulation methods for systems with delays need to calculate when reactions initiate and store when they complete. However, because of the delayed reactions, the propensity functions can change between initiation times. Bratsun et al. and Barrio et al. used an algorithm for computing the initiation times that is exactly like the original Gillespie Algorithm except that if there is a stored delayed reaction set to finish within a computed timestep, then the computed timestep is discarded, and the system is updated to incorporate the stored delayed reaction. The algorithm then attempts another step starting at its new state. We will refer to this algorithm as the Rejection Method.
+  Simulation methods for systems with delays need to calculate when reactions initiate and store when they complete. However, because of the delayed reactions, the propensity functions can change between initiation times. Bratsun et al. and Barrio et al. used an algorithm for computing the initiation times that is exactly like the original Gillespie Algorithm except that if there is a stored delayed reaction set to finish within a computed timestep, then the computed timestep is discarded, and the system is updated to incorporate the stored delayed reaction. The algorithm then attempts another step starting at its new state. This algorithm is called Rejection Method.
 
 
 ### Pseudo code
