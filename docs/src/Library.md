@@ -56,25 +56,42 @@ probability that the next reaction is thekth is ``a_k(X(t))/a_0(X(t))``.
 ## Direct Method for systems with delays
 
 ## Next Reaction Method for systems with delays
-1. Initialize. Set the initial number of molecules of each species and set ``t = 0``. For each ``k ≤ M``, set ``Pk = 0`` and ``Tk = 0``, and for each delayed reaction channel set ``s_k = [\infty]``.
+
+
+### Pseudo code
+1. Initialize. Set the initial number of molecules of each species and set ``t = 0``. For each ``k ≤ M``, set ``P_k = 0`` and ``T_k = 0``, and for each delayed reaction channel set ``s_k = [\infty]``.
+
 2. Calculate the propensity function, ``a_k``, for each reaction.
+
 3. Generate ``M`` independent, uniform``(0,1)`` random numbers, ``r_k``, and set ``P_k = ln(1/r_k)``.
+
 4. Set ``\Delta t_k = min_k{(P_k − T_k)/a_k}``.
+
 5. Set ``\Delta = min_k{\Delta t_k, s_k(1) − t}``.
+
 6. Set ``t = t + \Delta``.
+
 7. If we chose the completion of the delayed reaction ``\mu``:
-• Update the system based upon the completion of the reaction ``\mu``.
-• Delete the first row of ``S_\mu``.
+
+    - Update the system based upon the completion of the reaction ``\mu``.
+    - Delete the first row of ``S_\mu``.
+
 8. Elseif reaction ``\mu`` initiated and ``\mu\in ND``
-• Update the system according to reaction ``\mu``.
+    - Update the system according to reaction ``\mu``.
+
 9. Elseif reaction ``\mu`` initiated and ``\mu\in CD``
-• Update sµ by inserting ``t + \tau_\mu`` into ``s_\mu`` in the second to last position.
+    - Update sµ by inserting ``t + \tau_\mu`` into ``s_\mu`` in the second to last position.
+
 10. Elseif reaction ``\mu`` initiated and ``\mu\in ICD``
-• Update the system based upon the initiation of reaction ``\mu``.
-• Update ``s_\mu`` by inserting ``t + \tau_\mu`` into ``s_\mu`` in the second to last position.
+    - Update the system based upon the initiation of reaction ``\mu``.
+    - Update ``s_\mu`` by inserting ``t + \tau_\mu`` into ``s_\mu`` in the second to last position.
+
 11. For each k, set ``min_k{T_k} = min_k{T_k} + a_k\Delta``.
+
 12. If reaction ``\mu`` initiated, let ``r`` be uniform``(0,1)`` and set ``P_µ = P_µ + ln(1/r)``.
+
 13. Recalculate the propensity functions, ``a_k``.
+
 14. Return to step 4 or quit.
 
 ## References
