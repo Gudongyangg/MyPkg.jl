@@ -4,7 +4,7 @@
 
 &nbsp;&nbsp;Neglecting delays in certain cases may still produce acceptable results, but in some delay-sensitive cases, such as delay-induced oscillators,neglecting delays in simulation will lead to erroneous conclusions.
 
-  To solve this problem an exact SSA for chemical reaction systems with delays，Delay SSA was proposed, based upon the same fundamental premise of stochastic kinetics used by Gillespie in the development of his SSA.
+ &nbsp;&nbsp;&nbsp;To solve this problem an exact SSA for chemical reaction systems with delays，Delay SSA was proposed, based upon the same fundamental premise of stochastic kinetics used by Gillespie in the development of his SSA.
 
 ## Features
 
