@@ -37,12 +37,10 @@ using DelaySSAToolkit
   Delays, ``\tau_k > 0``, in systems are between the initiation and completion of some, or all, of the reactions. Notice that the definition of ``\tau_k``  is not the next reaction time of the Next Reaction Method. We partition the reactions into three sets, those with no delays, denoted ``ND``, those that change the state of the system only upon completion, denoted ``CD``, and those that change the state of the system at both initiation and completion, denoted ``ICD``. The following assumption is based upon physical principles and serves as the base assumption for simulation methods of chemically reacting systems with delays:
 
 ```math
-\begin{aligned}
 a_k(X(t)) \Delta t + \omicron (t) &= \mathrm{the\ probability\ that\  reaction}\ k
 ```
 ```math
 \mathrm{takes\ place\ in\ a\ small\ time\ interval}\ [t, t + \Delta t)
-\end{aligned}
 ```
 where ``\omicron (\Delta t)/\Delta t \rightarrow 0``  as  ``\Delta t \rightarrow 0``.
 
