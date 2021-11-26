@@ -8,6 +8,9 @@
 
 
 ## Features
+- 1
+- 2
+- 3
 
 ## Installation
 Install with Pkg, just like any other registered Julia package:
@@ -34,20 +37,18 @@ using DelaySSAToolkit
   Delays, ``\tau_k > 0``, in systems are between the initiation and completion of some, or all, of the reactions. Notice that the definition of ``\tau_k``  is not the next reaction time of the Next Reaction Method. We partition the reactions into three sets, those with no delays, denoted ``ND``, those that change the state of the system only upon completion, denoted ``CD``, and those that change the state of the system at both initiation and completion, denoted ``ICD``. The following assumption is based upon physical principles and serves as the base assumption for simulation methods of chemically reacting systems with delays:
 
 ```math
-a_k(X(t)) \Delta t + \omicron (t)  = \mathrm{the probability that reaction} k
-\mathrm{takes place in a small time interval}[t, t + \Delta t)
+\begin{aligned}
+a_k(X(t)) \Delta t + \omicron (t) &= \mathrm{the\ probability\ that\  reaction}\ k
 ```
 ```math
-\begin{aligned}
-a_k(X(t)) \Delta t + \omicron (t) &= \mathrm{the probability that reaction} k
-\mathrm{takes place in a small time interval}[t, t + \Delta t)
+\mathrm{takes\ place\ in\ a\ small\ time\ interval}\ [t, t + \Delta t)
 \end{aligned}
 ```
 where ``\omicron (\Delta t)/\Delta t \rightarrow 0``  as  ``\Delta t \rightarrow 0``.
 
   Thus, no matter whether a reaction is contained in ``ND``, ``CD``, or ``ICD``, the number ofinitiationsat absolute timetwill be given by
 ```math
-\mathrm{number of initiations of reaction} k \mathrm{by time} t = Y_k(\int_{0}^{t} a_k(X(s))\, \mathrm{d}s)
+\mathrm{number\ of\ initiations\ of\ reaction}\ k\ \mathrm{by time} t = Y_k(\int_{0}^{t} a_k(X(s))\, \mathrm{d}s)
 ```
 where the ``Y_k`` are independent, unit rate Poisson processes.
 
@@ -147,6 +148,20 @@ step 5a in above pseudo code for The Rejection Method can approach 50%. Cai then
 
 [2]: David F. Anderson, "A modified Next Reaction Method for simulating chemical systems with time dependent propensities and delays", The Journal of Chemical Physics 128, 109903(2008).
 [https://doi/10.1063/1.2799998](https://aip.scitation.org/doi/10.1063/1.2799998).
+
+# Theory
+
+## Rejection Method
+## Direct Method
+## Modified Next Reaction Method
+
+# Tutorials
+
+## Delay Jump Problems
+
+## Defining a Delay Jump Problem
+
+# API
 
 
 # 练习page
