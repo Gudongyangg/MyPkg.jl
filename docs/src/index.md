@@ -3,22 +3,25 @@ CurrentModule = MyPkg
 ```
 # DelaySSAToolkit
 
-  Gillespie developed a stochastic simulation algorithm (SSA)[J. Phys. Chem.81, 2350(1977)] to simulate stochastic dynamics of chemically reacting systems.In this algorithm, it is assumed that all reactions occur instantly.Since Gillespie’s exact SSA was developed for chemical reaction systems without delay, it is apparent that Gillespie’s SSA cannot produce exact simulation results for chemical reaction systems with delays.
+  Gillespie developed a stochastic simulation algorithm (SSA)[1] to simulate stochastic dynamics of chemically reacting systems. In this algorithm, it is assumed that all reactions occur instantly.Since Gillespie’s exact SSA was developed for chemical reaction systems without delay, it is apparent that Gillespie’s SSA cannot produce exact simulation results for chemical reaction systems with delays.
 
-  While this is true in many cases, it is also possible that some chemical reactions, such as gene transcription and translation in living cells, take certain time to finish after they are initiated.Neglecting delays in certain cases may still produce acceptable results, but in some delay-sensitive cases, such as delay-induced oscillators,neglecting delays in simulation will lead to erroneous conclusions.To solve this problem an exact SSA for chemical reaction systems with delays，Delay SSA was proposed, based upon the same fundamental premise of stochastic kinetics used by Gillespie in the development of his SSA.
+  While this is true in many cases, it is also possible that some chemical reactions, such as gene transcription and translation in living cells, take certain time to finish after they are initiated. Neglecting delays in certain cases may still produce acceptable results, but in some delay-sensitive cases, such as delay-induced oscillators,neglecting delays in simulation will lead to erroneous conclusions.To solve this problem an exact SSA for chemical reaction systems with delays，Delay SSA[2,3] was proposed, based upon the same fundamental premise of stochastic kinetics used by Gillespie in the development of his SSA.
 
-  DelaySSAToolkit.jl is a tool .....
+  DelaySSAToolkit.jl is a tool ..... contains three algorithms of delay SSA, namely The Rejection Method, Direct Method and Next Reaction Method. You can call any algorithm to ...
 
 
 ## Features
 - 1
+    - 1.1
+    - 1.2
+    - 1.3
 - 2
 - 3
 
 ## Installation
 Install with Pkg, just like any other registered Julia package:
 ````
-pkg> add PkgTemplates  # Press ']' to enter the Pkg REPL mode.
+pkg> add DelaySSAToolkit  # Press ']' to enter the Pkg REPL mode.
 ````
 You can use it by
 ````
@@ -27,10 +30,13 @@ using DelaySSAToolkit
 ````
 
 ## References
-[1]: Xiaodong Cai, "Exact stochastic simulation of coupled chemical reactions with delays", The Journal of Chemical Physics 126, 124108(2007).
+[1]: Daniel T. Gillespie "Exact stochastic simulation of coupled chemical reactions", J. Phys. Chem. 1977, 81, 25, 2340–2361.
+[https://doi.org/10.1021/j100540a008](https://pubs.acs.org/doi/10.1021/j100540a008)
+
+[2]: Xiaodong Cai, "Exact stochastic simulation of coupled chemical reactions with delays", The Journal of Chemical Physics 126, 124108(2007).
 [https://doi/10.1063/1.2710253](https://aip.scitation.org/doi/10.1063/1.2710253).
 
-[2]: David F. Anderson, "A modified Next Reaction Method for simulating chemical systems with time dependent propensities and delays", The Journal of Chemical Physics 128, 109903(2008).
+[3]: David F. Anderson, "A modified Next Reaction Method for simulating chemical systems with time dependent propensities and delays", The Journal of Chemical Physics 128, 109903(2008).
 [https://doi/10.1063/1.2799998](https://aip.scitation.org/doi/10.1063/1.2799998).
 
 
