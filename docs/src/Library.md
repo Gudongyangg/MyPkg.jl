@@ -177,17 +177,23 @@ a_m(t)dt=\mathrm{the\ probability, given}\ \mathbf{X}(t)=\mathbf{x}, \\
 \mathrm{and\ a\ reaction\ }R_\mu \ \mathrm{occurs in the infinitesimal}
 ```
 ```math
-\mathrm{time\ interval\ }[t+\tau,t+\tau+d_\tau].\tag{2}
+\begin{equation}
+\mathrm{time\ interval\ }[t+\tau,t+\tau+d_\tau].
+\end{equation}
 ```
   Based upon the fundamental premise (1), Gillespie showed that that ``\tau`` and ``\mu``are two independent random variables and have the following probability density functions (PDFs), respectively:
 ```math
-f_\tau(\tau)=a_0(t) exp(-a_0(t)\tau), \tau > 0,\tag{3}
+\begin{equation}
+f_\tau(\tau)=a_0(t) \exp(-a_0(t)\tau), \tau > 0,
+\end{equation}
 ```
 and
 ```math
-f_\mu(\mu)=a_\mu(t)/a_0(t), \mu = 1,...,M,\tag{4}
+\begin{equation}
+f_\mu(\mu)=a_\mu(t)/a_0(t), \mu = 1,...,M,
+\end{equation}
 ```
-  where ``a_0(t)=\begin{matrix} \sum_{m=1}^M a_m(t) \end{matrix}``. According to the PDF(4), a realization of ``\mu`` can be generated from a standard uniform random variable ``u_1``, by taking ``\mu`` to be the integer for which ``\begin{matrix} \sum_{j=1}^{\mu-1} a_j(t) \end{matrix} < u_1 a_0(t) ≤ \begin{matrix} \sum_{j=1}^\mu a_j(t) \end{matrix}``;based on the PDF (3), a realization of ``\tau``can be generated from another standard uniform random variable ``u_2`` as ``\tau=−ln(u_2)/a_0(t)``. Therefore, Gillespie’s exact SSA generates a realization of ``\mu`` and ``\tau`` in each step of simulation, and then updates the time and system state as ``t\leftarrow t+\tau`` and  ``x\leftarrow x+\nu_\mu``, respectively.
+where ``a_0(t)=\begin{matrix} \sum_{m=1}^M a_m(t) \end{matrix}``. According to the PDF(4), a realization of ``\mu`` can be generated from a standard uniform random variable ``u_1``, by taking ``\mu`` to be the integer for which ``\begin{matrix} \sum_{j=1}^{\mu-1} a_j(t) \end{matrix} < u_1 a_0(t) ≤ \begin{matrix} \sum_{j=1}^\mu a_j(t) \end{matrix}``;based on the PDF (3), a realization of ``\tau``can be generated from another standard uniform random variable ``u_2`` as ``\tau=−ln(u_2)/a_0(t)``. Therefore, Gillespie’s exact SSA generates a realization of ``\mu`` and ``\tau`` in each step of simulation, and then updates the time and system state as ``t\leftarrow t+\tau`` and  ``\mathbf{x} \leftarrow \mathbf{x}+ \mathbf{\nu_\mu}``, respectively.
 
 ## Exact SSA For Coupled Chemical Reaction With Delays
 ### Direct method
