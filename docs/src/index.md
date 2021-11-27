@@ -58,7 +58,7 @@ where ``\omicron (\Delta t)/\Delta t \rightarrow 0``  as  ``\Delta t \rightarrow
 
   Thus, no matter whether a reaction is contained in ``ND``, ``CD``, or ``ICD``, the number ofinitiationsat absolute timetwill be given by
 ```math
-\mathrm{number\ of\ initiations\ of\ reaction}\ k\ \mathrm{by time} t = Y_k(\int_{0}^{t} a_k(X(s))\, \mathrm{d}s)
+\mathrm{number\ of\ initiations\ of\ reaction}\ k\mathrm{\ by time} t = Y_k(\int_{0}^{t} a_k(X(s))\, \mathrm{d}s)
 ```
 where the ``Y_k`` are independent, unit rate Poisson processes.
 
@@ -73,17 +73,17 @@ where the ``Y_k`` are independent, unit rate Poisson processes.
 
 ## The Rejection Method
 
-  Simulation methods for systems with delays need to calculate when reactions initiate and store when they complete. However, because of the delayed reactions, the propensity functions can change between initiation times. Bratsun et al. and Barrio et al. used an algorithm for computing the initiation times that is exactly like the original Gillespie Algorithm except that if there is a stored delayed reaction set to finish within a computed timestep, then the computed timestep is discarded, and the system is updated to incorporate the stored delayed reaction. The algorithm then attempts another step starting at its new state. This algorithm is called Rejection Method.
+  Simulation methods for systems with delays need to calculate when reactions initiate and store when they complete. However, because of the delayed reactions, the propensity functions can change between initiation times. Bratsun et al.[1] and Barrio et al.[2] used an algorithm for computing the initiation times that is exactly like the original Gillespie Algorithm except that if there is a stored delayed reaction set to finish within a computed timestep, then the computed timestep is discarded, and the system is updated to incorporate the stored delayed reaction. The algorithm then attempts another step starting at its new state. This algorithm is called Rejection Method[3].
 
 
 ### Pseudo code
 1. Initialize. Set the initial number of molecules of each species and set ``t = 0``.
 
-2. Calculate the propensity function,``a_k``, for each reaction.
+2. Calculate the propensity function, ``a_k``, for each reaction.
 
 3. Set ``a_0 = \begin{matrix} \sum_{k=1}^M a_k \end{matrix}``.
 
-4. Generate an independent uniform(0,1) random number,``r_1``, and set ``\Delta = 1/a_0ln(1/r_1)``.
+4. Generate an independent uniform``(0,1)`` random number,``r_1``, and set ``\Delta = 1/a_0ln(1/r_1)``.
 
 5. If there is a delayed reaction set to finish in ``[t, t + \Delta)``
     - (a) Discard ``\Delta``.
@@ -93,16 +93,25 @@ where the ``Y_k`` are independent, unit rate Poisson processes.
 6. Else
     - (a) Generate an independent uniform``(0,1)`` random number ``r_2``.
     - (b) Find ``\mu\in[1,...., m]`` such that
+    ```math
+    \begin{matrix} \sum_{k=1}^{\mu-1} a_k(t) \end{matrix} < r_2 a_0 < \begin{matrix} \sum_{k=1}^\mu a_k(t) \end{matrix}
+    ```
+    - (c) If ``\mu\in ND``, update the number of each molecular species according to reaction ``\mu``.
+    - (d) If ``\mu\in CD``, store the information that at time ``t+\tau_\mu`` the system must be updated according to reaction ``\mu``.
+    - (e) If ``\mu\in ICD``, update the system according to the initiation of ``\mu`` and store that at time ``t+\tau_\mu`` the system must be updated according to the completion of reaction ``\mu``.
+    - (f) Set ``t = t +\Delta``
+    - (g) Return to step 2 or quit.
+
 
 ## Direct Method for systems with delays
   The number of discarded ``\Delta ’s`` will be approximately equal to the number of delayed reactions that initiate. This follows because, other than the stored completions at the time the script terminates, every delayed completion will cause one computed ``\Delta`` to be discarded.
 
   The percentage of random numbers generated in step 4 and discarded in
-step 5a in above pseudo code for The Rejection Method can approach 50%. Cai then develops an algorithm, called the Direct Method for systems with delays, in which no random variables are discarded.
+step 5a in above pseudo code for The Rejection Method can approach 50%. Cai[3] then develops an algorithm, called the Direct Method for systems with delays, in which no random variables are discarded.
 
   The principle of Direct Method is the same as that of the original Gillespie Algorithm and the Rejection Method above: use one random variable to calculate when the next reaction initiates and use another random variable to calculate which reaction occurs at that future time. However, Direct Method updates the state of the system and propensity functions due to stored delayed reactions during the search for the next initiation time. In this way he ensures that no random variables are discarded as in the Rejection Method.
 
-  Suppose that at time ``t`` there are ongoing delayed reactions set to complete at times ``t + T_1, t + T_2, . . . , t + T_d``. Define ``T_0 = 0`` and ``T_d + 1 = \infty``.
+  Suppose that at time ``t`` there are ongoing delayed reactions set to complete at times ``t + T_1, t + T_2, . . . , t + T_d``. Define ``T_0 = 0`` and ``T_{d+1} = \infty``.
 
 ### Pseudo code
 
@@ -113,20 +122,20 @@ step 5a in above pseudo code for The Rejection Method can approach 50%. Cai then
 
   Because the initiations are still given by the firing times of independent Poisson processes. Therefore, if ``T_k`` is the current internal time of ``Y_k``, ``P_k`` the first internal time after ``T_k`` at which ``Y_k`` fires, and the propensity function for the ``k``th reaction channel is given by ``a_k``, then the time until the next initiation of reaction ``k``(assuming no other reactions initiate or complete) is still given by ``\Delta t_k= (P_k−T_k)/a_k``. The only change to the algorithm will be in keeping track and storing the delayed completions. To each delayed reaction channel we therefore assign a vector, ``s_k``, that stores the completion times of that reaction in ascending order. Thus, the time until there is a change in the state of the system, be it an initiation or a completion, will be given by:
 ```math
-\Delta = min_k\{\Delta t_k, s_k(1) − t\}
+\Delta = \min\{\Delta t_k, s_k(1) − t\}
 ```
-  where ``t`` is the current time of the system. These ideas form the heart of our Next Reaction Method for systems with delays.
+  where ``t`` is the current time of the system. These ideas form the heart of our Next Reaction Method[4] for systems with delays.
 
 ### Pseudo code
 1. Initialize. Set the initial number of molecules of each species and set ``t = 0``. For each ``k ≤ M``, set ``P_k = 0`` and ``T_k = 0``, and for each delayed reaction channel set ``s_k = [\infty]``.
 
 2. Calculate the propensity function, ``a_k``, for each reaction.
 
-3. Generate ``M`` independent, uniform``(0,1)`` random numbers, ``r_k``, and set ``P_k = ln(1/r_k)``.
+3. Generate ``M`` independent, uniform``(0,1)`` random numbers, ``r_k``, and set ``P_k = \ln(1/r_k)``.
 
-4. Set ``\Delta t_k = min_k\{(P_k − T_k)/a_k\}``.
+4. Set ``\Delta t_k = (P_k − T_k)/a_k\``.
 
-5. Set ``\Delta = min_k\{\Delta t_k, s_k(1) − t\}``.
+5. Set ``\Delta = \min_k\{\Delta t_k, s_k(1) − t\}``.
 
 6. Set ``t = t + \Delta``.
 
@@ -144,20 +153,29 @@ step 5a in above pseudo code for The Rejection Method can approach 50%. Cai then
     - Update the system based upon the initiation of reaction ``\mu``.
     - Update ``s_\mu`` by inserting ``t + \tau_\mu`` into ``s_\mu`` in the second to last position.
 
-11. For each k, set ``min_k\{T_k\} = min_k\{T_k\} + a_k\Delta``.
+11. For each k, set ``T_k = T_k + a_k \Delta``.
 
-12. If reaction ``\mu`` initiated, let ``r`` be uniform``(0,1)`` and set ``P_µ = P_µ + ln(1/r)``.
+12. If reaction ``\mu`` initiated, let ``r`` be uniform``(0,1)`` and set ``P_µ = P_µ + \ln(1/r)``.
 
 13. Recalculate the propensity functions, ``a_k``.
 
 14. Return to step 4 or quit.
 
 ## References
-[1]: Xiaodong Cai, "Exact stochastic simulation of coupled chemical reactions with delays", The Journal of Chemical Physics 126, 124108(2007).
+[1]: Dmitri A. Bratsun, Dmitri N. Volfson, Jeff Hasty, and Lev S. Tsimring "Non-Markovian processes in gene regulation (Keynote Address)", Proc. SPIE 5845, Noise in Complex Systems and Stochastic Dynamics III, (23 May 2005);
+[https://doi.org/10.1117/12.609707](https://www.spiedigitallibrary.org/conference-proceedings-of-spie/5845/1/Non-Markovian-processes-in-gene-regulation/10.1117/12.609707.full)
+
+[2]:  Manuel Barrio,Kevin Burrage ,André Leier,Tianhai Tian. "Oscillatory Regulation of Hes1: Discrete Stochastic Delay Modelling and Simulation", PLoS Computational Biology, 10.1371(2006)[https://doi.org/10.1371/journal.pcbi.0020117](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.0020117)
+
+[3]: Xiaodong Cai, "Exact stochastic simulation of coupled chemical reactions with delays", The Journal of Chemical Physics 126, 124108(2007).
 [https://doi/10.1063/1.2710253](https://aip.scitation.org/doi/10.1063/1.2710253).
 
-[2]: David F. Anderson, "A modified Next Reaction Method for simulating chemical systems with time dependent propensities and delays", The Journal of Chemical Physics 128, 109903(2008).
+[4]: David F. Anderson, "A modified Next Reaction Method for simulating chemical systems with time dependent propensities and delays", The Journal of Chemical Physics 128, 109903(2008).
 [https://doi/10.1063/1.2799998](https://aip.scitation.org/doi/10.1063/1.2799998).
+
+
+
+
 
 
 
