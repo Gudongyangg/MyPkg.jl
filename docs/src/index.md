@@ -187,11 +187,11 @@ step 5a in above pseudo code for The Rejection Method can approach 50%. Cai[3] t
   Following Gillespie, A the dynamics of reaction ``R_m`` defined by a state-change vector ``\mathbf{\nu_m} = [\nu_{1m} ,...,\nu_{Nm}]^T``, where ``\nu_{nm}`` gives the changes in the ``X_n`` molecular population produced by one ``R_m`` reaction, and a propensity function ``a_m(t)`` together with the fundamental premise of stochastic chemical kinetics:
 ```math
 \begin{equation}
-a_m(t)dt=\mathrm{the\ probability, given}\ \mathbf{X}(t)=\mathbf{x}, \\
-\\
-\mathrm{that\ one\ reaction\ }R_m \mathrm{\ will\ occur\ in\ the}    \\
-\\
-\mathrm{next\ infinitesimal\ time\ interval\ }[t,t+d_t].
+\begin{aligned}
+a_m(t)dt &= \mathrm{the\ probability, given}\ \mathbf{X}(t)=\mathbf{x}, \\
+& \mathrm{that\ one\ reaction\ }R_m \mathrm{\ will\ occur\ in\ the}\\
+& \mathrm{next\ infinitesimal\ time\ interval\ }[t,t+d_t].
+\end{aligned}
 \end{equation}
 ```
   Defining the probability rate constant ``c_m`` as the probability that a randomly selected combination of ``R_m`` reactant molecules reacts in a unit time period, we can calculate  ``a_m(t)`` fromcmand the molecular numbers ofRmreactants at time ``t`` using the method given by Gillespie.
