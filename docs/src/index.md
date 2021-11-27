@@ -240,7 +240,8 @@ P_0(\tau)=P(E_0,...,E_i)=P(E_0) \prod_{j=1}^i P(E_j丨E_0,...,E_{j-1}).
 ```math
 \begin{equation}
 \begin{aligned}
-P_0(\tau)=& \exp \bigg (-\begin{matrix} \sum_{j=0}^{i-1} a_0(t+T_j)(T_{j+1}-T_j) \end{matrix}-a_0(t+T_i)(\tau-T_i)), \\
+P_0(\tau)=& \exp \bigg (-\begin{matrix} \sum_{j=0}^{i-1} a_0(t+T_j)(T_{j+1}-T_j) \end{matrix} \\
+& -a_0(t+T_i)(\tau-T_i)), \\
 \tau \in [T_i,T_i+1), i = 0,...,d,
 \end{aligned}
 \begin{equation}
@@ -249,7 +250,8 @@ where we assume that the first term of the exponent is equal to zero when ``i = 
 ```math
 \begin{equation}
 \begin{aligned}
-f_\tau(\tau)=a_0(t+T_i)exp(-\begin{matrix} \sum_{j=0}^{i-1} a_0(t+T_j)(T_{j+1}-T_j) \end{matrix}-a_0(t+T_i)(\tau-T_i)), \\
+f_\tau(\tau) &= a_0(t+T_i)exp(-\begin{matrix} \sum_{j=0}^{i-1} a_0(t+T_j)(T_{j+1}-T_j) \end{matrix} \\
+& -a_0(t+T_i)(\tau-T_i)), \\
 \tau \in [T_i,T_i+1), i = 0,...,d,
 \end{aligned}
 \begin{equation}
@@ -266,7 +268,8 @@ It is not difficult to verify that ``\int_{0}^{\infty} f_\tau(\tau)\, d\tau = 1`
 ```math
 \begin{equation}
 \begin{aligned}
-F_\tau(\tau)=1 - \exp(-\begin{matrix} \sum_{j=0}^{i-1} a_0(t+T_j)(T_{j+1}-T_j) \end{matrix}-a_0(t+T_i)(\tau-T_i)), \\
+F_\tau(\tau)=1 - \exp(-\begin{matrix} \sum_{j=0}^{i-1} a_0 \end{matrix}(t+T_j)(T_{j+1}-T_j) \\
+-a_0(t+T_i)(\tau-T_i)), \\
 \tau \in [T_i,T_i+1), i = 0,...,d,
 \end{aligned}
 \begin{equation}
@@ -277,7 +280,7 @@ Then, we can generate ``\tau`` from a standard uniform random variable ``u_2``, 
 ```math
 \begin{equation}
 \begin{aligned}
-\tau = T_i + {{-\ln (1-u_2)-\begin{matrix} \sum_{j=0}^{i-1} a_0(t+T_j)(T_{j+1}-T_j) } \over {a_0(t+T_j)}} \\
+\tau = T_i + {{-\ln (1-u_2)-\begin{matrix} \sum_{j=0}^{i-1} a_0(t+T_j)(T_{j+1}-T_j) \end{matrix} } \over {a_0(t+T_j)}} \\
 \tau \in [T_i,T_i+1).
 \end{aligned}
 \begin{equation}
