@@ -247,8 +247,7 @@ P(\tau,\mu)d\tau=P_0(\tau) a_\mu(\tau,\mu)d\tau,
 ```math
 \begin{equation}
 \begin{aligned}
-P_0(\tau) &= \exp (-\sum_{j=0}^{i-1} a_0(t+T_j)(T_{j+1}-T_j) \\
-& -a_0(t+T_i)(\tau-T_i)), \\
+P_0(\tau) = \exp \bigg (-\sum_{j=0}^{i-1} a_0(t+T_j)(T_{j+1}-T_j)-a_0(t+T_i)(\tau-T_i)), \\
 \tau \in [T_i,T_i+1), i = 0,...,d,
 \end{aligned}
 \end{equation}
@@ -258,8 +257,7 @@ where we assume that the first term of the exponent is equal to zero when ``i = 
 ```math
 \begin{equation}
 \begin{aligned}
-f_\tau(\tau) &= a_0(t+T_i)exp(-\begin{matrix} \sum_{j=0}^{i-1} a_0(t+T_j)(T_{j+1}-T_j) \end{matrix} \\
-& -a_0(t+T_i)(\tau-T_i)), \\
+f_\tau(\tau) = a_0(t+T_i)exp(-\begin{matrix} \sum_{j=0}^{i-1} a_0(t+T_j)(T_{j+1}-T_j) \end{matrix} - a_0(t+T_i)(\tau-T_i)), \\
 \tau \in [T_i,T_i+1), i = 0,...,d,
 \end{aligned}
 \end{equation}
@@ -277,11 +275,10 @@ It is not difficult to verify that ``\int_{0}^{\infty} f_\tau(\tau)\, d\tau = 1`
 ```math
 \begin{equation}
 \begin{aligned}
-F_\tau(\tau)=1 - \exp(-\begin{matrix} \sum_{j=0}^{i-1} a_0 \end{matrix}(t+T_j)(T_{j+1}-T_j) \\
--a_0(t+T_i)(\tau-T_i)), \\
+F_\tau(\tau)=1 - \exp(-\begin{matrix} \sum_{j=0}^{i-1} a_0 \end{matrix}(t+T_j)(T_{j+1}-T_j)-a_0(t+T_i)(\tau-T_i)), \\
 \tau \in [T_i,T_i+1), i = 0,...,d,
 \end{aligned}
-\begin{equation}
+\end{equation}
 ```
 Then, we can generate ``\tau`` from a standard uniform random variable ``u_2``, by taking ``\tau=F_\tau^{−1}(u2)``, where ``F_\tau^{−1}(\cdot)`` represents the inverse of ``F_\tau(\tau)``. More specifically, we can obtain ``\tau`` as follows:
 
@@ -293,7 +290,7 @@ Then, we can generate ``\tau`` from a standard uniform random variable ``u_2``, 
 \tau = T_i + {{-\ln (1-u_2)-\begin{matrix} \sum_{j=0}^{i-1} a_0(t+T_j)(T_{j+1}-T_j) \end{matrix} } \over {a_0(t+T_j)}} \\
 \tau \in [T_i,T_i+1).
 \end{aligned}
-\begin{equation}
+\end{equation}
 ```
 
 
