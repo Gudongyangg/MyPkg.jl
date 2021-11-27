@@ -248,8 +248,10 @@ P_0(\tau)=& \exp \bigg (-\begin{matrix} \sum_{j=0}^{i-1} a_0(t+T_j)(T_{j+1}-T_j)
 where we assume that the first term of the exponent is equal to zero when ``i = 0``. Since ``P_0(\tau)`` does not depend on individual propensity functions, as shown in Eq.(7), it is seen from Eq.(5) that ``\tau`` and ``\mu`` are independent random variables. Combining Eqs.(5) and (7) and noticing that ``a_\mu(t+\tau)=a_\mu(t+T_i)`` for ``\tau \in [T_i,T_i+1)``, we obtain the PDF of ``\tau`` and ``\mu`` as follows:
 ```math
 \begin{equation}
+\begin{aligned}
 f_\tau(\tau)=a_0(t+T_i)exp(-\begin{matrix} \sum_{j=0}^{i-1} a_0(t+T_j)(T_{j+1}-T_j) \end{matrix}-a_0(t+T_i)(\tau-T_i)), \\
 \tau \in [T_i,T_i+1), i = 0,...,d,
+\end{aligned}
 \begin{equation}
 ```
 and
@@ -258,20 +260,26 @@ and
 f_\mu(\mu)=a_\mu(t+T_i)/a_0(t+T_i), \mu = 1,...,M,\tau \in [T_i,T_i+1),
 \begin{equation}
 ```
-It is not difficult to verify that ``\int_{0}^{\infty} f_\tau(\tau)\, dx = 1``. In simulation, ``\mu`` can be generated, from a standard uniform random variable ``u_1``, by taking ``\mu`` to be the integer for which ``\begin{matrix} \sum_{j=1}^\{mu-1} a_j(t+T_i) \end{matrix} < u_1 a_0(t+T_i) ≤ \begin{matrix} \sum_{j=1}^\mu a_j(t+T_i) \end{matrix}``,after ``\tau`` is generated to be in the time interval ``[T_i,T_{i+1})``.We next derive the method of generating  ``\tau`` according to its PDF in Eq.(8).
+It is not difficult to verify that ``\int_{0}^{\infty} f_\tau(\tau)\, d\tau = 1``. In simulation, ``\mu`` can be generated, from a standard uniform random variable ``u_1``, by taking ``\mu`` to be the integer for which ``\begin{matrix} \sum_{j=1}^{\mu-1} a_j(t+T_i) \end{matrix} < u_1 a_0(t+T_i) ≤ \begin{matrix} \sum_{j=1}^\mu a_j(t+T_i) \end{matrix}``,after ``\tau`` is generated to be in the time interval ``[T_i,T_{i+1})``.We next derive the method of generating  ``\tau`` according to its PDF in Eq.(8).
+
   The cumulative distribution function of ``\tau``can be found from Eq.(8) as
 ```math
 \begin{equation}
+\begin{aligned}
 F_\tau(\tau)=1 - \exp(-\begin{matrix} \sum_{j=0}^{i-1} a_0(t+T_j)(T_{j+1}-T_j) \end{matrix}-a_0(t+T_i)(\tau-T_i)), \\
 \tau \in [T_i,T_i+1), i = 0,...,d,
+\end{aligned}
 \begin{equation}
 ```
 Then, we can generate ``\tau`` from a standard uniform random variable ``u_2``, by taking ``\tau=F_\tau^{−1}(u2)``, where ``F_\tau^{−1}(\cdot)`` represents the inverse of ``F_\tau(\tau)``. More specifically, we can obtain ``\tau`` as follows:
+
   Find ``T_i`` such that  ``F_\tau(T_i) ≤ u_2 ≤ F_\tau(T_{i+1})``, then calculate  ``\tau`` from
 ```math
 \begin{equation}
-\tau = T_i + {{-\ln (1-u_2)-\begin{matrix} \sum_{j=0}^{i-1} a_0(t+T_j)(T_{j+1}-T_j) } \over {a_0(t+T_j)}}
+\begin{aligned}
+\tau = T_i + {{-\ln (1-u_2)-\begin{matrix} \sum_{j=0}^{i-1} a_0(t+T_j)(T_{j+1}-T_j) } \over {a_0(t+T_j)}} \\
 \tau \in [T_i,T_i+1).
+\end{aligned}
 \begin{equation}
 ```
 
