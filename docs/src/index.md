@@ -237,18 +237,11 @@ P_0(\tau)=P(E_0,...,E_i)=P(E_0) \prod_{j=1}^i P(E_j丨E_0,...,E_{j-1}).
 \end{equation}
 ```
   From the derivation of Gillespie’s exact SSA,we know that  ``P(E_0) = \exp (−a_0(t)T_1)``,  ``P(E_j丨E_0,...,E_{j-1}) = \exp(-a_0(t+T_j)T_1) × (T_{j+1}−T_j),j=0,...,i−1``,   and   ``P(E_i丨E_0,...,E_{i-1}) = \exp(-a_0(t+T_i)(\tau-T_i))``.  Notice that propensity functions change at ``t+T_j`` after a delayed reaction finishes, and we use ``a_0(t+T_j)`` to represent the new ``a_0``. The probability ``P_0(\tau)`` is then given by
-
-```math
-\begin{equation}
-P(\tau,\mu)d\tau=P_0(\tau) a_\mu(\tau,\mu)d\tau,
-\end{equation}
-```
-
 ```math
 \begin{equation}
 \begin{aligned}
-P_0(\tau) = \exp \bigg (-\sum_{j=0}^{i-1} a_0(t+T_j)(T_{j+1}-T_j)-a_0(t+T_i)(\tau-T_i)), \\
-\tau \in [T_i,T_i+1), i = 0,...,d,
+& P_0(\tau) = \exp \bigg (-\sum_{j=0}^{i-1} a_0(t+T_j)(T_{j+1}-T_j)-a_0(t+T_i)(\tau-T_i)), \\
+& \tau \in [T_i,T_i+1), i = 0,...,d,
 \end{aligned}
 \end{equation}
 ```
@@ -257,8 +250,8 @@ where we assume that the first term of the exponent is equal to zero when ``i = 
 ```math
 \begin{equation}
 \begin{aligned}
-f_\tau(\tau) = a_0(t+T_i)exp(-\begin{matrix} \sum_{j=0}^{i-1} a_0(t+T_j)(T_{j+1}-T_j) \end{matrix} - a_0(t+T_i)(\tau-T_i)), \\
-\tau \in [T_i,T_i+1), i = 0,...,d,
+& f_\tau(\tau) = a_0(t+T_i)exp(-\begin{matrix} \sum_{j=0}^{i-1} a_0(t+T_j)(T_{j+1}-T_j) \end{matrix} - a_0(t+T_i)(\tau-T_i)), \\
+& \tau \in [T_i,T_i+1), i = 0,...,d,
 \end{aligned}
 \end{equation}
 ```
@@ -275,8 +268,8 @@ It is not difficult to verify that ``\int_{0}^{\infty} f_\tau(\tau)\, d\tau = 1`
 ```math
 \begin{equation}
 \begin{aligned}
-F_\tau(\tau)=1 - \exp(-\begin{matrix} \sum_{j=0}^{i-1} a_0 \end{matrix}(t+T_j)(T_{j+1}-T_j)-a_0(t+T_i)(\tau-T_i)), \\
-\tau \in [T_i,T_i+1), i = 0,...,d,
+& F_\tau(\tau)=1 - \exp(-\begin{matrix} \sum_{j=0}^{i-1} a_0 \end{matrix}(t+T_j)(T_{j+1}-T_j)-a_0(t+T_i)(\tau-T_i)), \\
+& \tau \in [T_i,T_i+1), i = 0,...,d,
 \end{aligned}
 \end{equation}
 ```
@@ -287,8 +280,8 @@ Then, we can generate ``\tau`` from a standard uniform random variable ``u_2``, 
 ```math
 \begin{equation}
 \begin{aligned}
-\tau = T_i + {{-\ln (1-u_2)-\begin{matrix} \sum_{j=0}^{i-1} a_0(t+T_j)(T_{j+1}-T_j) \end{matrix} } \over {a_0(t+T_j)}} \\
-\tau \in [T_i,T_i+1).
+& \tau = T_i + {{-\ln (1-u_2)-\begin{matrix} \sum_{j=0}^{i-1} a_0(t+T_j)(T_{j+1}-T_j) \end{matrix} } \over {a_0(t+T_j)}} \\
+& \tau \in [T_i,T_i+1).
 \end{aligned}
 \end{equation}
 ```
