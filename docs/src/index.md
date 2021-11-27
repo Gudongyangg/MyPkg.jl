@@ -94,7 +94,7 @@ where the ``Y_k`` are independent, unit rate Poisson processes.
     - (a) Generate an independent uniform``(0,1)`` random number ``r_2``.
     - (b) Find ``\mu\in[1,...., m]`` such that
 
-    ``\ \ \ \ \ \ \ \begin{matrix} \sum_{k=1}^{\mu-1} a_k(t) \end{matrix} < r_2 a_0 < \begin{matrix} \sum_{k=1}^\mu a_k(t) \end{matrix}``
+    ``\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \begin{matrix} \sum_{k=1}^{\mu-1} a_k(t) \end{matrix} < r_2 a_0 < \begin{matrix} \sum_{k=1}^\mu a_k(t) \end{matrix}``
     - (c) If ``\mu\in ND``, update the number of each molecular species according to reaction ``\mu``.
     - (d) If ``\mu\in CD``, store the information that at time ``t+\tau_\mu`` the system must be updated according to reaction ``\mu``.
     - (e) If ``\mu\in ICD``, update the system according to the initiation of ``\mu`` and store that at time ``t+\tau_\mu`` the system must be updated according to the completion of reaction ``\mu``.
