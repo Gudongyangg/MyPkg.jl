@@ -285,6 +285,11 @@ Then, we can generate ``\tau`` from a standard uniform random variable ``u_2``, 
 \end{aligned}
 \end{equation}
 ```
+  Since we need ``T_1,...,T_d`` to generate ``\tau`` and ``\mu``, we define an array of data structures, named ``Tstruct``, whose ``i``th ``(i=1,...,d)`` cell stores ``T_i`` and the index, ``\mu_i``, of the reaction that ``T_i`` is associated with. The reaction index ``\mu_i`` is needed during the generation of ``\tau``, when we update the propensity functions affected by the reaction that is delayed but finishes at ``t+T_i``. During simulation, we need to generate ``\tau`` and ``\mu``, maintain ``Tstruct``, and then update the state vector ``X(t)``.
+  Through the above arguments, we can summarize algorithm Direct method.
+
+
+
 
 
 
