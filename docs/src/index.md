@@ -21,7 +21,7 @@ CurrentModule = MyPkg
 ## Installation
 Install with Pkg, just like any other registered Julia package:
 ````
-pkg> add DelaySSAToolkit  # Press ']' to enter the Pkg REPL mode.
+]add https://github.com/augustinas1/MomentClosure.jl
 ````
 You can use it by
 ````
@@ -49,16 +49,16 @@ using DelaySSAToolkit
   Delays, ``\tau_k > 0``, in systems are between the initiation and completion of some, or all, of the reactions. Notice that the definition of ``\tau_k``  is not the next reaction time of the Next Reaction Method. We partition the reactions into three sets, those with no delays, denoted ``ND``, those that change the state of the system only upon completion, denoted ``CD``, and those that change the state of the system at both initiation and completion, denoted ``ICD``. The following assumption is based upon physical principles and serves as the base assumption for simulation methods of chemically reacting systems with delays:
 
 ```math
-a_k(X(t)) \Delta t + \omicron (t) = \mathrm{the\ probability\ that\  reaction}\ k
-```
-```math
-\mathrm{takes\ place\ in\ a\ small\ time\ interval}\ [t, t + \Delta t)
+\begin{aligned}
+a_k(X(t)) \Delta t + \omicron (t) = & \mathrm{the\ probability\ that\  reaction}\ k
+& \mathrm{takes\ place\ in\ a\ small\ time\ interval}\ [t, t + \Delta t)
+\end{aligned}
 ```
 where ``\omicron (\Delta t)/\Delta t \rightarrow 0``  as  ``\Delta t \rightarrow 0``.
 
   Thus, no matter whether a reaction is contained in ``ND``, ``CD``, or ``ICD``, the number ofinitiationsat absolute timetwill be given by
 ```math
-\mathrm{number\ of\ initiations\ of\ reaction}\ k\mathrm{\ by time} t = Y_k(\int_{0}^{t} a_k(X(s))\, \mathrm{d}s)
+\mathrm{number\ of\ initiations\ of\ reaction}\ k\mathrm{\ by\ time\ } t = Y_k(\int_{0}^{t} a_k(X(s))\, \mathrm{d}s)
 ```
 where the ``Y_k`` are independent, unit rate Poisson processes.
 
@@ -94,7 +94,9 @@ where the ``Y_k`` are independent, unit rate Poisson processes.
     - (a) Generate an independent uniform``(0,1)`` random number ``r_2``.
     - (b) Find ``\mu\in[1,...., m]`` such that
     ```math
+    \begin{equation}
     \begin{matrix} \sum_{k=1}^{\mu-1} a_k(t) \end{matrix} < r_2 a_0 < \begin{matrix} \sum_{k=1}^\mu a_k(t) \end{matrix}
+    \end{equation}
     ```
     - (c) If ``\mu\in ND``, update the number of each molecular species according to reaction ``\mu``.
     - (d) If ``\mu\in CD``, store the information that at time ``t+\tau_\mu`` the system must be updated according to reaction ``\mu``.
@@ -286,6 +288,7 @@ Then, we can generate ``\tau`` from a standard uniform random variable ``u_2``, 
 \end{equation}
 ```
   Since we need ``T_1,...,T_d`` to generate ``\tau`` and ``\mu``, we define an array of data structures, named ``Tstruct``, whose ``i``th ``(i=1,...,d)`` cell stores ``T_i`` and the index, ``\mu_i``, of the reaction that ``T_i`` is associated with. The reaction index ``\mu_i`` is needed during the generation of ``\tau``, when we update the propensity functions affected by the reaction that is delayed but finishes at ``t+T_i``. During simulation, we need to generate ``\tau`` and ``\mu``, maintain ``Tstruct``, and then update the state vector ``X(t)``.
+
   Through the above arguments, we can summarize algorithm Direct method.
 
 
