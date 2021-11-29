@@ -30,8 +30,7 @@ using DelaySSAToolkit
 ````
 
 ## References
-[1]: Daniel T. Gillespie "Exact stochastic simulation of coupled chemical reactions", J. Phys. Chem. 1977, 81, 25, 2340–2361.
-[https://doi.org/10.1021/j100540a008](https://pubs.acs.org/doi/10.1021/j100540a008)
+[1]: Daniel T. Gillespie "Exact stochastic simulation of coupled chemical reactions", The Journal of Physical Chemistry 1977 81 (25), 2340-2361.[https://doi.org/10.1021/j100540a008](https://pubs.acs.org/doi/10.1021/j100540a008)
 
 [2]: Xiaodong Cai, "Exact stochastic simulation of coupled chemical reactions with delays", The Journal of Chemical Physics 126, 124108(2007).
 [https://doi/10.1063/1.2710253](https://aip.scitation.org/doi/10.1063/1.2710253).
@@ -50,7 +49,7 @@ using DelaySSAToolkit
 
 ```math
 \begin{aligned}
-a_k(X(t)) \Delta t + \omicron (t) = & \mathrm{the\ probability\ that\  reaction}\ k
+a_k(X(t)) \Delta t + \omicron (t) = & \text{a b  c} \mathrm{the\ probability\ that\  reaction}\ k \\
 & \mathrm{takes\ place\ in\ a\ small\ time\ interval}\ [t, t + \Delta t)
 \end{aligned}
 ```

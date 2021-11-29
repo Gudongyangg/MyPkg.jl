@@ -9,6 +9,7 @@ makedocs(;
     repo="https://github.com/Gudongyangg/MyPkg.jl/blob/{commit}{path}#{line}",
     sitename="MyPkg.jl",
     format=Documenter.HTML(;
+        mathengine=Documenter.Writers.HTMLWriter.MathJax2(),
         prettyurls=get(ENV, "CI", "false") == "true",
         canonical="https://Gudongyangg.github.io/MyPkg.jl",
         assets=String[],
