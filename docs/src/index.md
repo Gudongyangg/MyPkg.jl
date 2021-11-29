@@ -160,10 +160,11 @@ step 5a in above pseudo code for The Rejection Method can approach 50%. Cai[3] t
 14. Return to step 4 or quit.
 
 ## References
-[1]: Dmitri A. Bratsun, Dmitri N. Volfson, Jeff Hasty, and Lev S. Tsimring "Non-Markovian processes in gene regulation (Keynote Address)", Proc. SPIE 5845, Noise in Complex Systems and Stochastic Dynamics III, (23 May 2005);
+[1]: Dmitri A. Bratsun, Dmitri N. Volfson, Jeff Hasty, and Lev S. Tsimring "Non-Markovian processes in gene regulation (Keynote Address)", Proc. SPIE 5845, Noise in Complex Systems and Stochastic Dynamics III, (23 May 2005).
 [https://doi.org/10.1117/12.609707](https://www.spiedigitallibrary.org/conference-proceedings-of-spie/5845/1/Non-Markovian-processes-in-gene-regulation/10.1117/12.609707.full)
 
-[2]:  Manuel Barrio,Kevin Burrage ,André Leier,Tianhai Tian. "Oscillatory Regulation of Hes1: Discrete Stochastic Delay Modelling and Simulation", PLoS Computational Biology, 10.1371(2006)[https://doi.org/10.1371/journal.pcbi.0020117](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.0020117)
+[2]:  Manuel Barrio,Kevin Burrage ,André Leier,Tianhai Tian. "Oscillatory Regulation of Hes1: Discrete Stochastic Delay Modelling and Simulation", PLoS Computational Biology, 10.1371(2006).
+[https://doi.org/10.1371/journal.pcbi.0020117](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.0020117)
 
 [3]: Xiaodong Cai, "Exact stochastic simulation of coupled chemical reactions with delays", The Journal of Chemical Physics 126, 124108(2007).
 [https://doi/10.1063/1.2710253](https://aip.scitation.org/doi/10.1063/1.2710253).
@@ -186,7 +187,7 @@ step 5a in above pseudo code for The Rejection Method can approach 50%. Cai[3] t
 ```math
 \begin{equation}
 \begin{aligned}
-a_m(t)dt =& text{the probability, given } X(t)=x, \\
+a_m(t)dt =& \text{the probability, given } X(t)=x, \\
 & \text{that one reaction }R_m \text{ will occur in the}\\
 & \text{next infinitesimal time interval }[t,t+d_t].
 \end{aligned}
@@ -271,7 +272,7 @@ It is not difficult to verify that $\int_{0}^{\infty} f_\tau(\tau)\, d\tau = 1$.
 \end{aligned}
 \end{equation}
 ```
-Then, we can generate $\tau$ from a standard uniform random variable $u_2$, by taking $\tau=F_\tau^{−1}(u2)$, where $F_\tau^{−1}(\cdot)$ represents the inverse of $F_\tau(\tau)$. More specifically, we can obtain $\tau$ as follows:
+Then, we can generate $\tau$ from a standard uniform random variable $u_2$, by taking $\tau=F_\tau^{−1}(u_2)$, where $F_\tau^{−1}(\cdot)$ represents the inverse of $F_\tau(\tau)$. More specifically, we can obtain $\tau$ as follows:
 
   Find $T_i$ such that  $F_\tau(T_i) ≤ u_2 ≤ F_\tau(T_{i+1})$, then calculate  $\tau$ from
 
