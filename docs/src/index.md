@@ -50,24 +50,24 @@ using DelaySSAToolkit
 ```math
 \begin{aligned}
 a_k(X(t)) \Delta t + \omicron (t) = & \text{the probability that  reaction }k \\
-& \mathrm{takes\ place\ in\ a\ small\ time\ interval}\ [t, t + \Delta t)
+& \text{takes place in a small\ time\ interval }[t, t + \Delta t)
 \end{aligned}
 ```
-where ``\omicron (\Delta t)/\Delta t \rightarrow 0``  as  ``\Delta t \rightarrow 0``.
+where $\omicron (\Delta t)/\Delta t \rightarrow 0$  as  $\Delta t \rightarrow 0$.
 
-  Thus, no matter whether a reaction is contained in ``ND``, ``CD``, or ``ICD``, the number ofinitiationsat absolute timetwill be given by
+  Thus, no matter whether a reaction is contained in ND, CD, or ICD, the number ofinitiationsat absolute timetwill be given by
 ```math
-\mathrm{number\ of\ initiations\ of\ reaction}\ k\mathrm{\ by\ time\ } t = Y_k(\int_{0}^{t} a_k(X(s))\, \mathrm{d}s)
+\text{number of initiations of reaction } k\text{ by time } t = Y_k(\int_{0}^{t} a_k(X(s))\, \text{d}s)
 ```
-where the ``Y_k`` are independent, unit rate Poisson processes.
+where the $Y_k$ are independent, unit rate Poisson processes.
 
-  Because the assumption above, and hence equation ``t``, only pertains to the initiation times of reactions we must handle the completions separately. There are three different types of reactions, so there are three cases that need consideration.
+  Because the assumption above, and hence equation $t$, only pertains to the initiation times of reactions we must handle the completions separately. There are three different types of reactions, so there are three cases that need consideration.
 
-**Case 1**: If reaction ``k`` is in ``ND`` and initiates at time ``t``, then the system is updated by losing the reactant species and gaining the product species at the time of initiation.
+**Case 1**: If reaction $k$ is in ND and initiates at time $t$, then the system is updated by losing the reactant species and gaining the product species at the time of initiation.
 
-**Case 2**: If reaction ``k`` is in ``CD`` and initiates at time ``t``, then the system is updated only at the time of completion, ``t + \tau_k``, by losing the reactant species and gaining the product species.
+**Case 2**: If reaction $k$ is in CD and initiates at time $t$, then the system is updated only at the time of completion, $t + \tau_k$, by losing the reactant species and gaining the product species.
 
-**Case 3**: If reaction ``k`` is in ``ICD`` and initiates at time ``t``, then the system is updated by losing the reactant species at the time of initiation, ``t``, and is updated by gaining the product species at the time of completion,``t + \tau_k``.
+**Case 3**: If reaction $k$ is in ICD and initiates at time $t$, then the system is updated by losing the reactant species at the time of initiation, $t$, and is updated by gaining the product species at the time of completion,$t + \tau_k$.
 
 
 ## The Rejection Method
@@ -76,24 +76,24 @@ where the ``Y_k`` are independent, unit rate Poisson processes.
 
 
 ### Pseudo code
-1. Initialize. Set the initial number of molecules of each species and set ``t = 0``.
+1. Initialize. Set the initial number of molecules of each species and set $t = 0$.
 
-2. Calculate the propensity function, ``a_k``, for each reaction.
+2. Calculate the propensity function, $a_k$, for each reaction.
 
-3. Set ``a_0 = \begin{matrix} \sum_{k=1}^M a_k \end{matrix}``.
+3. Set $a_0 = \begin{matrix} \sum_{k=1}^M a_k \end{matrix}$.
 
-4. Generate an independent uniform``(0,1)`` random number, ``r_1``, and set ``\Delta = 1/a_0 \ln(1/r_1)``.
+4. Generate an independent uniform$(0,1)$ random number, $r_1$, and set $\Delta = 1/a_0 \ln(1/r_1)$.
 
-5. If there is a delayed reaction set to finish in ``[t, t + \Delta)``
-    - (a) Discard ``\Delta``.
-    - (b) Updatetto be the time of the next delayed reaction,``\mu``.
-    - (c) Updatexaccording to the stored reaction ``\mu``.
+5. If there is a delayed reaction set to finish in $[t, t + \Delta)$
+    - (a) Discard $\Delta$.
+    - (b) Updatetto be the time of the next delayed reaction,$\mu$.
+    - (c) Updatexaccording to the stored reaction $\mu$.
     - (d) Return to step 2 or quit.
 6. Else
-    - (a) Generate an independent uniform``(0,1)`` random number ``r_2``.
-    - (b) Find ``\mu\in[1,...., m]`` such that
+    - (a) Generate an independent uniform$(0,1)$ random number $r_2$.
+    - (b) Find $\mu\in[1,...., m]$ such that
 
-    ``\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \begin{matrix} \sum_{k=1}^{\mu-1} a_k(t) \end{matrix} < r_2 a_0 < \begin{matrix} \sum_{k=1}^\mu a_k(t) \end{matrix}``
+    $\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \begin{matrix} \sum_{k=1}^{\mu-1} a_k(t) \end{matrix} < r_2 a_0 < \begin{matrix} \sum_{k=1}^\mu a_k(t) \end{matrix}$
     - (c) If ``\mu\in ND``, update the number of each molecular species according to reaction ``\mu``.
     - (d) If ``\mu\in CD``, store the information that at time ``t+\tau_\mu`` the system must be updated according to reaction ``\mu``.
     - (e) If ``\mu\in ICD``, update the system according to the initiation of ``\mu`` and store that at time ``t+\tau_\mu`` the system must be updated according to the completion of reaction ``\mu``.
