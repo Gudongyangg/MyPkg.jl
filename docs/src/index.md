@@ -1,7 +1,212 @@
 ```@meta
 CurrentModule = MyPkg
 ```
-# DelaySSAToolkit
+# Notations and Basic Concepts
+Consider a system consisting of $N≥1$ chemical species,$\{X_1, . . . , X_N\}$, undergoing $M ≥ 1$ chemical reactions through reaction channels $\{R_1,...,R_M\}$, each of which is equipped with a propensity function (or intensity function in the mathematics literature),$a_k(X)$. The dynamic state of this chemical system can be described by the state vector $X(t) =[X_1(t),...,X_N(t)]^T$, where $X_n[t],n = 1,...,N,$ is the number of $X_n$ molecules at time $t$, and $[·]^T$ denotes the transpose of the vector in the bracket.
+
+  Delays, $\tau_k > 0$, in systems are between the initiation and completion of some, or all, of the reactions. Notice that the definition of $\tau_k$  is not the next reaction time of the Next Reaction Method. We partition the reactions into three sets, those with no delays, denoted ND, those that change the state of the system only upon completion, denoted CD, and those that change the state of the system at both initiation and completion, denoted ICD. The following assumption is based upon physical principles and serves as the base assumption for simulation methods of chemically reacting systems with delays:
+
+```math
+\begin{aligned}
+a_k(X(t)) \Delta t + \omicron (t) = & \text{the probability that  reaction }k \\
+& \text{takes place in a small time interval }[t, t + \Delta t)
+\end{aligned}
+```
+
+where $\omicron (\Delta t)/\Delta t \rightarrow 0$  as  $\Delta t \rightarrow 0$.
+
+  Thus, no matter whether a reaction is contained in ND, CD, or ICD, the number ofinitiationsat absolute timetwill be given by
+
+```math
+\text{number of initiations of reaction } k\text{ by time } t = Y_k(\int_{0}^{t} a_k(X(s))\, \text{d}s)
+```
+
+where the $Y_k$ are independent, unit rate Poisson processes.
+
+  Because the assumption above, and hence equation $t$, only pertains to the initiation times of reactions we must handle the completions separately. There are three different types of reactions, so there are three cases that need consideration.
+
+**Case 1**: If reaction $k$ is in ND and initiates at time $t$, then the system is updated by losing the reactant species and gaining the product species at the time of initiation.
+
+**Case 2**: If reaction $k$ is in CD and initiates at time $t$, then the system is updated only at the time of completion, $t + \tau_k$, by losing the reactant species and gaining the product species.
+
+**Case 3**: If reaction $k$ is in ICD and initiates at time $t$, then the system is updated by losing the reactant species at the time of initiation, $t$, and is updated by gaining the product species at the time of completion,$t + \tau_k$.
+
+
+
+
+
+
+
+
+
+# Delay Rejection Method Algorithm
+Simulation methods for systems with delays need to calculate when reactions initiate and store when they complete. However, because of the delayed reactions, the propensity functions can change between initiation times. Bratsun et al. [1] and Barrio et al. [2] used an algorithm for computing the initiation times that is exactly like the original Gillespie Algorithm except that if there is a stored delayed reaction set to finish within a computed timestep, then the computed timestep is discarded, and the system is updated to incorporate the stored delayed reaction. The algorithm then attempts another step starting at its new state. This algorithm is called Rejection Method.
+
+### Pseudo code
+
+1. Initialize. Set the initial number of molecules of each species and set $t = 0$.
+
+2. Calculate the propensity function, $a_k$, for each reaction.
+
+3. Set $a_0 = \begin{matrix} \sum_{k=1}^M a_k \end{matrix}$.
+
+4. Generate an independent uniform$(0,1)$ random number, $r_1$, and set $\Delta = 1/a_0 \ln(1/r_1)$.
+
+5. If there is a delayed reaction set to finish in $[t, t + \Delta)$
+
+   - Discard $\Delta$.
+   - Updatetto be the time of the next delayed reaction,$\mu$.
+   - Updatexaccording to the stored reaction $\mu$.
+
+6. Else
+
+   - Generate an independent uniform$(0,1)$ random number $r_2$.
+   - Find $\mu\in[1,...., m]$ such that
+
+   ```math
+   \begin{matrix} \sum_{k=1}^{\mu-1} a_k(t) \end{matrix} < r_2 a_0 < \begin{matrix} \sum_{k=1}^\mu a_k(t) \end{matrix}
+   ```
+
+   - If $\mu\in$ ND, update the number of each molecular species according to reaction $\mu$.
+   - If $\mu\in$ CD, store the information that at time $t+\tau_\mu$ the system must be updated according to reaction $\mu$.
+   - If $\mu\in$ ICD, update the system according to the initiation of $\mu$ and store that at time $t+\tau_\mu$ the system must be updated according to the completion of reaction $\mu$.
+   - Set $t = t +\Delta$
+
+7. Endif
+
+8. Return to step 2 or quit.
+
+
+[1]: Dmitri A. Bratsun, Dmitri N. Volfson, Jeff Hasty, and Lev S. Tsimring "Non-Markovian processes in gene regulation (Keynote Address)", Proc. SPIE 5845, Noise in Complex Systems and Stochastic Dynamics III, (23 May 2005).
+[https://doi.org/10.1117/12.609707](https://www.spiedigitallibrary.org/conference-proceedings-of-spie/5845/1/Non-Markovian-processes-in-gene-regulation/10.1117/12.609707.full)
+
+[2]:  Manuel Barrio, Kevin Burrage, André Leier, Tianhai Tian. "Oscillatory Regulation of Hes1: Discrete Stochastic Delay Modelling and Simulation", PLoS Computational Biology, 10.1371(2006).
+[https://doi.org/10.1371/journal.pcbi.0020117](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.0020117)
+
+
+
+
+
+# Delay Modified Next Reaction Method Algorithm
+
+ Because the initiations are still given by the firing times of independent Poisson processes. Therefore, if $T_k$ is the current internal time of $Y_k$, $P_k$ the first internal time after $T_k$ at which $Y_k$ fires, and the propensity function for the $k$th reaction channel is given by $a_k$, then the time until the next initiation of reaction $k$(assuming no other reactions initiate or complete) is still given by $\Delta t_k= (P_k−T_k)/a_k$. The only change to the algorithm will be in keeping track and storing the delayed completions. To each delayed reaction channel we therefore assign a vector, $s_k$, that stores the completion times of that reaction in ascending order. Thus, the time until there is a change in the state of the system, be it an initiation or a completion, will be given by:
+```math
+\Delta = \min\{\Delta t_k, s_k(1) − t\}
+```
+where $t$ is the current time of the system. These ideas form the heart of our Next Reaction Method [4] for systems with delays.
+
+### Pseudo code
+
+1. Initialize. Set the initial number of molecules of each species and set $t = 0$. For each $k ≤ M$, set $P_k = 0$ and $T_k = 0$, and for each delayed reaction channel set $s_k = [\infty]$.
+
+2. Calculate the propensity function, $a_k$, for each reaction.
+
+3. Generate $M$ independent, uniform$(0,1)$ random numbers, $r_k$, and set $P_k = \ln(1/r_k)$.
+
+4. Set $\Delta t_k = (P_k − T_k)/a_k$.
+
+5. Set $\Delta = \min_k\{\Delta t_k, s_k(1) − t\}$.
+
+6. Set $t = t + \Delta$.
+
+7. If we chose the completion of the delayed reaction $\mu$:
+   - Update the system based upon the completion of the reaction $\mu$.
+   - Delete the first row of $S_\mu$.
+
+8. Elseif reaction $\mu$ initiated and $\mu\in$ ND
+   - Update the system according to reaction $\mu$.
+
+9. Elseif reaction $\mu$ initiated and $\mu\in$ CD
+   - Update $s_\mu$ by inserting $t + \tau_\mu$ into $s_\mu$ in the second to last position.
+
+10. Elseif reaction $\mu$ initiated and $\mu\in$ ICD
+    - Update the system based upon the initiation of reaction $\mu$.
+    - Update $s_\mu$ by inserting $t + \tau_\mu$ into $s_\mu$ in the second to last position.
+
+11. For each k, set $T_k = T_k + a_k \Delta$.
+
+12. If reaction $\mu$ initiated, let $r$ be uniform$(0,1)$ and set $P_\mu = P_\mu + \ln(1/r)$.
+
+13. Recalculate the propensity functions, $a_k$.
+
+14. Return to step 4 or quit.
+
+[1]: David F. Anderson, "A modified Next Reaction Method for simulating chemical systems with time dependent propensities and delays", The Journal of Chemical Physics 128, 109903(2008).
+[https://doi/10.1063/1.2799998](https://aip.scitation.org/doi/10.1063/1.2799998).
+
+
+
+
+
+
+
+
+
+
+
+# Delay Direct Method Algorithm
+
+The number of discarded $\Delta$ will be approximately equal to the number of delayed reactions that initiate. This follows because, other than the stored completions at the time the code terminates, every delayed completion will cause one computed $\Delta$ to be discarded. Thus, Cai [1] developped an algorithm, called the Direct Method for systems with delays, in which no random variables are discarded.
+
+The principle of Direct Method is the same as that of the original Gillespie Algorithm and the Rejection Method above: use one random variable to calculate when the next reaction initiates and use another random variable to calculate which reaction occurs at that future time. However, Direct Method updates the state of the system and propensity functions due to stored delayed reactions during the search for the next initiation time. In this way he ensures that no random variables are discarded as in the Rejection Method.
+
+## Algorithm
+Suppose that at time $t$ there are ongoing delayed reactions set to complete at times $t+T_1, t+T_2, \ldots, t+T_d$. Define $T_0=0$ and $T_{d+1}=\infty$.
+
+Define *Tstruct*, whose *i*-th $(i=1,\dots,d)$ row stores $T_i$ and the index, $\mu_i$, of the reaction that $T_i$ is associated with.
+1. Initialize. Set the initial number of molecules of each species and set  $t=0$. Clear *Tstruct*.
+2. Calculate the propensity of function $a_k$, for each reaction $k \in 1,\ldots, M$.
+3. Set $a_0=\sum_{k=1}^M{a_k}$.
+4. Generate  $\Delta$.
+   - Input the time $t$ and $a_0=\sum_{k=1}^M{a_k}$.
+   - Generate an independent uniform $(0,1)$ random number $r_1$.
+   - If *Tstruct* is empty
+     - This means there is no ongoing delay reactions, set $\Delta = 1/a_0\ln(1/r_1)$.
+   - Else
+     - Set $i=1$, $a_t = a_0T_1$ and  $F=1-e^{-a_t}$.
+     -  While $F < r_1$
+       - Update the state vector $x_1$ due to the finish of the delayed reaction $t+T_i$.
+       - If $i<d$
+         - Calculate propensity $a_k(t+T_{i+1})$ due to the finish of the delayed reaction at $t+T_{i+1}$ and calculate $a_0(t+T_{i+1})$.
+         - Update $a_t=a_t+a_0(t+T_{i+1})(T_{i+1}-T_i)$.
+         - Update $F=1-e^{-a_t} $, $i=i+1$.
+       - Else
+         - Set $F=1$
+       - EndIf
+     - EndWhile
+     - Calculate Calculate propensity $a_k(t+T_i)$ due to the finish of the delayed reaction at $t+T_i$ and calculate $a_0(t+T_i)$.
+     - Set $\Delta=T_i-(\ln(1-r_1)+a_t-a_0(t+T_i)(T_{i+1}-T_i))/a_0(t+T_i)$.
+   - EndIf
+5. If $\Delta\in[T_i,T_{i+1})$, delete the columns $1,\ldots,i$ of $T_i$ and set $T_j=T_j-\Delta$.
+6. Generate an independent uniform $(0,1)$ random number $r_2$.
+7. Find $\mu\in[1,\dots,m]$ such that
+   ```math
+   \sum_{k=1}^{\mu-1} a_k < r_2 \leq \sum_{k=1}^{\mu}a_k
+   ```
+   where the $a_k$ and $a_0$ are generated in step 4.
+8. If $\mu\in \text{ND}$ , update the number of each molecular species according to the reaction $\mu$
+9. If $\mu\in \text{CD}$, update *Tstruct* by adding the row $[\tau_\mu,\mu]$ so that $Tstruct(i,1)<Tstruct(i+1,1)$ still holds for all **i**.
+10. If $\mu\in \text{ICD}$, update the system according to the initiation of $\mu$ and update *Tstruct* by adding the row $[\tau_\mu,\mu]$ so that $Tstruct(i,1)<Tstruct(i+1,1)$ still holds for all $i$.
+11. Set $t=t+\Delta$.
+12. Return to Step 2 or quit.
+
+Remark. Notice that in the above pseudo-code, we modified the Step 4. in the orignal algorithm but both are equivalent.
+
+## Reference
+
+[1]: Xiaodong Cai, "Exact stochastic simulation of coupled chemical reactions with delays", The Journal of Chemical Physics 126, 124108(2007).
+[https://doi/10.1063/1.2710253](https://aip.scitation.org/doi/10.1063/1.2710253).
+
+
+
+
+
+
+
+
+
+
+<!-- # DelaySSAToolkit
 
   Gillespie developed a stochastic simulation algorithm (SSA)[1] to simulate stochastic dynamics of chemically reacting systems. In this algorithm, it is assumed that all reactions occur instantly.Since Gillespie’s exact SSA was developed for chemical reaction systems without delay, it is apparent that Gillespie’s SSA cannot produce exact simulation results for chemical reaction systems with delays.
 
@@ -69,6 +274,49 @@ where the $Y_k$ are independent, unit rate Poisson processes.
 
 **Case 3**: If reaction $k$ is in ICD and initiates at time $t$, then the system is updated by losing the reactant species at the time of initiation, $t$, and is updated by gaining the product species at the time of completion,$t + \tau_k$.
 
+# Delay Rejection Method Algorithm
+Simulation methods for systems with delays need to calculate when reactions initiate and store when they complete. However, because of the delayed reactions, the propensity functions can change between initiation times. Bratsun et al. [1] and Barrio et al. [2] used an algorithm for computing the initiation times that is exactly like the original Gillespie Algorithm except that if there is a stored delayed reaction set to finish within a computed timestep, then the computed timestep is discarded, and the system is updated to incorporate the stored delayed reaction. The algorithm then attempts another step starting at its new state. This algorithm is called Rejection Method.
+
+### Pseudo code
+
+1. Initialize. Set the initial number of molecules of each species and set $t = 0$.
+
+2. Calculate the propensity function, $a_k$, for each reaction.
+
+3. Set $a_0 = \begin{matrix} \sum_{k=1}^M a_k \end{matrix}$.
+
+4. Generate an independent uniform$(0,1)$ random number, $r_1$, and set $\Delta = 1/a_0 \ln(1/r_1)$.
+
+5. If there is a delayed reaction set to finish in $[t, t + \Delta)$
+
+   - Discard $\Delta$.
+   - Updatetto be the time of the next delayed reaction,$\mu$.
+   - Updatexaccording to the stored reaction $\mu$.
+
+6. Else
+
+   - Generate an independent uniform$(0,1)$ random number $r_2$.
+   - Find $\mu\in[1,...., m]$ such that
+
+   ```math
+   \begin{matrix} \sum_{k=1}^{\mu-1} a_k(t) \end{matrix} < r_2 a_0 < \begin{matrix} \sum_{k=1}^\mu a_k(t) \end{matrix}
+   ```
+
+   - If $\mu\in$ ND, update the number of each molecular species according to reaction $\mu$.
+   - If $\mu\in$ CD, store the information that at time $t+\tau_\mu$ the system must be updated according to reaction $\mu$.
+   - If $\mu\in$ ICD, update the system according to the initiation of $\mu$ and store that at time $t+\tau_\mu$ the system must be updated according to the completion of reaction $\mu$.
+   - Set $t = t +\Delta$
+
+7. Endif
+
+8. Return to step 2 or quit.
+
+
+[1]: Dmitri A. Bratsun, Dmitri N. Volfson, Jeff Hasty, and Lev S. Tsimring "Non-Markovian processes in gene regulation (Keynote Address)", Proc. SPIE 5845, Noise in Complex Systems and Stochastic Dynamics III, (23 May 2005).
+[https://doi.org/10.1117/12.609707](https://www.spiedigitallibrary.org/conference-proceedings-of-spie/5845/1/Non-Markovian-processes-in-gene-regulation/10.1117/12.609707.full)
+
+[2]:  Manuel Barrio, Kevin Burrage, André Leier, Tianhai Tian. "Oscillatory Regulation of Hes1: Discrete Stochastic Delay Modelling and Simulation", PLoS Computational Biology, 10.1371(2006).
+[https://doi.org/10.1371/journal.pcbi.0020117](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.0020117)
 
 ## The Rejection Method
 
@@ -280,7 +528,7 @@ Then, we can generate $\tau$ from a standard uniform random variable $u_2$, by t
 ```
   Since we need $T_1,...,T_d$ to generate $\tau$ and $\mu$, we define an array of data structures, named $Tstruct$, whose $i$th $(i=1,...,d)$ cell stores $T_i$ and the index, $\mu_i$, of the reaction that $T_i$ is associated with. The reaction index $\mu_i$ is needed during the generation of $\tau$, when we update the propensity functions affected by the reaction that is delayed but finishes at $t+T_i$. During simulation, we need to generate $\tau$ and $\mu$, maintain $T$struct, and then update the state vector $X(t)$.
 
-  Through the above arguments, we can summarize algorithm Direct method.
+  Through the above arguments, we can summarize algorithm Direct method. -->
 
 
 
