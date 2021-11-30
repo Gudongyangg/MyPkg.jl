@@ -210,7 +210,7 @@ a_k(t)\Delta t = &\text{ the probability, given } X(t)=x, \\
 \begin{aligned}
 \text{E: } & \text{no reaction occurs in the time interval }[t,t+\Delta],\\
 & \text{and a reaction }R_\mu \ \text{occurs in the infinitesimal}\\
-& \text{time interval }[t+\Delta,t+\Delta+\mathrm{d}t].
+& \text{time interval }[t+\Delta,t+\Delta+\Delta t].
 \end{aligned}
 \end{equation}
 ```
