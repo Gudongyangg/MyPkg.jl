@@ -9,7 +9,7 @@ CurrentModule = MyPkg
 
 ```math
 \begin{aligned}
-a_k(X(t)) \Delta t + \omicron (t) = & \text{ the probability that  reaction\ }k \\
+a_k(X(t)) \Delta t + \omicron (t) = & \text{ the probability that  reaction }k \\
 & \text{ takes place in a small time interval }[t, t + \Delta t)
 \end{aligned}
 ```
@@ -19,12 +19,13 @@ where $\omicron (\Delta t)/\Delta t \rightarrow 0$  as  $\Delta t \rightarrow 0$
   Thus, no matter whether a reaction is contained in $\text{ND}$, $\text{CD}$, or $\text{ICD}$, the number ofinitiationsat absolute timetwill be given by
 
 ```math
-\text{number of initiations of reaction } k\mathrm{ by time } t = Y_k(\int_{0}^{t} a_k(X(s))\, \mathrm{d}s)
+\text{number of initiations of reaction } k\text{ by time } t = Y_k(\int_{0}^{t} a_k(X(s))\, \mathrm{d}s)
 ```
 
 where the $Y_k$ are independent, unit rate Poisson processes.
 
-  More specifically, if we define $T_k(t) =\int_{0}^{t} a_k(X(s))\, \mathrm{d}s$ for each $k$, then it is relevant for us to consider $Y_k(T_k(t))$. We will call $_Tk(t)$ the "internal time" for reaction $k$.
+  More specifically, if we define $T_k(t) =\int_{0}^{t} a_k(X(s))\, \mathrm{d}s$ for each $k$, then it is relevant for us to consider $Y_k(T_k(t))$. We will call $T_k(t)$ the "internal time" for reaction $k$.
+
   Because the assumption above, and hence equation $t$, only pertains to the initiation times of reactions we must handle the completions separately. There are three different types of reactions, so there are three cases that need consideration.
 
 **Case 1**: If reaction $k$ is in $\text{ND}$ and initiates at time $t$, then the system is updated by losing the reactant species and gaining the product species at the time of initiation.
@@ -193,9 +194,9 @@ Consider a system consisting of $N≥1$ chemical species, $\{X_1,\ldots, X_N\}$,
 ```math
 \begin{equation}
 \begin{aligned}
-a_k(t)dt = &\text{ the probability, given } X(t)=x, \\
+a_k(t)\Delta t = &\text{ the probability, given } X(t)=x, \\
 &\quad \text{that one reaction }R_k \text{ will occur in the}\\
-&\quad \text{next infinitesimal time interval }[t,t+\Delta].
+&\quad \text{next infinitesimal time interval }[t,t+\Delta t].
 \end{aligned}
 \end{equation}
 ```
