@@ -24,6 +24,9 @@ where $\omicron (\Delta t)/\Delta t \rightarrow 0$  as  $\Delta t \rightarrow 0$
 
 where the $Y_k$ are independent, unit rate Poisson processes.
 
+For eachk≤M,Tk(t) =Rt
+0ak(X(s))dsis theinternal timeof the Poisson
+processYkof equation
   Because the assumption above, and hence equation $t$, only pertains to the initiation times of reactions we must handle the completions separately. There are three different types of reactions, so there are three cases that need consideration.
 
 **Case 1**: If reaction $k$ is in $\text{ND}$ and initiates at time $t$, then the system is updated by losing the reactant species and gaining the product species at the time of initiation.
@@ -185,21 +188,21 @@ Remark. Notice that in the above pseudo-code, we modified the Step 4. in the ori
 # Theory
 ## Exact Stochastic Simulation Algorithm (SSA) Without Delays
 
-Consider a system consisting of $N≥1$ chemical species, $\{X_1,\ldots, X_N\}$, undergoing $M ≥ 1$ chemical reactions through reaction channels $\{R_1,\ldots,R_M\}$, each of which is equipped with a propensity function (or intensity function in the mathematics literature), $a_k(X)$. The dynamic state of this chemical system can be described by the state vector $X(t) =[X_1(t),...,X_N(t)]^T$, where $X_n[t],n = 1,...,N,$ is the number of $X_n$ molecules at time $t$, and $[·]^T$ denotes the transpose of the vector in the bracket.
+Consider a system consisting of $N≥1$ chemical species, $\{X_1,\ldots, X_N\}$, undergoing $M \geqslant 1$ chemical reactions through reaction channels $\{R_1,\ldots,R_M\}$, each of which is equipped with a propensity function (or intensity function in the mathematics literature), $a_k(X)$. The dynamic state of this chemical system can be described by the state vector $X(t) =[X_1(t),...,X_N(t)]^T$, where $X_n[t],n = 1,...,N,$ is the number of $X_n$ molecules at time $t$, and $[·]^T$ denotes the transpose of the vector in the bracket.
 
-  Following Gillespie, A the dynamics of reaction $R_m$ defined by a state-change vector $\nu_m = [\nu_{1m} ,\ldots,\nu_{Nm}]^T$, where $\nu_{nm}$ gives the changes in the $X_n$ molecular population produced by one $R_m$ reaction, and a propensity function $a_m(t)$ together with the fundamental premise of stochastic chemical kinetics:
+  Following Gillespie, the dynamics of reaction $R_k$ defined by a state-change vector $\nu_k = [\nu_{1k} ,\ldots,\nu_{Nk}]^T$, where $\nu_{nk}$ gives the changes in the $X_n$ molecular population produced by one $R_k$ reaction, and a propensity function $a_k(t)$ together with the fundamental premise of stochastic chemical kinetics:
 
 ```math
 \begin{equation}
 \begin{aligned}
-a_m(t)dt & =\text{ the probability, given } X(t)=x, \\
-&\quad \text{that one reaction }R_m \text{ will occur in the}\\
-&\quad \text{next infinitesimal time interval }[t,t+d_t].
+a_k(t)dt = &\text{ the probability, given } X(t)=x, \\
+&\quad \text{that one reaction }R_k \text{ will occur in the}\\
+&\quad \text{next infinitesimal time interval }[t,t+dt].
 \end{aligned}
 \end{equation}
 ```
 
-  Defining the probability rate constant $c_m$ as the probability that a randomly selected combination of $R_m$ reactant molecules reacts in a unit time period, we can calculate  $a_m(t)$ fromcmand the molecular numbers ofRmreactants at time $t$ using the method given by Gillespie.
+  Defining the probability rate constant $c_k$ as the probability that a randomly selected combination of $R_k$ reactant molecules reacts in a unit time period, we can calculate  $a_k(t)$ from $c_k$ and the molecular numbers of $R_k$ reactants at time $t$ using the method given by Gillespie.
 
   For a chemical system in a given state $X(t)=x$ at time $t$,assuming that all reactions occur instantly, Gillespie’s exact SSA answers the following two questions: (i)  when will the next reaction occur?  (ii)  which reaction will occur? Specifically, Gillespie’s exact SSA simulates the following event in each step:
 
@@ -208,7 +211,7 @@ a_m(t)dt & =\text{ the probability, given } X(t)=x, \\
 \begin{aligned}
 \text{E: } & \text{no reaction occurs in the time interval }[t,t+\tau],\\
 & \text{and a reaction }R_\mu \ \text{occurs in the infinitesimal}\\
-& \text{time interval }[t+\tau,t+\tau+d_\tau].
+& \text{time interval }[t+\tau,t+\tau+\mathrm{d}_\tau].
 \end{aligned}
 \end{equation}
 ```
@@ -229,7 +232,7 @@ f_\mu(\mu)=a_\mu(t)/a_0(t), \mu = 1,...,M,
 \end{equation}
 ```
 
-where $a_0(t)=\begin{matrix} \sum_{m=1}^M a_m(t) \end{matrix}$. According to the PDF Eq.(4), a realization of $\mu$ can be generated from a standard uniform random variable $u_1$, by taking $\mu$ to be the integer for which $\begin{matrix} \sum_{j=1}^{\mu-1} a_j(t) \end{matrix} < u_1 a_0(t) ≤ \begin{matrix} \sum_{j=1}^\mu a_j(t) \end{matrix}$;based on the PDF Eq.(3), a realization of $\tau$ can be generated from another standard uniform random variable $u_2$ as $\tau=−\ln(u_2)/a_0(t)$. Therefore, Gillespie’s exact SSA generates a realization of $\mu$ and $\tau$ in each step of simulation, and then updates the time and system state as $t\leftarrow t+\tau$ and  $\mathbf{x} \leftarrow \mathbf{x}+ \mathbf{\nu_\mu}$, respectively.
+where $a_0(t)=\begin{matrix} \sum_{k=1}^M a_k(t) \end{matrix}$. According to the PDF Eq.(4), a realization of $\mu$ can be generated from a standard uniform random variable $u_1$, by taking $\mu$ to be the integer for which $\sum_{j=1}^{\mu-1} a_j(t)  < u_1 a_0(t) \leqslant \sum_{j=1}^\mu a_j(t)$;based on the PDF Eq.(3), a realization of $\tau$ can be generated from another standard uniform random variable $u_2$ as $\tau=−\ln(u_2)/a_0(t)$. Therefore, Gillespie’s exact SSA generates a realization of $\mu$ and $\tau$ in each step of simulation, and then updates the time and system state as $t\leftarrow t+\tau$ and  $\mathbf{x} \leftarrow \mathbf{x}+ \mathbf{\nu_\mu}$, respectively.
 
 ## Exact SSA For Coupled Chemical Reaction With Delays
 
@@ -282,7 +285,7 @@ where we assume that the first term of the exponent is equal to zero when $i = 0
 and
 
 ```math
-f_\mu(\mu)=a_\mu(t+T_i)/a_0(t+T_i), \mu = 1,...,M,\tau \in [T_i,T_i+1),
+f_\mu(\mu)={ {a_\mu(t+T_i)} /over {a_0(t+T_i)} }, \mu = 1,...,M,\tau \in [T_i,T_i+1),
 ```
 
 It is not difficult to verify that $\int_{0}^{\infty} f_\tau(\tau)\, d\tau = 1$. In simulation, $\mu$ can be generated, from a standard uniform random variable $u_1$, by taking $\mu$ to be the integer for which $\begin{matrix} \sum_{j=1}^{\mu-1} a_j(t+T_i) \end{matrix} < u_1 a_0(t+T_i) ≤ \begin{matrix} \sum_{j=1}^\mu a_j(t+T_i) \end{matrix}$, after $\tau$ is generated to be in the time interval $[T_i,T_{i+1})$.We next derive the method of generating  $\tau$ according to its PDF in Eq.(8).
