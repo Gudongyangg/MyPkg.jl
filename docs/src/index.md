@@ -3,7 +3,7 @@ CurrentModule = MyPkg
 ```
 # Notations and Basic Concepts
 
-  Consider a system consisting of $N \geqslant 1$ chemical species,$\{X_1,\ldots, X_N\}$, undergoing $M \geqslant 1$ chemical reactions through reaction channels $\{R_1,\ldots,R_M\}$, each of which is equipped with a propensity function (or intensity function in the mathematics literature), $a_k(X)$. The dynamic state of this chemical system can be described by the state vector $X(t) =[X_1(t),\ldots,X_N(t)]^T$, where $X_n[t],n = 1,\ldots,N$, is the number of $X_n$ molecules at time $t$, and $[·]^T$ denotes the transpose of the vector in the bracket.
+  Consider a system consisting of $N \geq 1$ chemical species,$\{X_1,\ldots, X_N\}$, undergoing $M \geq 1$ chemical reactions through reaction channels $\{R_1,\ldots,R_M\}$, each of which is equipped with a propensity function (or intensity function in the mathematics literature), $a_k(X)$. The dynamic state of this chemical system can be described by the state vector $X(t) =[X_1(t),\ldots,X_N(t)]^T$, where $X_n[t],n = 1,\ldots,N$, is the number of $X_n$ molecules at time $t$, and $[·]^T$ denotes the transpose of the vector in the bracket.
 
   Delays, $\tau_k > 0$, in systems are between the initiation and completion of some, or all, of the reactions. Notice that the definition of $\tau_k$  is not the next reaction time of the Next Reaction Method. We partition the reactions into three sets, those with no delays, denoted $\text{ND}$, those that change the state of the system only upon completion, denoted $\text{CD}$, and those that change the state of the system at both initiation and completion, denoted $\text{ICD}$. The following assumption is based upon physical principles and serves as the base assumption for simulation methods of chemically reacting systems with delays:
 
@@ -89,7 +89,7 @@ where $t$ is the current time of the system. These ideas form the heart of our N
 
 ### Pseudo code
 
-1. Initialize. Set the initial number of molecules of each species and set $t = 0$. For each $k \leqslant M$, set $P_k = 0$ and $T_k = 0$, and for each delayed reaction channel set $s_k = [\infty]$.
+1. Initialize. Set the initial number of molecules of each species and set $t = 0$. For each $k \leq M$, set $P_k = 0$ and $T_k = 0$, and for each delayed reaction channel set $s_k = [\infty]$.
 2. Calculate the propensity function, $a_k$, for each reaction.
 3. Generate $M$ independent, uniform$(0,1)$ random numbers, $r_k$, and set $P_k = \ln(1/r_k)$.
 4. Set $\Delta t_k = (P_k − T_k)/a_k$.
@@ -187,7 +187,7 @@ Remark. Notice that in the above pseudo-code, we modified the Step 4. in the ori
 # Theory
 ## Exact Stochastic Simulation Algorithm (SSA) Without Delays
 
-Consider a system consisting of $N≥1$ chemical species, $\{X_1,\ldots, X_N\}$, undergoing $M \geqslant 1$ chemical reactions through reaction channels $\{R_1,\ldots,R_M\}$, each of which is equipped with a propensity function (or intensity function in the mathematics literature), $a_k(X)$. The dynamic state of this chemical system can be described by the state vector $X(t) =[X_1(t),...,X_N(t)]^T$, where $X_n[t],n = 1,...,N,$ is the number of $X_n$ molecules at time $t$, and $[·]^T$ denotes the transpose of the vector in the bracket.
+Consider a system consisting of $N \geq 1$ chemical species, $\{X_1,\ldots, X_N\}$, undergoing $M \geq 1$ chemical reactions through reaction channels $\{R_1,\ldots,R_M\}$, each of which is equipped with a propensity function (or intensity function in the mathematics literature), $a_k(X)$. The dynamic state of this chemical system can be described by the state vector $X(t) =[X_1(t),\ldots,X_N(t)]^T$, where $X_n[t],n = 1,\ldots,N,$ is the number of $X_n$ molecules at time $t$, and $[·]^T$ denotes the transpose of the vector in the bracket.
 
   Following Gillespie, the dynamics of reaction $R_k$ defined by a state-change vector $\nu_k = [\nu_{1k} ,\ldots,\nu_{Nk}]^T$, where $\nu_{nk}$ gives the changes in the $X_n$ molecular population produced by one $R_k$ reaction, and a propensity function $a_k(t)$ together with the fundamental premise of stochastic chemical kinetics:
 
@@ -227,17 +227,17 @@ and
 
 ```math
 \begin{equation}
-f_\mu(\mu)={{a_\mu(t)} \over {a_0(t)}}, \mu = 1,...,M,
+f_\mu(\mu)={{a_\mu(t)} \over {a_0(t)}}, \mu = 1,\ldots,M,
 \end{equation}
 ```
 
-where $a_0(t)=\begin{matrix} \sum_{k=1}^M a_k(t) \end{matrix}$. According to the PDF Eq.(4), a realization of $\mu$ can be generated from a standard uniform random variable $u_1$, by taking $\mu$ to be the integer for which $\sum_{j=1}^{\mu-1} a_j(t)  < u_1 a_0(t) \leqslant \sum_{j=1}^\mu a_j(t)$;based on the PDF Eq.(3), a realization of $\Delta$ can be generated from another standard uniform random variable $u_2$ as $\Delta=−\ln(u_2)/a_0(t)$. Therefore, Gillespie’s exact SSA generates a realization of $\mu$ and $\Delta$ in each step of simulation, and then updates the time and system state as $t\leftarrow t+\Delta$ and  $\mathbf{x} \leftarrow \mathbf{x}+ \mathbf{\nu_\mu}$, respectively.
+where $a_0(t)=\begin{matrix} \sum_{k=1}^M a_k(t) \end{matrix}$. According to the PDF Eq.(4), a realization of $\mu$ can be generated from a standard uniform random variable $u_1$, by taking $\mu$ to be the integer for which $\sum_{j=1}^{\mu-1} a_j(t)  < u_1 a_0(t) \leq \sum_{j=1}^\mu a_j(t)$;based on the PDF Eq.(3), a realization of $\Delta$ can be generated from another standard uniform random variable $u_2$ as $\Delta=−\ln(u_2)/a_0(t)$. Therefore, Gillespie’s exact SSA generates a realization of $\mu$ and $\Delta$ in each step of simulation, and then updates the time and system state as $t\leftarrow t+\Delta$ and  $\mathbf{x} \leftarrow \mathbf{x}+ \mathbf{\nu_\mu}$, respectively.
 
 ## Exact SSA For Coupled Chemical Reaction With Delays
 
 ### Delay Direct method
 
-  As in the derivation of Gillespie’s exact SSA, we first need to find the probability of event Eq.(2), that is defined as $P(\Delta,\mu)d\Delta$, where $P(\Delta,\mu)$ is the joint PDF of $\Delta$ and $\mu$. Suppose that there are $d$ ongoing reactions at timet, which will finish at $t+T_1,...,t+T_{d}$, respectively. Without loss of generality, we assume that $T_1≤T_2≤...≤T_d$. Unlike in the reaction system without delays where the propensity functions remain unchanged in the time interval $[t,t+\Delta]$, the propensity functions here change at $t+T_i,i=1,...,d$, due to delayed reactions. We need to take into account such changes in propensity functions when deriving  $P(\Delta,\mu)$.
+  As in the derivation of Gillespie’s exact SSA, we first need to find the probability of event Eq.(2), that is defined as $P(\Delta,\mu)d\Delta$, where $P(\Delta,\mu)$ is the joint PDF of $\Delta$ and $\mu$. Suppose that there are $d$ ongoing reactions at timet, which will finish at $t+T_1,\ldots,t+T_{d}$, respectively. Without loss of generality, we assume that $T_1 \leq T_2 \leq \ldots \leq T_d$. Unlike in the reaction system without delays where the propensity functions remain unchanged in the time interval $[t,t+\Delta]$, the propensity functions here change at $t+T_i,i=1,\ldots,d$, due to delayed reactions. We need to take into account such changes in propensity functions when deriving  $P(\Delta,\mu)$.
 
   As in the derivation of Gillespie’s exact SSA, $P(\Delta,\mu)d\Delta$ can be found from the fundamental premise Eq.(1) as
 
@@ -247,25 +247,25 @@ P(\Delta,\mu)d\Delta=P_0(\Delta) a_\mu(\Delta,\mu)d\Delta,
 \end{equation}
 ```
 
-where $P_0(\Delta)$ is the probability that no reaction will occur in the time interval $[t,t+\Delta]$, while $a_\mu(t+\Delta)d\Delta$ is the probability that a reaction $R_\mu$ occurs in $[t+\Delta,t+\Delta+d\Delta]$. Defining $T_0=0$ and $T_{d+1}=\infty$, we can find $P_0(\Delta)$ for $\Delta$ that lies in different time intervals $[T_i,T_{i+1}),i=0,...,d$. If $\Delta \in [T_i,T_i+1)$, we define the event $E_j$ as the event that no reaction occurs in the time interval $[t+T_j,t+T_j+1),j=0,...,j=i−1$, respectively,and the event  $E_i$  as the event that no reaction occurs in the time interval $[t+T_i,t+\Delta)$. Then, we can express $P_0(\Delta)$ as
+where $P_0(\Delta)$ is the probability that no reaction will occur in the time interval $[t,t+\Delta]$, while $a_\mu(t+\Delta)d\Delta$ is the probability that a reaction $R_\mu$ occurs in $[t+\Delta,t+\Delta+d\Delta]$. Defining $T_0=0$ and $T_{d+1}=\infty$, we can find $P_0(\Delta)$ for $\Delta$ that lies in different time intervals $[T_i,T_{i+1}),i=0,\ldots,d$. If $\Delta \in [T_i,T_i+1)$, we define the event $E_j$ as the event that no reaction occurs in the time interval $[t+T_j,t+T_j+1),j=0,\ldots,j=i−1$, respectively,and the event  $E_i$  as the event that no reaction occurs in the time interval $[t+T_i,t+\Delta)$. Then, we can express $P_0(\Delta)$ as
 
 ```math
 \begin{equation}
-P_0(\Delta)=P(E_0,...,E_i)=P(E_0) \prod_{j=1}^i P(E_j丨E_0,...,E_{j-1}).
+P_0(\Delta)=P(E_0,\ldots,E_i)=P(E_0) \prod_{j=1}^i P(E_j丨E_0,\ldots,E_{j-1}).
 \end{equation}
 ```
 
   From the derivation of Gillespie’s exact SSA,we know that  $P(E_0) = \exp (−a_0(t)T_1)$,
 ```math
-P(E_j丨E_0,...,E_{j-1}) = \exp(-a_0(t+T_j)T_1) × (T_{j+1}−T_j),j=0,\ldots,i−1,
+P(E_j丨E_0,\ldots,E_{j-1}) = \exp(-a_0(t+T_j)T_1) × (T_{j+1}−T_j),j=0,\ldots,i−1,
 ```
-and $P(E_i丨E_0,...,E_{i-1}) = \exp(-a_0(t+T_i)(\Delta-T_i))$.  Notice that propensity functions change at $t+T_j$ after a delayed reaction finishes, and we use $a_0(t+T_j)$ to represent the new $a_0$. The probability $P_0(\Delta)$ is then given by
+and $P(E_i丨E_0,\ldots,E_{i-1}) = \exp(-a_0(t+T_i)(\Delta-T_i))$.  Notice that propensity functions change at $t+T_j$ after a delayed reaction finishes, and we use $a_0(t+T_j)$ to represent the new $a_0$. The probability $P_0(\Delta)$ is then given by
 
 ```math
 \begin{equation}
 \begin{aligned}
 & P_0(\Delta) = \exp \bigg (-\sum_{j=0}^{i-1} a_0(t+T_j)(T_{j+1}-T_j)-a_0(t+T_i)(\Delta-T_i) \bigg ), \\
-& \Delta \in [T_i,T_i+1), i = 0,...,d,
+& \Delta \in [T_i,T_i+1), i = 0,\ldots,d,
 \end{aligned}
 \end{equation}
 ```
@@ -276,7 +276,7 @@ where we assume that the first term of the exponent is equal to zero when $i = 0
 \begin{equation}
 \begin{aligned}
 & f_\Delta(\Delta) = a_0(t+T_i) \exp \bigg (-\begin{matrix} \sum_{j=0}^{i-1} a_0(t+T_j)(T_{j+1}-T_j) \end{matrix} - a_0(t+T_i)(\Delta-T_i) \bigg ), \\
-& \Delta \in [T_i,T_i+1), i = 0,...,d,
+& \Delta \in [T_i,T_i+1), i = 0,\ldots,d,
 \end{aligned}
 \end{equation}
 ```
@@ -284,7 +284,7 @@ where we assume that the first term of the exponent is equal to zero when $i = 0
 and
 
 ```math
-f_\mu(\mu)={ {a_\mu(t+T_i)} \over {a_0(t+T_i)} }, \mu = 1,...,M,\Delta \in [T_i,T_i+1),
+f_\mu(\mu)={ {a_\mu(t+T_i)} \over {a_0(t+T_i)} }, \mu = 1,\ldots,M,\Delta \in [T_i,T_i+1),
 ```
 
 It is not difficult to verify that $\int_{0}^{\infty} f_\Delta(\Delta)\, d\Delta = 1$. In simulation, $\mu$ can be generated, from a standard uniform random variable $u_1$, by taking $\mu$ to be the integer for which $\begin{matrix} \sum_{j=1}^{\mu-1} a_j(t+T_i) \end{matrix} < u_1 a_0(t+T_i) ≤ \begin{matrix} \sum_{j=1}^\mu a_j(t+T_i) \end{matrix}$, after $\Delta$ is generated to be in the time interval $[T_i,T_{i+1})$.We next derive the method of generating  $\Delta$ according to its PDF in Eq.(8).
@@ -294,7 +294,7 @@ It is not difficult to verify that $\int_{0}^{\infty} f_\Delta(\Delta)\, d\Delta
 ```math
 \begin{aligned}
 & F_\Delta(\Delta)=1 - \exp  \bigg (-\begin{matrix} \sum_{j=0}^{i-1} a_0 \end{matrix}(t+T_j)(T_{j+1}-T_j)-a_0(t+T_i)(\Delta-T_i) \bigg ), \\
-& \Delta \in [T_i,T_i+1), i = 0,...,d,
+& \Delta \in [T_i,T_i+1), i = 0,\ldots,d,
 \end{aligned}
 ```
 
@@ -309,7 +309,7 @@ Then, we can generate $\Delta$ from a standard uniform random variable $u_2$, by
 \end{aligned}
 ```
 
-  Since we need $T_1,...,T_d$ to generate $\Delta$ and $\mu$, we define an array of data structures, named *Tstruct*, whose $i$th $(i=1,...,d)$ cell stores $T_i$ and the index, $\mu_i$, of the reaction that $T_i$ is associated with. The reaction index $\mu_i$ is needed during the generation of $\Delta$, when we update the propensity functions affected by the reaction that is delayed but finishes at $t+T_i$. During simulation, we need to generate $\Delta$ and $\mu$, maintain *Tstruct*, and then update the state vector $X(t)$.
+  Since we need $T_1,\ldots,T_d$ to generate $\Delta$ and $\mu$, we define an array of data structures, named *Tstruct*, whose $i$th $(i=1,\ldots,d)$ cell stores $T_i$ and the index, $\mu_i$, of the reaction that $T_i$ is associated with. The reaction index $\mu_i$ is needed during the generation of $\Delta$, when we update the propensity functions affected by the reaction that is delayed but finishes at $t+T_i$. During simulation, we need to generate $\Delta$ and $\mu$, maintain *Tstruct*, and then update the state vector $X(t)$.
 
 ### Delay Rejection Method
 
