@@ -197,7 +197,7 @@ Consider a system consisting of $N≥1$ chemical species, $\{X_1,\ldots, X_N\}$,
 \begin{aligned}
 a_k(t)dt = &\text{ the probability, given } X(t)=x, \\
 &\quad \text{that one reaction }R_k \text{ will occur in the}\\
-&\quad \text{next infinitesimal time interval }[t,t+dt].
+&\quad \text{next infinitesimal time interval }[t,t+\Delta].
 \end{aligned}
 \end{equation}
 ```
@@ -211,7 +211,7 @@ a_k(t)dt = &\text{ the probability, given } X(t)=x, \\
 \begin{aligned}
 \text{E: } & \text{no reaction occurs in the time interval }[t,t+\Delta],\\
 & \text{and a reaction }R_\mu \ \text{occurs in the infinitesimal}\\
-& \text{time interval }[t+\Delta,t+\Delta+\mathrm{d}_\Delta].
+& \text{time interval }[t+\Delta,t+\Delta+\mathrm{d}t].
 \end{aligned}
 \end{equation}
 ```
@@ -228,7 +228,7 @@ and
 
 ```math
 \begin{equation}
-f_\mu(\mu)={{a_\mu(t)}/over {a_0(t)}}, \mu = 1,...,M,
+f_\mu(\mu)={{a_\mu(t)} \over {a_0(t)}}, \mu = 1,...,M,
 \end{equation}
 ```
 
@@ -285,7 +285,7 @@ where we assume that the first term of the exponent is equal to zero when $i = 0
 and
 
 ```math
-f_\mu(\mu)={ {a_\mu(t+T_i)} /over {a_0(t+T_i)} }, \mu = 1,...,M,\Delta \in [T_i,T_i+1),
+f_\mu(\mu)={ {a_\mu(t+T_i)} \over {a_0(t+T_i)} }, \mu = 1,...,M,\Delta \in [T_i,T_i+1),
 ```
 
 It is not difficult to verify that $\int_{0}^{\infty} f_\Delta(\Delta)\, d\Delta = 1$. In simulation, $\mu$ can be generated, from a standard uniform random variable $u_1$, by taking $\mu$ to be the integer for which $\begin{matrix} \sum_{j=1}^{\mu-1} a_j(t+T_i) \end{matrix} < u_1 a_0(t+T_i) ≤ \begin{matrix} \sum_{j=1}^\mu a_j(t+T_i) \end{matrix}$, after $\Delta$ is generated to be in the time interval $[T_i,T_{i+1})$.We next derive the method of generating  $\Delta$ according to its PDF in Eq.(8).
