@@ -46,35 +46,24 @@ where the $Y_k$ are independent, unit rate Poisson processes.
 ### Pseudo code
 
 1. Initialize. Set the initial number of molecules of each species and set $t = 0$.
-
 2. Calculate the propensity function, $a_k$, for each reaction.
-
 3. Set $a_0 = \sum_{k=1}^M a_k$.
-
 4. Generate an independent uniform $(0,1)$ random number, $r_1$, and set $\Delta = 1/a_0 \ln(1/r_1)$.
-
 5. If there is a delayed reaction set to finish in $[t, t + \Delta)$
-
    - Discard $\Delta$.
    - Updatetto be the time of the next delayed reaction,$\mu$.
    - Updatexaccording to the stored reaction $\mu$.
-
 6. Else
-
    - Generate an independent uniform$(0,1)$ random number $r_2$.
    - Find $\mu\in[1,\ldots, m]$ such that
-
    ```math
    \sum_{k=1}^{\mu-1} a_k(t) < r_2 a_0 < \sum_{k=1}^\mu a_k(t)
    ```
-
    - If $\mu\in \text{ND}$, update the number of each molecular species according to reaction $\mu$.
    - If $\mu\in \text{CD}$, store the information that at time $t+\tau_\mu$ the system must be updated according to reaction $\mu$.
    - If $\mu\in \text{ICD}$, update the system according to the initiation of $\mu$ and store that at time $t+\tau_\mu$ the system must be updated according to the completion of reaction $\mu$.
    - Set $t = t +\Delta$
-
 7. Endif
-
 8. Return to step 2 or quit.
 
 
@@ -99,37 +88,24 @@ where $t$ is the current time of the system. These ideas form the heart of our N
 ### Pseudo code
 
 1. Initialize. Set the initial number of molecules of each species and set $t = 0$. For each $k ≤ M$, set $P_k = 0$ and $T_k = 0$, and for each delayed reaction channel set $s_k = [\infty]$.
-
 2. Calculate the propensity function, $a_k$, for each reaction.
-
 3. Generate $M$ independent, uniform$(0,1)$ random numbers, $r_k$, and set $P_k = \ln(1/r_k)$.
-
 4. Set $\Delta t_k = (P_k − T_k)/a_k$.
-
 5. Set $\Delta = \min_k\{\Delta t_k, s_k(1) − t\}$.
-
 6. Set $t = t + \Delta$.
-
 7. If we chose the completion of the delayed reaction $\mu$:
    - Update the system based upon the completion of the reaction $\mu$.
    - Delete the first row of $S_\mu$.
-
 8. Elseif reaction $\mu$ initiated and $\mu\in \text{ND}$
    - Update the system according to reaction $\mu$.
-
 9. Elseif reaction $\mu$ initiated and $\mu\in \text{CD}$
    - Update $s_\mu$ by inserting $t + \tau_\mu$ into $s_\mu$ in the second to last position.
-
 10. Elseif reaction $\mu$ initiated and $\mu\in \text{ICD}$
     - Update the system based upon the initiation of reaction $\mu$.
     - Update $s_\mu$ by inserting $t + \tau_\mu$ into $s_\mu$ in the second to last position.
-
 11. For each k, set $T_k = T_k + a_k \Delta$.
-
 12. If reaction $\mu$ initiated, let $r$ be uniform$(0,1)$ and set $P_\mu = P_\mu + \ln(1/r)$.
-
 13. Recalculate the propensity functions, $a_k$.
-
 14. Return to step 4 or quit.
 
 [1]: David F. Anderson, "A modified Next Reaction Method for simulating chemical systems with time dependent propensities and delays", The Journal of Chemical Physics 128, 109903(2008).
