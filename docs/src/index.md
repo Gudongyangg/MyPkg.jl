@@ -257,7 +257,7 @@ P_0(\Delta)=P(E_0,\ldots,E_i)=P(E_0) \prod_{k=1}^i P(E_k丨E_0,\ldots,E_{k-1}).
 
   From the derivation of Gillespie’s exact SSA,we know that  $P(E_0) = \exp (−a_0(t)T_1)$,
 ```math
-P(E_k丨E_0,\ldots,E_{k-1}) = \exp(-a_0(t+T_k)T_1) × (T_{k+1}−T_k),k=0,\ldots,i−1,
+P_0(E_k丨E_0,\ldots,E_{k-1}) = \exp(-a_0(t+T_k)T_1) × (T_{k+1}−T_k),k=0,\ldots,i−1,
 ```
 and $P(E_i丨E_0,\ldots,E_{i-1}) = \exp(-a_0(t+T_i)(\Delta-T_i))$.  Notice that propensity functions change at $t+T_k$ after a delayed reaction finishes, and we use $a_0(t+T_k)$ to represent the new $a_0$. The probability $P_0(\Delta)$ is then given by
 
@@ -304,7 +304,7 @@ Then, we can generate $\Delta$ from a standard uniform random variable $u_2$, by
 
 ```math
 \begin{aligned}
-& \Delta = T_i + {{-\ln (1-u_2)-\begin{matrix} \sum_{k=0}^{i-1} a_0(t+T_k)(T_{k+1}-T_k) \end{matrix} } \over {a_0(t+T_k)}} \\
+& \Delta = T_i + {{-\ln (1-u_2)-\begin{matrix} \sum_{k=0}^{i-1} a_0(t+T_k)(T_{k+1}-T_k) \end{matrix} } \over {a_0(t+T_i)}} \\
 & \Delta \in [T_i,T_i+1).
 \end{aligned}
 ```
