@@ -231,7 +231,7 @@ f_\mu(\mu)={{a_\mu(t)} \over {a_0(t)}}, \mu = 1,\ldots,M,
 \end{equation}
 ```
 
-where $a_0(t)=\begin{matrix} \sum_{k=1}^M a_k(t) \end{matrix}$. According to the PDF Eq.(4), a realization of $\mu$ can be generated from a standard uniform random variable $u_1$, by taking $\mu$ to be the integer for which $\sum_{j=1}^{\mu-1} a_j(t)  < u_1 a_0(t) \leq \sum_{j=1}^\mu a_j(t)$;based on the PDF Eq.(3), a realization of $\Delta$ can be generated from another standard uniform random variable $u_2$ as $\Delta=−\ln(u_2)/a_0(t)$. Therefore, Gillespie’s exact SSA generates a realization of $\mu$ and $\Delta$ in each step of simulation, and then updates the time and system state as $t\leftarrow t+\Delta$ and  $\mathbf{x} \leftarrow \mathbf{x}+ \mathbf{\nu_\mu}$, respectively.
+where $a_0(t)=\begin{matrix} \sum_{k=1}^M a_k(t) \end{matrix}$. According to the PDF Eq.(4), a realization of $\mu$ can be generated from a standard uniform random variable $u_1$, by taking $\mu$ to be the integer for which $\sum_{k=1}^{\mu-1} a_k(t)  < u_1 a_0(t) \leq \sum_{k=1}^\mu a_k(t)$;based on the PDF Eq.(3), a realization of $\Delta$ can be generated from another standard uniform random variable $u_2$ as $\Delta=−\ln(u_2)/a_0(t)$. Therefore, Gillespie’s exact SSA generates a realization of $\mu$ and $\Delta$ in each step of simulation, and then updates the time and system state as $t\leftarrow t+\Delta$ and  $\mathbf{x} \leftarrow \mathbf{x}+ \mathbf{\nu_\mu}$, respectively.
 
 ## Exact SSA For Coupled Chemical Reaction With Delays
 
@@ -247,24 +247,24 @@ P(\Delta,\mu)d\Delta=P_0(\Delta) a_\mu(\Delta,\mu)d\Delta,
 \end{equation}
 ```
 
-where $P_0(\Delta)$ is the probability that no reaction will occur in the time interval $[t,t+\Delta]$, while $a_\mu(t+\Delta)d\Delta$ is the probability that a reaction $R_\mu$ occurs in $[t+\Delta,t+\Delta+d\Delta]$. Defining $T_0=0$ and $T_{d+1}=\infty$, we can find $P_0(\Delta)$ for $\Delta$ that lies in different time intervals $[T_i,T_{i+1}),i=0,\ldots,d$. If $\Delta \in [T_i,T_i+1)$, we define the event $E_j$ as the event that no reaction occurs in the time interval $[t+T_j,t+T_j+1),j=0,\ldots,j=i−1$, respectively,and the event  $E_i$  as the event that no reaction occurs in the time interval $[t+T_i,t+\Delta)$. Then, we can express $P_0(\Delta)$ as
+where $P_0(\Delta)$ is the probability that no reaction will occur in the time interval $[t,t+\Delta]$, while $a_\mu(t+\Delta)d\Delta$ is the probability that a reaction $R_\mu$ occurs in $[t+\Delta,t+\Delta+d\Delta]$. Defining $T_0=0$ and $T_{d+1}=\infty$, we can find $P_0(\Delta)$ for $\Delta$ that lies in different time intervals $[T_i,T_{i+1}),i=0,\ldots,d$. If $\Delta \in [T_i,T_i+1)$, we define the event $E_k$ as the event that no reaction occurs in the time interval $[t+T_k,t+T_{k+1}),k=0,\ldots,k=i−1$, respectively,and the event  $E_i$  as the event that no reaction occurs in the time interval $[t+T_i,t+\Delta)$. Then, we can express $P_0(\Delta)$ as
 
 ```math
 \begin{equation}
-P_0(\Delta)=P(E_0,\ldots,E_i)=P(E_0) \prod_{j=1}^i P(E_j丨E_0,\ldots,E_{j-1}).
+P_0(\Delta)=P(E_0,\ldots,E_i)=P(E_0) \prod_{k=1}^i P(E_k丨E_0,\ldots,E_{k-1}).
 \end{equation}
 ```
 
   From the derivation of Gillespie’s exact SSA,we know that  $P(E_0) = \exp (−a_0(t)T_1)$,
 ```math
-P(E_j丨E_0,\ldots,E_{j-1}) = \exp(-a_0(t+T_j)T_1) × (T_{j+1}−T_j),j=0,\ldots,i−1,
+P(E_k丨E_0,\ldots,E_{k-1}) = \exp(-a_0(t+T_k)T_1) × (T_{k+1}−T_k),k=0,\ldots,i−1,
 ```
-and $P(E_i丨E_0,\ldots,E_{i-1}) = \exp(-a_0(t+T_i)(\Delta-T_i))$.  Notice that propensity functions change at $t+T_j$ after a delayed reaction finishes, and we use $a_0(t+T_j)$ to represent the new $a_0$. The probability $P_0(\Delta)$ is then given by
+and $P(E_i丨E_0,\ldots,E_{i-1}) = \exp(-a_0(t+T_i)(\Delta-T_i))$.  Notice that propensity functions change at $t+T_k$ after a delayed reaction finishes, and we use $a_0(t+T_k)$ to represent the new $a_0$. The probability $P_0(\Delta)$ is then given by
 
 ```math
 \begin{equation}
 \begin{aligned}
-& P_0(\Delta) = \exp \bigg (-\sum_{j=0}^{i-1} a_0(t+T_j)(T_{j+1}-T_j)-a_0(t+T_i)(\Delta-T_i) \bigg ), \\
+& P_0(\Delta) = \exp \bigg (-\sum_{k=0}^{i-1} a_0(t+T_k)(T_{k+1}-T_k)-a_0(t+T_i)(\Delta-T_i) \bigg ), \\
 & \Delta \in [T_i,T_i+1), i = 0,\ldots,d,
 \end{aligned}
 \end{equation}
@@ -275,7 +275,7 @@ where we assume that the first term of the exponent is equal to zero when $i = 0
 ```math
 \begin{equation}
 \begin{aligned}
-& f_\Delta(\Delta) = a_0(t+T_i) \exp \bigg (-\begin{matrix} \sum_{j=0}^{i-1} a_0(t+T_j)(T_{j+1}-T_j) \end{matrix} - a_0(t+T_i)(\Delta-T_i) \bigg ), \\
+& f_\Delta(\Delta) = a_0(t+T_i) \exp \bigg (-\begin{matrix} \sum_{k=0}^{i-1} a_0(t+T_k)(T_{k+1}-T_k) \end{matrix} - a_0(t+T_i)(\Delta-T_i) \bigg ), \\
 & \Delta \in [T_i,T_i+1), i = 0,\ldots,d,
 \end{aligned}
 \end{equation}
@@ -287,13 +287,13 @@ and
 f_\mu(\mu)={ {a_\mu(t+T_i)} \over {a_0(t+T_i)} }, \mu = 1,\ldots,M,\Delta \in [T_i,T_i+1),
 ```
 
-It is not difficult to verify that $\int_{0}^{\infty} f_\Delta(\Delta)\, d\Delta = 1$. In simulation, $\mu$ can be generated, from a standard uniform random variable $u_1$, by taking $\mu$ to be the integer for which $\begin{matrix} \sum_{j=1}^{\mu-1} a_j(t+T_i) \end{matrix} < u_1 a_0(t+T_i) ≤ \begin{matrix} \sum_{j=1}^\mu a_j(t+T_i) \end{matrix}$, after $\Delta$ is generated to be in the time interval $[T_i,T_{i+1})$.We next derive the method of generating  $\Delta$ according to its PDF in Eq.(8).
+It is not difficult to verify that $\int_{0}^{\infty} f_\Delta(\Delta)\, d\Delta = 1$. In simulation, $\mu$ can be generated, from a standard uniform random variable $u_1$, by taking $\mu$ to be the integer for which $\begin{matrix} \sum_{k=1}^{\mu-1} a_k(t+T_i) \end{matrix} < u_1 a_0(t+T_i) ≤ \begin{matrix} \sum_{k=1}^\mu a_k(t+T_i) \end{matrix}$, after $\Delta$ is generated to be in the time interval $[T_i,T_{i+1})$.We next derive the method of generating  $\Delta$ according to its PDF in Eq.(8).
 
   The cumulative distribution function of $\Delta$can be found from Eq.(8) as
 
 ```math
 \begin{aligned}
-& F_\Delta(\Delta)=1 - \exp  \bigg (-\begin{matrix} \sum_{j=0}^{i-1} a_0 \end{matrix}(t+T_j)(T_{j+1}-T_j)-a_0(t+T_i)(\Delta-T_i) \bigg ), \\
+& F_\Delta(\Delta)=1 - \exp  \bigg (-\begin{matrix} \sum_{k=0}^{i-1} a_0 \end{matrix}(t+T_k)(T_{k+1}-T_k)-a_0(t+T_i)(\Delta-T_i) \bigg ), \\
 & \Delta \in [T_i,T_i+1), i = 0,\ldots,d,
 \end{aligned}
 ```
@@ -304,7 +304,7 @@ Then, we can generate $\Delta$ from a standard uniform random variable $u_2$, by
 
 ```math
 \begin{aligned}
-& \Delta = T_i + {{-\ln (1-u_2)-\begin{matrix} \sum_{j=0}^{i-1} a_0(t+T_j)(T_{j+1}-T_j) \end{matrix} } \over {a_0(t+T_j)}} \\
+& \Delta = T_i + {{-\ln (1-u_2)-\begin{matrix} \sum_{k=0}^{i-1} a_0(t+T_k)(T_{k+1}-T_k) \end{matrix} } \over {a_0(t+T_k)}} \\
 & \Delta \in [T_i,T_i+1).
 \end{aligned}
 ```
