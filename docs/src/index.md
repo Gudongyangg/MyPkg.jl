@@ -183,11 +183,11 @@ Remark. Notice that in the above pseudo-code, we modified the Step 4. in the ori
 
 
 
-
 # Theory
+
 ## Exact Stochastic Simulation Algorithm (SSA) Without Delays
 
-Consider a system consisting of $N \geq 1$ chemical species, $\{X_1,\ldots, X_N\}$, undergoing $M \geq 1$ chemical reactions through reaction channels $\{R_1,\ldots,R_M\}$, each of which is equipped with a propensity function (or intensity function in the mathematics literature), $a_k(X)$. The dynamic state of this chemical system can be described by the state vector $X(t) =[X_1(t),\ldots,X_N(t)]^T$, where $X_n[t],n = 1,\ldots,N,$ is the number of $X_n$ molecules at time $t$, and $[·]^T$ denotes the transpose of the vector in the bracket.
+  Consider a system consisting of $N \geq 1$ chemical species, $\{X_1,\ldots, X_N\}$, undergoing $M \geq 1$ chemical reactions through reaction channels $\{R_1,\ldots,R_M\}$, each of which is equipped with a propensity function (or intensity function in the mathematics literature), $a_k(X)$. The dynamic state of this chemical system can be described by the state vector $X(t) =[X_1(t),\ldots,X_N(t)]^T$, where $X_n(t),n = 1,\ldots,N,$ is the number of $X_n$ molecules at time $t$, and $[·]^T$ denotes the transpose of the vector in the bracket.
 
   Following Gillespie, the dynamics of reaction $R_k$ defined by a state-change vector $\nu_k = [\nu_{1k} ,\ldots,\nu_{Nk}]^T$, where $\nu_{nk}$ gives the changes in the $X_n$ molecular population produced by one $R_k$ reaction, and a propensity function $a_k(t)$ together with the fundamental premise of stochastic chemical kinetics:
 
@@ -255,11 +255,13 @@ P_0(\Delta)=P(E_0,\ldots,E_i)=P(E_0) \prod_{k=1}^i P(E_k丨E_0,\ldots,E_{k-1}).
 \end{equation}
 ```
 
-  From the derivation of Gillespie’s exact SSA,we know that  $P(E_0) = \exp (−a_0(t)T_1)$,
+From the derivation of Gillespie’s exact SSA,we know that  
 ```math
-P_0(E_k丨E_0,\ldots,E_{k-1}) = \exp(-a_0(t+T_k)T_1) × (T_{k+1}−T_k),k=0,\ldots,i−1,
+P(E_0) = \exp (−a_0(t)T_1)\\
+P_0(E_k丨E_0,\ldots,E_{k-1}) = \exp(-a_0(t+T_k)T_1) × (T_{k+1}−T_k),k=0,\ldots,i−1,\\
+P(E_i丨E_0,\ldots,E_{i-1}) = \exp(-a_0(t+T_i)(\Delta-T_i)).
 ```
-and $P(E_i丨E_0,\ldots,E_{i-1}) = \exp(-a_0(t+T_i)(\Delta-T_i))$.  Notice that propensity functions change at $t+T_k$ after a delayed reaction finishes, and we use $a_0(t+T_k)$ to represent the new $a_0$. The probability $P_0(\Delta)$ is then given by
+Notice that propensity functions change at $t+T_k$ after a delayed reaction finishes, and we use $a_0(t+T_k)$ to represent the new $a_0$. The probability $P_0(\Delta)$ is then given by
 
 ```math
 \begin{equation}
@@ -311,7 +313,38 @@ Then, we can generate $\Delta$ from a standard uniform random variable $u_2$, by
 
   Since we need $T_1,\ldots,T_d$ to generate $\Delta$ and $\mu$, we define an array of data structures, named *Tstruct*, whose $i$th $(i=1,\ldots,d)$ cell stores $T_i$ and the index, $\mu_i$, of the reaction that $T_i$ is associated with. The reaction index $\mu_i$ is needed during the generation of $\Delta$, when we update the propensity functions affected by the reaction that is delayed but finishes at $t+T_i$. During simulation, we need to generate $\Delta$ and $\mu$, maintain *Tstruct*, and then update the state vector $X(t)$.
 
-### Delay Rejection Method
+
+### Delay Direct method
+Now let us see whether the rejection method in the rejection algorithm can correctly simulate the event (2). The rejection algorithm essentially generates $\Delta$ in the event (2) using a rejection method in an iterative fashion: in the *i*-th iteration, it generates a $\Delta_i$ iaccording to an exponential PDF with parameter $a_0(t+T_{i−1})$, where we have denoted the $\Delta '$ generated in the *i*-th iteration as $\Delta_i$. If $\Delta_i < T_i - T_{i−1}$, then we have $\Delta = \sum_{j=0}^{i-1} T_j+\Delta_i$ and the algorithm continues simulation to generate $\mu$; otherwise, it rejects $\Delta_i$, updates the state vector $X(t+T_i)$, calculates $a_k(t+T_i),k=1,\ldots,M$, and goes to the next iteration. If $\Delta$ is determined in the *(i+1)*-th iteration, where *i*
+is a non-negative integer, then we have $\Delta \in [T_i,T_{i+1})$ and *i* delayed reactions finished in the time interval $[t,t+\Delta)$.
+
+From the iterative procedure of generating $\Delta$ described
+above, we can find $P_0(\Delta)$ that the rejection algorithm produces. Specifically, if $\Delta \in [T_i,T_{i+1})$, we have $P_0(E_k丨E_0,\ldots,E_{k-1}) = P_0(\Delta_{k+1} > T_{k+1} - T_k), k=1,\ldots,i−1$, because $\Delta_k,k=1,\ldots,i$, are rejected. Since $\Delta_{k+1}$ is accepted, at least one reaction will occur in the time interval $[t+T_i,t+\Delta)$, if $\Delta_{i+1} < Delta −T_i$. Thus, $P(E_i丨E_0,\ldots,E_{i-1}) = 1−P(\Delta_{i+1} < \Delta - T_i) = P(\Delta_{i+1} > \Delta - T_i)$. Therefore, for the rejection method, $P_0(\Delta)$ in Eq. (6) can be written as
+```math
+\begin{equation}
+P_0(\Delta) = P(\Delta_{i+1} > \Delta - T_i) \prod_{k=1}^i P(\Delta_k > T_k,T_{k-1}).
+\end{equation}
+```
+The random variables  $\Delta_k,k=1,\ldots,i+1$, follow an exponential distribution with parameter $a_0(t+T_{k−1}), and thus we have
+```math
+\begin{equation}
+P(\Delta_k > T_k - T_{k-1}) = \exp(-a_0(t+T_{k-1})(T_k - T_{k-1})) \\
+k= 1,\ldots,i,
+\end{equation}
+```
+and
+```math
+\begin{equation}
+P(\Delta_{i+1} > Delta −T_i) = \exp(-a_0(t+T_i)(\Delta-T_i)).
+\end{equation}
+```
+Substituting Eqs. ?13? and ?14?into Eq. ?12?, we find that $P_0(\Delta)$ in Eq. ?12? is exactly the same as $P_0(\Delta)$ in Eq.?7? that is derived directly from the event (2) and the fundamental premise (1). Since our algorithm generates $\Delta$ and $\mu$ according to PDFs of $\Delta$ and $\mu$ derived from $P_0(\Delta)$ in Eq. (7), the rejection method is equivalent to our direct method and also is an exact SSA for chemical reaction systems with delays.
+
+We next analyze the complexity of the rejection method algorithm and the direct method algorithm. As we have seen, the difference between two algorithms lies in the generation of $\Delta$. Suppose that both algorithms generate
+a  $\Delta \in [T_i,T_{i+1})$, where *i* is a non-negative integer. From Pseudo-Code 1 used in Algorithm 1 and step 2 of Algorithm
+2, we see that both algorithms update the state vector **x** at $t+T_k,k=1,\ldots,i$, and calculate $a_k(t+T_k)$ and $a_0(t+T_k)$, $j=1,\ldots,i$. The direct method algorithm also calculates $a_k(t+T_{i+1})$ and $a_0(t+T_{i+1})$, but $a_k(t+T_{i+1})$ and $a_0(t+T_{i+1})$ can be reused in generating next $\Delta$. Therefore, two algorithms require the same computation on calculating propensity functions and updating the state vector. The direct method algorithm needs to evaluate the exponential function and calculateat $a_t$ *i+1*  times, while the rejection method does not need such operations. Also, the direct method needs slightly more
+computation on calculating $\Delta$ from a uniform random variable than the rejection method algorithm. To generate a $\Delta$, the direct method algorithm generates exactly one uniform random variable regardless of the value of *i*, while the rejection method algorithm generates *i*+1 uniform random variable.
+
 
 
 <!-- # DelaySSAToolkit
