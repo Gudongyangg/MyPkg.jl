@@ -193,7 +193,7 @@ Remark. Notice that in the above pseudo-code, we modified the Step 4. in the ori
 ```math
 \begin{equation}
 \begin{aligned}
-a_k(t)\Delta t = &\text{ the probability, given } X(t)=x, \\
+a_k(t)\Delta t = &\text{ the probability, given } X(t)=\mathbf{x}, \\
 &\quad \text{that one reaction }R_k \text{ will occur in the}\\
 &\quad \text{next infinitesimal time interval }[t,t+\Delta t].
 \end{aligned}
@@ -214,7 +214,7 @@ a_k(t)\Delta t = &\text{ the probability, given } X(t)=x, \\
 \end{equation}
 ```
 
-  Based upon the fundamental premise Eq. (1), Gillespie showed that that $\Delta$ and $\mu$ are two independent random variables and have the following probability density functions ($\text{PDFs}$), respectively:
+  Based upon the fundamental premise Eq. ([1](#mjx-eqn-1)), Gillespie showed that that $\Delta$ and $\mu$ are two independent random variables and have the following probability density functions ($\text{PDFs}$), respectively:
 
 ```math
 \begin{equation}
@@ -230,7 +230,7 @@ f_\mu(\mu)={{a_\mu(t)} \over {a_0(t)}},\ \ \ \ \  \mu = 1,\ldots,M,
 \end{equation}
 ```
 
-where $a_0(t)=\begin{matrix} \sum_{k=1}^M a_k(t) \end{matrix}$. According to the PDF Eq.(4), a realization of $\mu$ can be generated from a standard uniform random variable $r_2$, by taking $\mu$ to be the integer for which $\sum_{k=1}^{\mu-1} a_k(t)  < r_2 a_0(t) \leq \sum_{k=1}^\mu a_k(t)$;based on the PDF Eq. (3), a realization of $\Delta$ can be generated from another standard uniform random variable $r_1$ as $\Delta=−\ln(r_1)/a_0(t)$. Therefore, Gillespie’s exact SSA generates a realization of $\mu$ and $\Delta$ in each step of simulation, and then updates the time and system state as $t\leftarrow t+\Delta$ and  $\mathbf{x} \leftarrow \mathbf{x}+ \mathbf{\nu_\mu}$, respectively.
+where $a_0(t)=\begin{matrix} \sum_{k=1}^M a_k(t) \end{matrix}$. According to the $\text{PDF}$ Eq.(4), a realization of $\mu$ can be generated from a standard uniform random variable $r_2$, by taking $\mu$ to be the integer for which $\sum_{k=1}^{\mu-1} a_k(t)  < r_2 a_0(t) \leq \sum_{k=1}^\mu a_k(t)$;based on the $\text{PDF}$ Eq. ([3](#mjx-eqn-3)), a realization of $\Delta$ can be generated from another standard uniform random variable $r_1$ as $\Delta=−\ln(r_1)/a_0(t)$. Therefore, Gillespie’s exact SSA generates a realization of $\mu$ and $\Delta$ in each step of simulation, and then updates the time and system state as $t\leftarrow t+\Delta$ and  $\mathbf{x} \leftarrow \mathbf{x}+ \mathbf{\nu_\mu}$, respectively.
 
 ## Exact SSA For Coupled Chemical Reaction With Delays
 
@@ -238,7 +238,7 @@ where $a_0(t)=\begin{matrix} \sum_{k=1}^M a_k(t) \end{matrix}$. According to the
 
   As in the derivation of Gillespie’s exact SSA, we first need to find the probability of event Eq. (2), that is defined as $P(\Delta,\mu)d\Delta$, where $P(\Delta,\mu)$ is the joint PDF of $\Delta$ and $\mu$. Suppose that there are $d$ ongoing reactions at timet, which will finish at $t+T_1,\ldots,t+T_{d}$, respectively. Without loss of generality, we assume that $T_1 \leq T_2 \leq \ldots \leq T_d$. Unlike in the reaction system without delays where the propensity functions remain unchanged in the time interval $[t,t+\Delta]$, the propensity functions here change at $t+T_i,i=1,\ldots,d$, due to delayed reactions. We need to take into account such changes in propensity functions when deriving  $P(\Delta,\mu)$.
 
-  As in the derivation of Gillespie’s exact SSA, $P(\Delta,\mu)d\Delta$ can be found from the fundamental premise Eq. (1) as
+  As in the derivation of Gillespie’s exact SSA, $P(\Delta,\mu)d\Delta$ can be found from the fundamental premise Eq. ([1](#mjx-eqn-1)) as
 
 ```math
 \begin{equation}
@@ -271,7 +271,7 @@ Notice that propensity functions change at $t+T_k$ after a delayed reaction fini
 \end{equation}
 ```
 
-where we assume that the first term of the exponent is equal to zero when $i = 0$. Since $P_0(\Delta)$ does not depend on individual propensity functions, as shown in Eq.(7), it is seen from Eq.(5) that $\Delta$ and $\mu$ are independent random variables. Combining Eq.(5) and Eq.(7) and noticing that $a_\mu(t+\Delta)=a_\mu(t+T_i)$ for $\Delta \in [T_i,T_i+1)$, we obtain the PDF of $\Delta$ and $\mu$ as follows:
+where we assume that the first term of the exponent is equal to zero when $i = 0$. Since $P_0(\Delta)$ does not depend on individual propensity functions, as shown in Eq.(7), it is seen from Eq.(5) that $\Delta$ and $\mu$ are independent random variables. Combining Eq.(5) and Eq.(7) and noticing that $a_\mu(t+\Delta)=a_\mu(t+T_i)$ for $\Delta \in [T_i,T_i+1)$, we obtain the $\text{PDF}$ of $\Delta$ and $\mu$ as follows:
 
 ```math
 \begin{equation}
@@ -288,7 +288,7 @@ and
 f_\mu(\mu)={ {a_\mu(t+T_i)} \over {a_0(t+T_i)} },\ \ \  \mu = 1,\ldots,M,\ \ \  \Delta \in [T_i,T_{i+1}),
 ```
 
-It is not difficult to verify that $\int_{0}^{\infty} f_\Delta(\Delta)\, d\Delta = 1$. In simulation, $\mu$ can be generated, from a standard uniform random variable $u_1$, by taking $\mu$ to be the integer for which $\begin{matrix} \sum_{k=1}^{\mu-1} a_k(t+T_i) \end{matrix} < u_1 a_0(t+T_i) ≤ \begin{matrix} \sum_{k=1}^\mu a_k(t+T_i) \end{matrix}$, after $\Delta$ is generated to be in the time interval $[T_i,T_{i+1})$.We next derive the method of generating  $\Delta$ according to its PDF in Eq.(8).
+It is not difficult to verify that $\int_{0}^{\infty} f_\Delta(\Delta)\, d\Delta = 1$. In simulation, $\mu$ can be generated, from a standard uniform random variable $u_1$, by taking $\mu$ to be the integer for which $\begin{matrix} \sum_{k=1}^{\mu-1} a_k(t+T_i) \end{matrix} < u_1 a_0(t+T_i) ≤ \begin{matrix} \sum_{k=1}^\mu a_k(t+T_i) \end{matrix}$, after $\Delta$ is generated to be in the time interval $[T_i,T_{i+1})$.We next derive the method of generating  $\Delta$ according to its $\text{PDF}$ in Eq.(8).
 
   The cumulative distribution function of $\Delta$can be found from Eq.(8) as
 
@@ -314,7 +314,7 @@ Then, we can generate $\Delta$ from a standard uniform random variable $u_2$, by
 
 
 ### Delay Rejection method
-  Now let us see whether the rejection method can correctly simulate the event (2). The rejection algorithm essentially generates $\Delta$ in the event (2) using a rejection method in an iterative fashion: in the *i*-th iteration, it generates a $\Delta_i$ iaccording to an exponential PDF with parameter $a_0(t+T_{i−1})$, where we have denoted the $\Delta$ generated in the *i*-th iteration as $\Delta_i$. If $\Delta_i < T_i - T_{i−1}$, then we have $\Delta = \sum_{k=0}^{i-1} T_k+\Delta_i$ and the algorithm continues simulation to generate $\mu$; otherwise, it rejects $\Delta_i$, updates the state vector $X(t+T_i)$, calculates $a_k(t+T_i),k=1,\ldots,M$, and goes to the next iteration. If $\Delta$ is determined in the *(i+1)*-th iteration, where *i*
+  Now let us see whether the rejection method can correctly simulate the event (2). The rejection algorithm essentially generates $\Delta$ in the event (2) using a rejection method in an iterative fashion: in the *i*-th iteration, it generates a $\Delta_i$ iaccording to an exponential $\text{PDF}$ with parameter $a_0(t+T_{i−1})$, where we have denoted the $\Delta$ generated in the *i*-th iteration as $\Delta_i$. If $\Delta_i < T_i - T_{i−1}$, then we have $\Delta = \sum_{k=0}^{i-1} T_k+\Delta_i$ and the algorithm continues simulation to generate $\mu$; otherwise, it rejects $\Delta_i$, updates the state vector $X(t+T_i)$, calculates $a_k(t+T_i),k=1,\ldots,M$, and goes to the next iteration. If $\Delta$ is determined in the *(i+1)*-th iteration, where *i*
 is a non-negative integer, then we have $\Delta \in [T_i,T_{i+1})$ and *i* delayed reactions finished in the time interval $[t,t+\Delta)$.
 
   From the iterative procedure of generating $\Delta$ described
@@ -339,14 +339,14 @@ and
 P(\Delta_{i+1} > \Delta −T_i) = \exp(-a_0(t+T_i)(\Delta-T_i)).
 \end{equation}
 ```
-  Substituting Eqs. (10) and (11) into Eq. (9), we find that $P_0(\Delta)$ in Eq. (9) is exactly the same as $P_0(\Delta)$ in Eq.?7? that is derived directly from the event (2) and the fundamental premise (1). Since our algorithm generates $\Delta$ and $\mu$ according to $\text{PDF}$s of $\Delta$ and $\mu$ derived from $P_0(\Delta)$ in Eq. (7), the rejection method is equivalent to our direct method and also is an exact SSA for chemical reaction systems with delays.
+  Substituting Eqs. (10) and (11) into Eq. (9), we find that $P_0(\Delta)$ in Eq. (9) is exactly the same as $P_0(\Delta)$ in Eq.(7) that is derived directly from the event (2) and the fundamental premise (1). Since our algorithm generates $\Delta$ and $\mu$ according to $\text{PDF}$s of $\Delta$ and $\mu$ derived from $P_0(\Delta)$ in Eq. (7), the rejection method is equivalent to our direct method and also is an exact SSA for chemical reaction systems with delays.
 
-  We next analyze the complexity of the rejection method algorithm and the direct method algorithm. As we have seen, the difference between two algorithms lies in the generation of $\Delta$. Suppose that both algorithms generate a  $\Delta \in [T_i,T_{i+1})$, where *i* is a non-negative integer. Both algorithms update the state vector **x** at $t+T_k,k=1,\ldots,i$, and calculate $a_k(t+T_k)$ and $a_0(t+T_k)$, $k=1,\ldots,i$. The direct method algorithm also calculates $a_k(t+T_{i+1})$ and $a_0(t+T_{i+1})$, but $a_k(t+T_{i+1})$ and $a_0(t+T_{i+1})$ can be reused in generating next $\Delta$. Therefore, two algorithms require the same computation on calculating propensity functions and updating the state vector. The direct method algorithm needs to evaluate the exponential function and calculateat $a_t$ *i+1*  times, while the rejection method does not need such operations. Also, the direct method needs slightly more computation on calculating $\Delta$ from a uniform random variable than the rejection method algorithm. To generate a $\Delta$, the direct method algorithm generates exactly one uniform random variable regardless of the value of *i*, while the rejection method algorithm generates *i*+1 uniform random variable.
+  We next analyze the complexity of the rejection method algorithm and the direct method algorithm. As we have seen, the difference between two algorithms lies in the generation of $\Delta$. Suppose that both algorithms generate a  $\Delta \in [T_i,T_{i+1})$, where *i* is a non-negative integer. Both algorithms update the state vector **x** at $t+T_k$, $k=1,\ldots,i$, and calculate $a_k(t+T_k)$ and $a_0(t+T_k)$, $k=1,\ldots,i$. The direct method algorithm also calculates $a_k(t+T_{i+1})$ and $a_0(t+T_{i+1})$, but $a_k(t+T_{i+1})$ and $a_0(t+T_{i+1})$ can be reused in generating next $\Delta$. Therefore, two algorithms require the same computation on calculating propensity functions and updating the state vector. The direct method algorithm needs to evaluate the exponential function and calculateat $a_t$ *i+1*  times, while the rejection method does not need such operations. Also, the direct method needs slightly more computation on calculating $\Delta$ from a uniform random variable than the rejection method algorithm. To generate a $\Delta$, the direct method algorithm generates exactly one uniform random variable regardless of the value of *i*, while the rejection method algorithm generates *i*+1 uniform random variable.
+
+## Reference
 
 [1] Daniel T. Gillespie, "Exact stochastic simulation of coupled chemical reactions", The Journal of Physical Chemistry 1977 81 (25), 2340-2361.
 [https://doi.org/10.1021/j100540a008](https://doi.org/10.1021/j100540a008).
-
-
 
 <!-- # DelaySSAToolkit
 
