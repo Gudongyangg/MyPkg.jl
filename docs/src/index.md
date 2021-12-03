@@ -13,8 +13,8 @@ CurrentModule = MyPkg
 \begin{equation}
 \begin{aligned}
 a_k(t)\Delta t = &\text{ the probability, given } X(t)=\mathbf{x}, \\
-&\quad \text{that one reaction }R_k \text{ will occur in the}\\
-&\quad \text{next infinitesimal time interval }[t,t+\Delta t].
+&\text{ that one reaction }R_k \text{ will occur in the}\\
+&\text{ next infinitesimal time interval }[t,t+\Delta t].
 \end{aligned}
 \end{equation}
 ```
