@@ -5,6 +5,12 @@
 [![Build Status](https://github.com/Gudongyangg/MyPkg.jl/workflows/CI/badge.svg)](https://github.com/Gudongyangg/MyPkg.jl/actions)
 [![Coverage](https://codecov.io/gh/Gudongyangg/MyPkg.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/Gudongyangg/MyPkg.jl)
 
+## delay
+
+$f_on$ - Mean R.E. 图
+
+![3D delay](./data/image/3D_delay.pdf)
+
 ## 生成一个my package
 1.先进入 ] pkg模式  add PkgTemplates
 
