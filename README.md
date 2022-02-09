@@ -5,9 +5,10 @@
 [![Build Status](https://github.com/Gudongyangg/MyPkg.jl/workflows/CI/badge.svg)](https://github.com/Gudongyangg/MyPkg.jl/actions)
 [![Coverage](https://codecov.io/gh/Gudongyangg/MyPkg.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/Gudongyangg/MyPkg.jl)
 
-## delay
+## Gu
+文件夹`example/multiprocessing/`下的param_generation.jl生成参数点，并将参数保存在`data/GDY`文件夹的params_list.txt中，参数的直方图保存在synthetice_data文件夹中。parallel_inference.jl完成inference推断，并将delay的推断参数保存为`data/GDY`文件夹下的Delay_data.csv文件，推断的直方图保存在distributions_data_delay文件夹中，telegraph的保存结果和delay的类似。
 
-$f_on$ - Mean R.E. 图
+处理的图片保存在`data/GDY/image`文件夹下。
 
 ![3D delay](./data/image/3D_delay.pdf)
 <img src="https://github.com/Gudongyangg/MyPkg.jl/blob/master/data/image/3D_tele.pdf" style=" width:60px ; height:60px "  >
