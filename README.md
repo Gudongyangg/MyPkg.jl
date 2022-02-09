@@ -10,7 +10,7 @@
 $f_on$ - Mean R.E. 图
 
 ![3D delay](./data/image/3D_delay.pdf)
-
+<img src="https://github.com/Gudongyangg/MyPkg.jl/blob/master/data/image/3D_tele.pdf" style=" width:60px ; height:60px "  >
 ## 生成一个my package
 1.先进入 ] pkg模式  add PkgTemplates
 
